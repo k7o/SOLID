@@ -22,13 +22,15 @@ namespace ClassLibrary1.Decorators
 
         public TResult Handle(TQuery query)
         {
-            _logger.Information($"{query.GetType().Name} start");
+            var key = $"{query.GetType().Name}";
+
+            _logger.Information($"{key} start");
 
             var sw = Stopwatch.StartNew();
 
             var result = _decorated.Handle(query);
 
-            _logger.Information($"{query.GetType().Name} ran for {sw.ElapsedMilliseconds} milliseconds");
+            _logger.Information($"{key} ran for {sw.ElapsedMilliseconds} milliseconds");
 
             return result;
         }

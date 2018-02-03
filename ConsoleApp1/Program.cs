@@ -68,21 +68,21 @@ namespace ConsoleApp1
             MefContainer.RegisterInstance<IAppCache>(cache);
             MefContainer.RegisterInstance<ILogger>(logger);
 
-            
-            var handler = MefContainer.Resolve<IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult>>().Value;
-
-            var result = handler.Handle(12);
-            handler.Handle(12);
-
-            // cache test
-            Thread.Sleep(1000);
-
-            handler.Handle(12);
-
             var processor = MefContainer.Resolve<IQueryProcessor>().Value;
 
-            var result3 = processor.Process(new Query.Whitelist.ZoekBsnUzovi(1, 1));
-            var result2 = processor.Process(new Query.Whitelist.ZoekAdres(1, "sdsds"));
+            var list = new List<IQuery<Query.Whitelist.ZoekQueryResult>>();
+            list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 1));
+            list.Add(new Query.Whitelist.ZoekAdres(1, "sdsds"));
+
+            list.Select(c => processor.Process(c)).ToList();
+            list.Select(c => processor.Process(c)).ToList();
+            // cache test
+            Thread.Sleep(1000);
+            // force reload
+            var result = list.Select(c => processor.Process(c));
+
+            logger.Information(result.First().Bsn.ToString());
+
             
 
             Console.ReadLine();
