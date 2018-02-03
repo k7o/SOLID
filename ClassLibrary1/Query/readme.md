@@ -11,3 +11,10 @@ A simple way to organise parameter objects is by their functional type (e.g. Com
 
 Reducing code
 We should do all we can to reduce the amount of typing required for the consumer of the API. This means more code for us up front but again I feel it is ultimately worth it.
+
+
+
+
+Idea for query/handler design:
+
+https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92
