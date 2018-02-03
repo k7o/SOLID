@@ -1,4 +1,4 @@
-﻿Classes in this folder don't use namespaces but static classes instead of identifying objects with intellisense (+ extension benefits)
+﻿Classes in this folder don't use namespaces but static classes instead to identify objects with intellisense (+ extension benefits)
 
 Got the idea from:
 
