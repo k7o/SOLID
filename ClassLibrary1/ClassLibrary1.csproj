@@ -70,6 +70,7 @@
     <Compile Include="Agents\IServiceAgent.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Infrastructure\readme.md" />
     <None Include="Query\readme.md" />
   </ItemGroup>
   <ItemGroup>
