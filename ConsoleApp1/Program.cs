@@ -70,7 +70,9 @@ namespace ConsoleApp1
             
             if (useMef)
             {
-
+                // MEF
+                
+                // Makes use of MEFContainer, DecoratorBuilder and QueryPackage in ClassApp1!!!
                 MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(IQueryHandler<,>)));
                 MefContainer.RegisterInstance(configuration);
                 MefContainer.RegisterInstance(serviceAgent);
@@ -81,6 +83,8 @@ namespace ConsoleApp1
 
             } else
             {
+                // SimpleInjector
+
                 _container = new Container();
                 
                 // register fakes

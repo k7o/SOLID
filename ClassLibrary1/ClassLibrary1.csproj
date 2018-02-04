@@ -67,7 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Infrastructure\IQuery.cs" />
     <Compile Include="Infrastructure\IQueryHandler.cs" />
-    <Compile Include="Infrastructure\QueryPackage.cs" />
+    <Compile Include="Infrastructure\QueryFactory.cs" />
     <Compile Include="Query\Whitelist\ZoekBsn.cs" />
     <Compile Include="Query\Whitelist\ZoekAdres.cs" />
     <Compile Include="Query\Whitelist\ZoekBsnUzovi.cs" />

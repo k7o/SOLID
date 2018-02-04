@@ -4,7 +4,7 @@ using System.ComponentModel.Composition;
 
 namespace ClassLibrary1.Infrastructure
 {
-    class QueryPackage
+    class QueryFactory
     {
         IConfiguration _configuration;
         IServiceAgent _serviceAgent;
@@ -12,7 +12,7 @@ namespace ClassLibrary1.Infrastructure
         ILogger _logger;
 
         [ImportingConstructor]
-        public QueryPackage(IConfiguration configuration, IServiceAgent serviceAgent, LazyCache.IAppCache appCache, ILogger logger)
+        public QueryFactory(IConfiguration configuration, IServiceAgent serviceAgent, LazyCache.IAppCache appCache, ILogger logger)
         {
             _configuration = configuration;
             _serviceAgent = serviceAgent;
