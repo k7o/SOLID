@@ -5,8 +5,8 @@ namespace ClassLibrary1
 {
     public static partial class Query
     {
-        public static Whitelist.ZoekQueryResult<Whitelist.ZoekBsnUzovi> Handle(
-               this IQueryHandler<Whitelist.ZoekBsnUzovi, Whitelist.ZoekQueryResult<Whitelist.ZoekBsnUzovi>> handler,
+        public static Whitelist.ZoekResult<Whitelist.ZoekBsnUzovi> Handle(
+               this IQueryHandler<Whitelist.ZoekBsnUzovi, Whitelist.ZoekResult<Whitelist.ZoekBsnUzovi>> handler,
                int bsnnummer, short uzovi)
         {
             return handler.Handle(new Whitelist.ZoekBsnUzovi(bsnnummer, uzovi));
@@ -14,7 +14,7 @@ namespace ClassLibrary1
 
         public static partial class Whitelist
         {
-            public class ZoekBsnUzovi : IQuery<ZoekQueryResult<ZoekBsnUzovi>>
+            public class ZoekBsnUzovi : IQuery<ZoekResult<ZoekBsnUzovi>>
             {
                 public int Bsnnummer { get; private set; }
                 public short Uzovi { get; private set; }
@@ -27,7 +27,7 @@ namespace ClassLibrary1
             }
             public static partial class Handlers
             {
-                public class ZoekBsnUzoviHandler : IQueryHandler<ZoekBsnUzovi, ZoekQueryResult<ZoekBsnUzovi>>
+                public class ZoekBsnUzoviHandler : IQueryHandler<ZoekBsnUzovi, ZoekResult<ZoekBsnUzovi>>
                 {
                     IQueryHandler<ServiceQuery, ServiceResult> _serviceQuery;
 
@@ -36,9 +36,9 @@ namespace ClassLibrary1
                         _serviceQuery = serviceQuery;
                     }
 
-                    public ZoekQueryResult<ZoekBsnUzovi> Handle(ZoekBsnUzovi query)
+                    public ZoekResult<ZoekBsnUzovi> Handle(ZoekBsnUzovi query)
                     {
-                        return new ZoekQueryResult<ZoekBsnUzovi>(query, 
+                        return new ZoekResult<ZoekBsnUzovi>(query, 
                             _serviceQuery.Handle().BsnUzovis.Any(c => c.Key == query.Bsnnummer && c.Value == query.Uzovi));
                     }
                 }

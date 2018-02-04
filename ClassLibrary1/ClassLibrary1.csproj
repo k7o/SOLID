@@ -57,7 +57,7 @@
     <Compile Include="Infrastructure\IConfiguration.cs" />
     <Compile Include="Query\Whitelist\ServiceQuery.cs" />
     <Compile Include="Query\Whitelist\ServiceResult.cs" />
-    <Compile Include="Query\Whitelist\ZoekQueryResult.cs" />
+    <Compile Include="Query\Whitelist\ZoekResult.cs" />
     <Compile Include="Infrastructure\IQueryProcessor.cs" />
     <Compile Include="Infrastructure\QueryProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

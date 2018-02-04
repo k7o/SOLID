@@ -68,7 +68,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
             _sut = new Handlers.ZoekAdresHandler(_serviceQueryHandler);
         }
 
-        private ZoekQueryResult<ZoekAdres> ExecuteHandleOnSut()
+        private ZoekResult<ZoekAdres> ExecuteHandleOnSut()
         {
             CreateSut();
 

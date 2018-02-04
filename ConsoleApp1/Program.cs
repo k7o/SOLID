@@ -70,7 +70,7 @@ namespace ConsoleApp1
 
             var processor = MefContainer.Resolve<IQueryProcessor>().Value;
 
-            var list = new List<IQuery<Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>>>();
+            var list = new List<IQuery<Query.Whitelist.ZoekResult<Query.Whitelist.ZoekBsnUzovi>>>();
             list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 2));
             list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 1));
             list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 1));

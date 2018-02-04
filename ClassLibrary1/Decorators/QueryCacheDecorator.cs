@@ -14,9 +14,9 @@ namespace ClassLibrary1.Decorators
 
         public QueryCacheDecorator(IAppCache appCache, ILogger logger, IQueryHandler<TQuery, TResult> decorated)
         {
-            _appCache = appCache;
-            _logger = logger;
-            _decorated = decorated;
+            _appCache = appCache ?? throw new ArgumentNullException(nameof(appCache));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated)); ;
         }
 
         public TResult Handle(TQuery query)

@@ -5,8 +5,8 @@ namespace ClassLibrary1
 {
     public static partial class Query
     {
-        public static Whitelist.ZoekQueryResult<Whitelist.ZoekAdres> Handle(
-               this IQueryHandler<Whitelist.ZoekAdres, Whitelist.ZoekQueryResult<Whitelist.ZoekAdres>> handler,
+        public static Whitelist.ZoekResult<Whitelist.ZoekAdres> Handle(
+               this IQueryHandler<Whitelist.ZoekAdres, Whitelist.ZoekResult<Whitelist.ZoekAdres>> handler,
                string adres)
         {
             return handler.Handle(new Whitelist.ZoekAdres(adres));
@@ -14,7 +14,7 @@ namespace ClassLibrary1
 
         public static partial class Whitelist
         {
-            public class ZoekAdres : IQuery<ZoekQueryResult<ZoekAdres>>
+            public class ZoekAdres : IQuery<ZoekResult<ZoekAdres>>
             {
                 public string Adres { get; private set; }
 
@@ -26,7 +26,7 @@ namespace ClassLibrary1
 
             public static partial class Handlers
             {
-                public class ZoekAdresHandler : IQueryHandler<ZoekAdres, ZoekQueryResult<ZoekAdres>>
+                public class ZoekAdresHandler : IQueryHandler<ZoekAdres, ZoekResult<ZoekAdres>>
                 {
                     IQueryHandler<ServiceQuery, ServiceResult> _serviceHandler;
 
@@ -35,9 +35,9 @@ namespace ClassLibrary1
                         _serviceHandler = serviceHandler;
                     }
 
-                    public ZoekQueryResult<ZoekAdres> Handle(ZoekAdres query)
+                    public ZoekResult<ZoekAdres> Handle(ZoekAdres query)
                     {
-                        return new ZoekQueryResult<ZoekAdres>(query, 
+                        return new ZoekResult<ZoekAdres>(query, 
                             _serviceHandler.Handle().Adresses.Any(c => c == query.Adres));
                     }
                 }
