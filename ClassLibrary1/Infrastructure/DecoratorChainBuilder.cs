@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Infrastructure
 {
-    class DecoratorChainBuilder<TResult>
+    /// <summary>
+    /// Helper to create decorator chains to export
+    /// </summary>
+    /// <typeparam name="TResult"></typeparam>
+    public class DecoratorChainBuilder<TResult>
     {
         Tuple<Type, List<object>> _decorated;
         List<Tuple<Type, List<object>>> _decorators;

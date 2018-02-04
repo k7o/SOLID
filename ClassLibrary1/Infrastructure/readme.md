@@ -1,7 +1,9 @@
-﻿- DecoratorChainBuilder simplifies the creation of a decorator chain, also adds the possiblity to omit a decorator, can be removed when using DI frameworks like SimpleInject (see example program)
+﻿- DecoratorChainBuilder: simplifies the creation of a decorator chain, also adds the possiblity to omit a decorator
 
-- MefContainer is a DI wrapper class
+- MefContainer: is a MEF DI wrapper class
 
-- QueryFactory exposes MEF exports of query handlers, can be removed when using DI frameworks like SimpleInject (see example program)
+- QueryHandlerFactory: exposes MEF exports for (decorated) query handlers
 
-- QueryProcessor tries to export handler for given query (taken from https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92)
+- MefQueryProcessor: handler to execute queryhandler for given query using the MEF (https://docs.microsoft.com/en-us/dotnet/framework/mef/) DI framework (taken from https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92)
+
+- SIQueryProcessor: handler to execute queryhandler for given query using the SimpleInjector (https://simpleinjector.readthedocs.io/en/latest/index.html) DI framework (taken from https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92)

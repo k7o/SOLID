@@ -4,7 +4,10 @@ using System.ComponentModel.Composition;
 
 namespace ClassLibrary1.Infrastructure
 {
-    class QueryFactory
+    /// <summary>
+    /// Factory for MEF decorated query exports (u don't want to do this :(), and can be solved easily with DI frameworks like https://simpleinjector.readthedocs.io/en/latest/aop.html?highlight=decorators#decoration).
+    /// </summary>
+    class QueryHandlerFactory
     {
         IConfiguration _configuration;
         IServiceAgent _serviceAgent;
@@ -12,7 +15,7 @@ namespace ClassLibrary1.Infrastructure
         ILogger _logger;
 
         [ImportingConstructor]
-        public QueryFactory(IConfiguration configuration, IServiceAgent serviceAgent, LazyCache.IAppCache appCache, ILogger logger)
+        public QueryHandlerFactory(IConfiguration configuration, IServiceAgent serviceAgent, LazyCache.IAppCache appCache, ILogger logger)
         {
             _configuration = configuration;
             _serviceAgent = serviceAgent;
@@ -22,7 +25,7 @@ namespace ClassLibrary1.Infrastructure
 
         [Export(typeof(IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekResult<Query.Whitelist.ZoekBsn>>))]
         public IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekResult<Query.Whitelist.ZoekBsn>> ZoekBsnHandler
-        { 
+        {
             get
             {
                 return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekResult<Query.Whitelist.ZoekBsn>>>

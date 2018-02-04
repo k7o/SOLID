@@ -71,9 +71,11 @@ namespace ConsoleApp1
             if (useMef)
             {
                 // MEF
-                
-                // Makes use of MEFContainer, DecoratorBuilder and QueryPackage in ClassApp1!!!
+
+                // load all exports from assembly (including decorator exports in QueryHandlerFactory for decorator chaining)
                 MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(IQueryHandler<,>)));
+
+                // register fakes
                 MefContainer.RegisterInstance(configuration);
                 MefContainer.RegisterInstance(serviceAgent);
                 MefContainer.RegisterInstance<IAppCache>(cache);
@@ -81,7 +83,8 @@ namespace ConsoleApp1
 
                 processor = MefContainer.Resolve<IQueryProcessor>().Value;
 
-            } else
+            }
+            else
             {
                 // SimpleInjector
 
@@ -92,6 +95,8 @@ namespace ConsoleApp1
                 _container.Register<IServiceAgent>(() => serviceAgent);
                 _container.Register<IAppCache>(() => cache);
                 _container.Register<ILogger>(() => logger);
+
+                // register query processor
                 _container.Register<IQueryProcessor>(() => new SIQueryProcessor(_container));
 
                 // register handlers
@@ -105,7 +110,8 @@ namespace ConsoleApp1
                 // cache only for sericeHandler
                 _container.RegisterDecorator(
                     typeof(IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>),
-                    typeof(ClassLibrary1.Decorators.QueryCacheDecorator<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>));
+                    typeof(ClassLibrary1.Decorators.QueryCacheDecorator<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>),
+                    c => _container.GetInstance<IConfiguration>().EnableCache);
 
                 _container.RegisterDecorator(
                     typeof(IQueryHandler<,>),
@@ -131,7 +137,6 @@ namespace ConsoleApp1
             var result = list.Select(c => processor.Process(c)).ToList();
 
             Console.ReadLine();
-           
         }
     }
 }
