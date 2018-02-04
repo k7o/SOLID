@@ -11,16 +11,17 @@ namespace ClassLibrary1
     {
         public static partial class Whitelist
         {
-            public class ZoekQueryResult
+            public class ZoekQueryResult<TResult> where TResult : IQuery<ZoekQueryResult<TResult>>
             {
-                public ZoekQueryResult(int bsn, bool inWhitelist) 
+                public ZoekQueryResult(TResult query, bool inWhitelist) 
                 {
-                    Bsn = bsn;
+                    Query = query;
                     InWhitelist = inWhitelist;
                 }
-
-                public int Bsn { get; private set; }
+                
                 public bool InWhitelist { get; private set; }
+
+                public TResult Query { get; private set; }
             }
         }
     }

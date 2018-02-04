@@ -6,8 +6,8 @@ namespace ClassLibrary1
 {
     public static partial class Query
     {
-        public static Whitelist.ZoekQueryResult Handle(
-                this IQueryHandler<Whitelist.ZoekBsn, Whitelist.ZoekQueryResult> handler,
+        public static Whitelist.ZoekQueryResult<Whitelist.ZoekBsn> Handle(
+                this IQueryHandler<Whitelist.ZoekBsn, Whitelist.ZoekQueryResult<Whitelist.ZoekBsn>> handler,
                 int bsnnummer)
         {
             return handler.Handle(new Whitelist.ZoekBsn(bsnnummer));
@@ -15,7 +15,7 @@ namespace ClassLibrary1
 
         public static partial class Whitelist
         {
-            public class ZoekBsn : IQuery<Query.Whitelist.ZoekQueryResult>
+            public class ZoekBsn : IQuery<ZoekQueryResult<ZoekBsn>>
             {
                 public int Bsnnummer { get; private set; }
 
@@ -27,22 +27,21 @@ namespace ClassLibrary1
 
             public static partial class Handlers
             {
-                public class ZoekBsnHandler : IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult>
+                public class ZoekBsnHandler : IQueryHandler<ZoekBsn, ZoekQueryResult<ZoekBsn>>
                 {
-                    IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult> _serviceQuery;
+                    IQueryHandler<ServiceQuery, ServiceResult> _serviceQuery;
 
-                    public ZoekBsnHandler(IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult> serviceQuery)
+                    public ZoekBsnHandler(IQueryHandler<ServiceQuery, Query.Whitelist.ServiceResult> serviceQuery)
                     {
                         _serviceQuery = serviceQuery;
                     }
 
-                    public ZoekQueryResult Handle(Query.Whitelist.ZoekBsn query)
+                    public ZoekQueryResult<ZoekBsn> Handle(ZoekBsn query)
                     {
-                        var result = _serviceQuery.Handle()
+                        return new ZoekQueryResult<ZoekBsn>(query, 
+                            _serviceQuery.Handle()
                                 .BsnUzovis
-                                .Any(c => c.Key == query.Bsnnummer);
-                        
-                        return new ZoekQueryResult(query.Bsnnummer, result);
+                                .Any(c => c.Key == query.Bsnnummer));
                     }
                 }
             }

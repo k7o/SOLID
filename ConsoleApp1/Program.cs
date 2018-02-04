@@ -2,13 +2,13 @@
 using ClassLibrary1.Agents;
 using ClassLibrary1.Infrastructure;
 using LazyCache;
-using Rhino.Mocks;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using FakeItEasy;
 
 namespace ConsoleApp1
 {
@@ -18,12 +18,12 @@ namespace ConsoleApp1
         {
             MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(Query.Whitelist.ZoekBsn)));
 
-            var configuration = MockRepository.GenerateStub<IConfiguration>();
-            configuration.Stub(c => c.EnableProfiler).Return(true);
-            configuration.Stub(c => c.EnableCache).Return(true);
+            var configuration = A.Fake<IConfiguration>();
+            A.CallTo(() => configuration.EnableCache).Returns(true);
+            A.CallTo(() => configuration.EnableProfiler).Returns(true);
 
-            var serviceAgent = MockRepository.GenerateStub<IServiceAgent>();
-            serviceAgent.Stub(c => c.Get()).Return(new ServiceAgentResponse
+            var serviceAgent = A.Fake<IServiceAgent>();
+            A.CallTo(() => serviceAgent.Get()).Returns(new ServiceAgentResponse
             {
                 BsnUzovis = new List<BsnUzovi>
                 {
@@ -70,18 +70,19 @@ namespace ConsoleApp1
 
             var processor = MefContainer.Resolve<IQueryProcessor>().Value;
 
-            var list = new List<IQuery<Query.Whitelist.ZoekQueryResult>>();
+            var list = new List<IQuery<Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>>>();
+            list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 2));
             list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 1));
-            list.Add(new Query.Whitelist.ZoekAdres(1, "sdsds"));
+            list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 1));
 
             list.Select(c => processor.Process(c)).ToList();
             list.Select(c => processor.Process(c)).ToList();
             // cache test
             Thread.Sleep(1000);
             // force reload
-            var result = list.Select(c => processor.Process(c));
+            var result = list.Select(c => processor.Process(c)).ToList();
 
-            logger.Information(result.First().Bsn.ToString());
+            logger.Information(result.First().InWhitelist.ToString());
 
             
 

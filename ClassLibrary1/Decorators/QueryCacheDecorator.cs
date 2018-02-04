@@ -19,8 +19,6 @@ namespace ClassLibrary1.Decorators
             _decorated = decorated;
         }
 
-        public DateTimeOffset CachItemPolicy { get; private set; }
-
         public TResult Handle(TQuery query)
         {
             var key = $"{query.GetType().Name}.Handle";

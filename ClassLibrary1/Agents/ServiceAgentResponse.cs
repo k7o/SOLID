@@ -8,8 +8,8 @@ namespace ClassLibrary1.Agents
 {
     public class ServiceAgentResponse
     {
-        public IEnumerable<BsnUzovi> BsnUzovis { get; set; }
-        public IEnumerable<string> Adresses { get; set; }
+        public ICollection<BsnUzovi> BsnUzovis { get; set; }
+        public ICollection<string> Adresses { get; set; }
     }
 
     public class BsnUzovi

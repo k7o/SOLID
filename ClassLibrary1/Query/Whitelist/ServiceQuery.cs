@@ -9,19 +9,19 @@ namespace ClassLibrary1
         public static Whitelist.ServiceResult Handle(
                 this IQueryHandler<Whitelist.ServiceQuery, Whitelist.ServiceResult> handler)
         {
-            return handler.Handle(new Query.Whitelist.ServiceQuery());
+            return handler.Handle(new Whitelist.ServiceQuery());
         }
 
         public static partial class Whitelist
         {
 
-            public class ServiceQuery : IQuery<Query.Whitelist.ServiceResult>
+            public class ServiceQuery : IQuery<ServiceResult>
             {
             }
 
             public static partial class Handlers
             {
-                public class ServiceQueryHandler : IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>
+                public class ServiceQueryHandler : IQueryHandler<ServiceQuery, ServiceResult>
                 {
                     IServiceAgent _serviceAgent;
 

@@ -20,38 +20,41 @@ namespace ClassLibrary1.Infrastructure
             _logger = logger;
         }
 
-        [Export(typeof(IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult>))]
-        public IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult> ZoekBsnHandler
+        [Export(typeof(IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsn>>))]
+        public IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsn>> ZoekBsnHandler
         { 
             get
             {
-                return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult>>
+                return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsn>>>
                     .Construct(typeof(Query.Whitelist.Handlers.ZoekBsnHandler), MefContainer.Resolve<IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>>().Value)
-                    .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult>), _logger)
+                    .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsn>>), _logger)
+                    .Add(typeof(Decorators.QueryArgumentNotNullDecorator<Query.Whitelist.ZoekBsn, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsn>>))
                     .Build();
             }
         }
 
-        [Export(typeof(IQueryHandler<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult>))]
-        public IQueryHandler<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult> ZoekBsnUzoviHandler
+        [Export(typeof(IQueryHandler<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>>))]
+        public IQueryHandler<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>> ZoekBsnUzoviHandler
         {
             get
             {
-                return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult>>
+                return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>>>
                     .Construct(typeof(Query.Whitelist.Handlers.ZoekBsnUzoviHandler), MefContainer.Resolve<IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>>().Value)
-                    .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult>), _logger)
+                    .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>>), _logger)
+                    .Add(typeof(Decorators.QueryArgumentNotNullDecorator<Query.Whitelist.ZoekBsnUzovi, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekBsnUzovi>>))
                     .Build();
             }
         }
 
-        [Export(typeof(IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult>))]
-        public IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult> ZoekAdresHandler
+        [Export(typeof(IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekAdres>>))]
+        public IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekAdres>> ZoekAdresHandler
         {
             get
             {
-                return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult>>
+                return DecoratorChainBuilder<IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekAdres>>>
                     .Construct(typeof(Query.Whitelist.Handlers.ZoekAdresHandler), MefContainer.Resolve<IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>>().Value)
-                    .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult>), _logger)
+                    .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekAdres>>), _logger)
+                    .Add(typeof(Decorators.QueryArgumentNotNullDecorator<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult<Query.Whitelist.ZoekAdres>>))
                     .Build();
             }
         }
@@ -66,6 +69,7 @@ namespace ClassLibrary1.Infrastructure
                     .Construct(typeof(Query.Whitelist.Handlers.ServiceQueryHandler), _serviceAgent)
                     .Add(() => _configuration.EnableCache, typeof(Decorators.QueryCacheDecorator<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>), _appCache, _logger)
                     .Add(() => _configuration.EnableProfiler, typeof(Decorators.QueryProfilerDecorator<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>), _logger)
+                    .Add(typeof(Decorators.QueryArgumentNotNullDecorator<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>))
                     .Build();
             }
         }

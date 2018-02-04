@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents\ServiceAgentResponse.cs" />
+    <Compile Include="Decorators\QueryArgumentNotNullDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
     <Compile Include="Decorators\QueryProfilerDecorator.cs" />
     <Compile Include="Infrastructure\DecoratorChainBuilder.cs" />
@@ -70,8 +71,8 @@
     <Compile Include="Agents\IServiceAgent.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Infrastructure\readme.md" />
-    <None Include="Query\readme.md" />
+    <None Include="Infrastructure\README.md" />
+    <None Include="Query\README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

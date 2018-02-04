@@ -5,41 +5,39 @@ namespace ClassLibrary1
 {
     public static partial class Query
     {
-        public static Whitelist.ZoekQueryResult Handle(
-               this IQueryHandler<Whitelist.ZoekAdres, Whitelist.ZoekQueryResult> handler,
-               int bsnnummer, string adres)
+        public static Whitelist.ZoekQueryResult<Whitelist.ZoekAdres> Handle(
+               this IQueryHandler<Whitelist.ZoekAdres, Whitelist.ZoekQueryResult<Whitelist.ZoekAdres>> handler,
+               string adres)
         {
-            return handler.Handle(new Whitelist.ZoekAdres(bsnnummer, adres));
+            return handler.Handle(new Whitelist.ZoekAdres(adres));
         }
 
         public static partial class Whitelist
         {
-            public class ZoekAdres : IQuery<Query.Whitelist.ZoekQueryResult>
+            public class ZoekAdres : IQuery<ZoekQueryResult<ZoekAdres>>
             {
-                public int Bsnnummer { get; private set; }
                 public string Adres { get; private set; }
 
-                public ZoekAdres(int bsnnummer, string adres)
+                public ZoekAdres(string adres)
                 {
-                    Bsnnummer = bsnnummer;
                     Adres = adres;
                 }
             }
 
             public static partial class Handlers
             {
-                public class ZoekAdresHandler : IQueryHandler<Query.Whitelist.ZoekAdres, Query.Whitelist.ZoekQueryResult>
+                public class ZoekAdresHandler : IQueryHandler<ZoekAdres, ZoekQueryResult<ZoekAdres>>
                 {
-                    IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult> _serviceHandler;
+                    IQueryHandler<ServiceQuery, ServiceResult> _serviceHandler;
 
-                    public ZoekAdresHandler(IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult> serviceHandler)
+                    public ZoekAdresHandler(IQueryHandler<ServiceQuery, ServiceResult> serviceHandler)
                     {
                         _serviceHandler = serviceHandler;
                     }
 
-                    public ZoekQueryResult Handle(Query.Whitelist.ZoekAdres query)
+                    public ZoekQueryResult<ZoekAdres> Handle(ZoekAdres query)
                     {
-                        return new ZoekQueryResult(0, 
+                        return new ZoekQueryResult<ZoekAdres>(query, 
                             _serviceHandler.Handle().Adresses.Any(c => c == query.Adres));
                     }
                 }
