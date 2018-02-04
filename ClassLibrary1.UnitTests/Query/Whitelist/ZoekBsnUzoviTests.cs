@@ -23,7 +23,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_InWhitelist_False_When_Bsn_Is_Not_Found()
+        public void Should_Return_InWhitelist_False_When_BsnUzovi_Is_Not_Found()
         {
             _serviceResult = ServiceQueryResultBuilder.Construct()
                 .With(1, 2)
@@ -37,7 +37,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_InWhitelist_True_When_Bsn_Is_Found()
+        public void Should_Return_InWhitelist_True_When_BsnUzovi_Is_Found()
         {
             _serviceResult = ServiceQueryResultBuilder.Construct()
                 .With(1, 1)
@@ -51,7 +51,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_ZoekBsn_On_Query()
+        public void Should_Return_ZoekBsnUzovi_On_Query()
         {
             _zoekBsnUzovi = new ZoekBsnUzovi(1, 1);
             _serviceResult = ServiceQueryResultBuilder.Construct()
