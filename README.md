@@ -1,8 +1,5 @@
 Playground for SOLID principles useable on (specific) environment
 
-Constraints:
-
-Use MEF for DI 
-
-Why? : to integrate with legacy environment
+- Application flow:
+Zoek(.*)Query -> ServiceQuery (Cache) -> ServiceAgent - | internet | -> Service
 
