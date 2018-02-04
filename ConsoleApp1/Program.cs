@@ -71,7 +71,7 @@ namespace ConsoleApp1
             if (useMef)
             {
 
-                MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(Query.Whitelist.ZoekBsn)));
+                MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(IQueryHandler<,>)));
                 MefContainer.RegisterInstance(configuration);
                 MefContainer.RegisterInstance(serviceAgent);
                 MefContainer.RegisterInstance<IAppCache>(cache);
@@ -94,7 +94,6 @@ namespace ConsoleApp1
                 _container.Register(typeof(IQueryHandler<,>), new[] { typeof(IQueryHandler<,>).Assembly });
 
                 // register decorators
-
                 _container.RegisterDecorator(
                     typeof(IQueryHandler<,>),
                     typeof(ClassLibrary1.Decorators.QueryArgumentNotNullDecorator<,>));
