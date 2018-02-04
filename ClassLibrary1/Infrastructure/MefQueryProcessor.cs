@@ -3,7 +3,7 @@
 namespace ClassLibrary1.Infrastructure
 {
     [Export(typeof(IQueryProcessor))]
-    class QueryProcessor : IQueryProcessor
+    class MefQueryProcessor : IQueryProcessor
     {
         public TResult Process<TResult>(IQuery<TResult> query)
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ClassLibrary1.Decorators
 {
-    class QueryProfilerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
+    public class QueryProfilerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
         ILogger _logger;
         IQueryHandler<TQuery, TResult> _decorated;

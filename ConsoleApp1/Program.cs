@@ -9,14 +9,17 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using FakeItEasy;
+using SimpleInjector;
 
 namespace ConsoleApp1
 {
     class Program
     {
+        static Container _container;
+
         static void Main(string[] args)
         {
-            MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(Query.Whitelist.ZoekBsn)));
+            bool useMef = true;
 
             var configuration = A.Fake<IConfiguration>();
             A.CallTo(() => configuration.EnableCache).Returns(true);
@@ -63,12 +66,53 @@ namespace ConsoleApp1
                 .WriteTo.Console()
                 .CreateLogger();
 
-            MefContainer.RegisterInstance(configuration);
-            MefContainer.RegisterInstance(serviceAgent);
-            MefContainer.RegisterInstance<IAppCache>(cache);
-            MefContainer.RegisterInstance<ILogger>(logger);
+            IQueryProcessor processor = null;
+            
+            if (useMef)
+            {
 
-            var processor = MefContainer.Resolve<IQueryProcessor>().Value;
+                MefContainer.AddTypesFromAssembly(Assembly.GetAssembly(typeof(Query.Whitelist.ZoekBsn)));
+                MefContainer.RegisterInstance(configuration);
+                MefContainer.RegisterInstance(serviceAgent);
+                MefContainer.RegisterInstance<IAppCache>(cache);
+                MefContainer.RegisterInstance<ILogger>(logger);
+
+                processor = MefContainer.Resolve<IQueryProcessor>().Value;
+
+            } else
+            {
+                _container = new Container();
+                
+                // register fakes
+                _container.Register<IConfiguration>(() => configuration);
+                _container.Register<IServiceAgent>(() => serviceAgent);
+                _container.Register<IAppCache>(() => cache);
+                _container.Register<ILogger>(() => logger);
+                _container.Register<IQueryProcessor>(() => new SIQueryProcessor(_container));
+
+                // register handlers
+                _container.Register(typeof(IQueryHandler<,>), new[] { typeof(IQueryHandler<,>).Assembly });
+
+                // register decorators
+
+                _container.RegisterDecorator(
+                    typeof(IQueryHandler<,>),
+                    typeof(ClassLibrary1.Decorators.QueryArgumentNotNullDecorator<,>));
+
+                // cache only for sericeHandler
+                _container.RegisterDecorator(
+                    typeof(IQueryHandler<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>),
+                    typeof(ClassLibrary1.Decorators.QueryCacheDecorator<Query.Whitelist.ServiceQuery, Query.Whitelist.ServiceResult>));
+
+                _container.RegisterDecorator(
+                    typeof(IQueryHandler<,>),
+                    typeof(ClassLibrary1.Decorators.QueryProfilerDecorator<,>),
+                    c => _container.GetInstance<IConfiguration>().EnableProfiler);
+
+                _container.Verify();
+
+                processor = _container.GetInstance<IQueryProcessor>();
+            }
 
             var list = new List<IQuery<Query.Whitelist.ZoekResult<Query.Whitelist.ZoekBsnUzovi>>>();
             list.Add(new Query.Whitelist.ZoekBsnUzovi(1, 2));
@@ -77,18 +121,14 @@ namespace ConsoleApp1
 
             list.Select(c => processor.Process(c)).ToList();
             list.Select(c => processor.Process(c)).ToList();
+
             // cache test
             Thread.Sleep(1000);
             // force reload
             var result = list.Select(c => processor.Process(c)).ToList();
 
-            logger.Information(result.First().InWhitelist.ToString());
-
-            
-
             Console.ReadLine();
            
         }
-       
     }
 }
