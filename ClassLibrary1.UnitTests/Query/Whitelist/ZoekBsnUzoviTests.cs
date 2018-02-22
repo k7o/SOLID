@@ -1,20 +1,22 @@
 ﻿using System;
 using ClassLibrary1.Infrastructure;
+using ClassLibrary1.Query.Service;
+using ClassLibrary1.Query.Zoek;
+using ClassLibrary1.Query.Zoek.Handlers;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static ClassLibrary1.Query.Whitelist;
 
 namespace ClassLibrary1.UnitTests.Query.Whitelist
 {
     [TestClass]
     public class ZoekBsnUzoviTests
     {
-        ZoekBsnUzovi _zoekBsnUzovi;
+        BsnUzoviQuery _zoekBsnUzovi;
         ServiceResult _serviceResult;
 
         IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
 
-        Handlers.ZoekBsnUzoviHandler _sut;
+        BsnUzoviHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -29,7 +31,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
                 .With(1, 2)
                 .Build();
 
-            _zoekBsnUzovi = new ZoekBsnUzovi(1, 1);
+            _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
 
             var result = ExecuteHandleOnSut();
 
@@ -43,31 +45,19 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
                 .With(1, 1)
                 .Build();
 
-            _zoekBsnUzovi = new ZoekBsnUzovi(1, 1);
+            _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
 
             var result = ExecuteHandleOnSut();
 
             Assert.IsTrue(result.InWhitelist);
         }
 
-        [TestMethod]
-        public void Should_Return_ZoekBsnUzovi_On_Query()
-        {
-            _zoekBsnUzovi = new ZoekBsnUzovi(1, 1);
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .Build();
-
-            var result = ExecuteHandleOnSut();
-
-            Assert.AreEqual(_zoekBsnUzovi, result.Query);
-        }
-
         private void CreateSut()
         {
-            _sut = new Handlers.ZoekBsnUzoviHandler(_serviceQueryHandler);
+            _sut = new BsnUzoviHandler(_serviceQueryHandler);
         }
 
-        private ZoekResult<ZoekBsnUzovi> ExecuteHandleOnSut()
+        private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 

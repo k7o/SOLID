@@ -1,9 +1,9 @@
-﻿using System;
+﻿using ClassLibrary1.Query.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ClassLibrary1.Query.Whitelist;
 
 namespace ClassLibrary1.UnitTests.Query.Whitelist
 {

@@ -1,25 +1,25 @@
 ﻿using System;
 using ClassLibrary1.Decorators;
 using ClassLibrary1.Infrastructure;
+using ClassLibrary1.Query.Zoek;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static ClassLibrary1.Query.Whitelist;
 
 namespace ClassLibrary1.UnitTests.Decorators
 {
     [TestClass]
     public class QueryArgumentNotNullDecoratorTests
     {
-        IQueryHandler<ZoekBsn, ZoekResult<ZoekBsn>> _decorated;
+        IQueryHandler<BsnQuery, ZoekResult> _decorated;
         
-        ZoekBsn _query;
+        BsnQuery _query;
 
-        QueryArgumentNotNullDecorator<ZoekBsn, ZoekResult<ZoekBsn>> _sut;
+        QueryArgumentNotNullDecorator<BsnQuery, ZoekResult> _sut;
         
         [TestInitialize]
         public void Initialize()
         {
-            _decorated = A.Fake<IQueryHandler<ZoekBsn, ZoekResult<ZoekBsn>>>();
+            _decorated = A.Fake<IQueryHandler<BsnQuery, ZoekResult>>();
         }
 
         [TestMethod]
@@ -43,25 +43,25 @@ namespace ClassLibrary1.UnitTests.Decorators
         [TestMethod]
         public void Handle_Should_Call_Handle_With_Query_On_Decorated_Handler_When_Argument_Is_Not_Null()
         {
-            _query = new ZoekBsn(1);
+            _query = new BsnQuery(1);
 
             ExecuteHandleOnSut();
 
             A.CallTo(() => 
-                _decorated.Handle(A<ZoekBsn>.That.IsEqualTo(_query)))
+                _decorated.Handle(A<BsnQuery>.That.IsEqualTo(_query)))
                 .MustHaveHappened();
         }
 
         private void CreateSut()
         {
-            _sut = new QueryArgumentNotNullDecorator<ZoekBsn, ZoekResult<ZoekBsn>>(_decorated);
+            _sut = new QueryArgumentNotNullDecorator<BsnQuery, ZoekResult>(_decorated);
         }
 
-        private ZoekResult<ZoekBsn> ExecuteHandleOnSut()
+        private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 
-            A.CallTo(() => _decorated.Handle(A<ZoekBsn>.Ignored)).Returns(new ZoekResult<ZoekBsn>(_query, true));
+            A.CallTo(() => _decorated.Handle(A<BsnQuery>.Ignored)).Returns(new ZoekResult(true));
 
             return _sut.Handle(_query);
         }

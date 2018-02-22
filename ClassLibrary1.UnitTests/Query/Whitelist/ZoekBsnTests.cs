@@ -1,20 +1,22 @@
 ﻿using System;
 using ClassLibrary1.Infrastructure;
+using ClassLibrary1.Query.Service;
+using ClassLibrary1.Query.Zoek;
+using ClassLibrary1.Query.Zoek.Handlers;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static ClassLibrary1.Query.Whitelist;
 
 namespace ClassLibrary1.UnitTests.Query.Whitelist
 {
     [TestClass]
     public class ZoekBsnTests
     {
-        ZoekBsn _zoekBsn;
+        BsnQuery _zoekBsn;
         ServiceResult _serviceResult;
 
         IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
 
-        Handlers.ZoekBsnHandler _sut;
+        BsnHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -29,7 +31,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
                 .With(2)
                 .Build();
 
-            _zoekBsn = new ZoekBsn(1);
+            _zoekBsn = new BsnQuery(1);
 
             var result = ExecuteHandleOnSut();
 
@@ -43,31 +45,19 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
                 .With(1)
                 .Build();
 
-            _zoekBsn = new ZoekBsn(1);
+            _zoekBsn = new BsnQuery(1);
 
             var result = ExecuteHandleOnSut();
 
             Assert.IsTrue(result.InWhitelist);
         }
 
-        [TestMethod]
-        public void Should_Return_ZoekBsn_On_Query()
-        {
-            _zoekBsn = new ZoekBsn(1);
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .Build();
-
-            var result = ExecuteHandleOnSut();
-
-            Assert.AreEqual(_zoekBsn, result.Query);
-        }
-
         private void CreateSut()
         {
-            _sut = new Handlers.ZoekBsnHandler(_serviceQueryHandler);
+            _sut = new BsnHandler(_serviceQueryHandler);
         }
 
-        private ZoekResult<ZoekBsn> ExecuteHandleOnSut()
+        private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 

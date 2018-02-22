@@ -4,8 +4,9 @@ using ClassLibrary1.Agents;
 using ClassLibrary1.UnitTests.Agents;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static ClassLibrary1.Query.Whitelist;
 using System;
+using ClassLibrary1.Query.Service;
+using ClassLibrary1.Query.Service.Handlers;
 
 namespace ClassLibrary1.UnitTests.Query.Whitelist
 {
@@ -16,7 +17,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
         IServiceAgent _serviceAgent;
 
-        Handlers.ServiceQueryHandler _sut;
+        ServiceQueryHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -54,7 +55,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
         private void CreateSut()
         {
-            _sut = new Handlers.ServiceQueryHandler(_serviceAgent);
+            _sut = new ServiceQueryHandler(_serviceAgent);
         }
 
         private ServiceResult ExecuteHandlerOnSut()
@@ -63,7 +64,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
             A.CallTo(() => _serviceAgent.Get()).Returns(_serviceAgentResponse);
 
-            return _sut.Handle();
+            return _sut.Handle(new ServiceQuery());
         }
     }
 }

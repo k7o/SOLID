@@ -8,7 +8,7 @@ namespace ClassLibrary1.Decorators
 {
     public class QueryArgumentNotNullDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
-        IQueryHandler<TQuery, TResult> _decorated;
+        readonly IQueryHandler<TQuery, TResult> _decorated;
 
         public QueryArgumentNotNullDecorator(IQueryHandler<TQuery, TResult> decorated)
         {

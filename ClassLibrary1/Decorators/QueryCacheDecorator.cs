@@ -6,11 +6,11 @@ using Serilog;
 
 namespace ClassLibrary1.Decorators
 {
-    public class QueryCacheDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
+    public class QueryCacheDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : ICachedQuery<TResult>
     {
-        IAppCache _appCache;
-        ILogger _logger;
-        IQueryHandler<TQuery, TResult> _decorated;
+        readonly IAppCache _appCache;
+        readonly ILogger _logger;
+        readonly IQueryHandler<TQuery, TResult> _decorated;
 
         public QueryCacheDecorator(IAppCache appCache, ILogger logger, IQueryHandler<TQuery, TResult> decorated)
         {
@@ -21,7 +21,8 @@ namespace ClassLibrary1.Decorators
 
         public TResult Handle(TQuery query)
         {
-            var key = $"{query.GetType().Name}.Handle";
+            var key = $"{query.GetType().Name}.{query.CacheKey}";
+
             return _appCache.GetOrAdd(key, () =>
             {
                 _logger.Information($"Caching results of {key}");

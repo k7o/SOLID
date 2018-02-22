@@ -3,19 +3,21 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ClassLibrary1.Infrastructure;
 using FakeItEasy;
 using ClassLibrary1.UnitTests.Agents;
-using static ClassLibrary1.Query.Whitelist;
+using ClassLibrary1.Query.Zoek;
+using ClassLibrary1.Query.Service;
+using ClassLibrary1.Query.Zoek.Handlers;
 
 namespace ClassLibrary1.UnitTests.Query.Whitelist
 {
     [TestClass]
     public class ZoekAdresHandlerTests
     {
-        ZoekAdres _zoekAdres;
+        AdresQuery _zoekAdres;
         ServiceResult _serviceResult;
 
         IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
 
-        Handlers.ZoekAdresHandler _sut;
+        AdresHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -30,7 +32,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
                 .With("Hertogshoef")
                 .Build();
 
-            _zoekAdres = new ZoekAdres("Het Spant");
+            _zoekAdres = new AdresQuery("Het Spant");
 
             var result = ExecuteHandleOnSut();
 
@@ -44,31 +46,19 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
                 .With("Het Spant")
                 .Build();
 
-            _zoekAdres = new ZoekAdres("Het Spant");
+            _zoekAdres = new AdresQuery("Het Spant");
 
             var result = ExecuteHandleOnSut();
 
             Assert.IsTrue(result.InWhitelist);
         }
 
-        [TestMethod]
-        public void Should_Return_Zoekadres_On_Query()
-        {
-            _zoekAdres = new ZoekAdres("Het Spant");
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .Build();
-
-            var result = ExecuteHandleOnSut();
-
-            Assert.AreEqual(_zoekAdres, result.Query);
-        }
-
         private void CreateSut()
         {
-            _sut = new Handlers.ZoekAdresHandler(_serviceQueryHandler);
+            _sut = new AdresHandler(_serviceQueryHandler);
         }
 
-        private ZoekResult<ZoekAdres> ExecuteHandleOnSut()
+        private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 

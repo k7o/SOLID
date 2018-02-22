@@ -1,11 +1,12 @@
 ﻿using System;
 using ClassLibrary1.Decorators;
 using ClassLibrary1.Infrastructure;
+using ClassLibrary1.Query.Service;
+using ClassLibrary1.Query.Zoek;
 using FakeItEasy;
 using LazyCache;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Serilog;
-using static ClassLibrary1.Query.Whitelist;
 
 namespace ClassLibrary1.UnitTests.Decorators
 {
@@ -15,18 +16,18 @@ namespace ClassLibrary1.UnitTests.Decorators
         ILogger _logger;
         IAppCache _appCache;
         
-        IQueryHandler<ZoekBsn, ZoekResult<ZoekBsn>> _decorated;
+        IQueryHandler<ServiceQuery, ServiceResult> _decorated;
 
-        ZoekBsn _query;
+        ServiceQuery _query;
 
-        QueryCacheDecorator<ZoekBsn, ZoekResult<ZoekBsn>> _sut;
+        QueryCacheDecorator<ServiceQuery, ServiceResult> _sut;
 
         [TestInitialize]
         public void Initialize()
         {
             _logger = A.Fake<ILogger>();
             _appCache = A.Fake<IAppCache>();
-            _decorated = A.Fake<IQueryHandler<ZoekBsn, ZoekResult<ZoekBsn>>>();
+            _decorated = A.Fake<IQueryHandler<ServiceQuery, ServiceResult>>();
         }
 
         [TestMethod]
@@ -59,20 +60,20 @@ namespace ClassLibrary1.UnitTests.Decorators
         [TestMethod]
         public void Handle_Should_Call_GetOrAdd_On_AppCache()
         {
-            _query = new ZoekBsn(1);
+            _query = new ServiceQuery();
 
             ExecuteHandleOnSut();
 
-            A.CallTo(() => _appCache.GetOrAdd(A<string>.Ignored, A<Func<ZoekResult<ZoekBsn>>>.Ignored))
+            A.CallTo(() => _appCache.GetOrAdd(A<string>.Ignored, A<Func<ZoekResult>>.Ignored))
                 .MustHaveHappened();
         }
 
         private void CreateSut()
         {
-            _sut = new QueryCacheDecorator<ZoekBsn, ZoekResult<ZoekBsn>>(_appCache, _logger, _decorated);
+            _sut = new QueryCacheDecorator<ServiceQuery, ServiceResult>(_appCache, _logger, _decorated);
         }
 
-        private ZoekResult<ZoekBsn> ExecuteHandleOnSut()
+        private ServiceResult ExecuteHandleOnSut()
         {
             CreateSut();
 
