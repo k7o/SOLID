@@ -3,20 +3,21 @@ using ClassLibrary1.Infrastructure;
 using ClassLibrary1.Query.Service;
 using ClassLibrary1.Query.Zoek;
 using ClassLibrary1.Query.Zoek.Handlers;
+using ClassLibrary1.UnitTests.Query.Service;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace ClassLibrary1.UnitTests.Query.Whitelist
+namespace ClassLibrary1.UnitTests.Query.Zoek.Handlers
 {
     [TestClass]
-    public class ZoekBsnUzoviTests
+    public class BsnHandlerTests
     {
-        BsnUzoviQuery _zoekBsnUzovi;
+        BsnQuery _zoekBsn;
         ServiceResult _serviceResult;
 
         IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
 
-        BsnUzoviHandler _sut;
+        BsnHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -25,13 +26,13 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_InWhitelist_False_When_BsnUzovi_Is_Not_Found()
+        public void Should_Return_InWhitelist_False_When_Bsn_Is_Not_Found()
         {
             _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(1, 2)
+                .With(2)
                 .Build();
 
-            _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
+            _zoekBsn = new BsnQuery(1);
 
             var result = ExecuteHandleOnSut();
 
@@ -39,13 +40,13 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_InWhitelist_True_When_BsnUzovi_Is_Found()
+        public void Should_Return_InWhitelist_True_When_Bsn_Is_Found()
         {
             _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(1, 1)
+                .With(1)
                 .Build();
 
-            _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
+            _zoekBsn = new BsnQuery(1);
 
             var result = ExecuteHandleOnSut();
 
@@ -54,7 +55,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
         private void CreateSut()
         {
-            _sut = new BsnUzoviHandler(_serviceQueryHandler);
+            _sut = new BsnHandler(_serviceQueryHandler);
         }
 
         private ZoekResult ExecuteHandleOnSut()
@@ -63,7 +64,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
             A.CallTo(() => _serviceQueryHandler.Handle(A<ServiceQuery>.Ignored)).Returns(_serviceResult);
 
-            return _sut.Handle(_zoekBsnUzovi);
+            return _sut.Handle(_zoekBsn);
         }
     }
 }

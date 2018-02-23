@@ -1,5 +1,5 @@
-﻿using ClassLibrary1.Infrastructure;
-using ClassLibrary1.Query.Zoek.Tracers;
+﻿using System;
+using ClassLibrary1.Infrastructure;
 
 namespace ClassLibrary1.Query.Zoek
 {
@@ -7,13 +7,27 @@ namespace ClassLibrary1.Query.Zoek
     {
         public void Start()
         {
-            AdresTracer.Log.Start(Adres);
-
+            ClassLibraryEventSource.Log.QueryStart("Adres");
         }
 
         public void Stop()
         {
-            AdresTracer.Log.Stop();
+            ClassLibraryEventSource.Log.QueryStop("Adres", Adres);
+        }
+
+        public void Excute()
+        {
+            ClassLibraryEventSource.Log.QueryExecute("Adres");
+        }
+
+        public void Excuted()
+        {
+            ClassLibraryEventSource.Log.QueryExecuted("Adres", Adres);
+        }
+
+        public void Failure(Exception ex)
+        {
+            ClassLibraryEventSource.Log.Failure("Adres", ex.Message);
         }
     }
 }

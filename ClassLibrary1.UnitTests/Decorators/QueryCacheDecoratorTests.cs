@@ -64,7 +64,7 @@ namespace ClassLibrary1.UnitTests.Decorators
 
             ExecuteHandleOnSut();
 
-            A.CallTo(() => _appCache.GetOrAdd(A<string>.Ignored, A<Func<ZoekResult>>.Ignored))
+            A.CallTo(() => _appCache.GetOrAdd(A<string>.Ignored, A<Func<ServiceResult>>.Ignored))
                 .MustHaveHappened();
         }
 

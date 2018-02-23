@@ -60,11 +60,12 @@
     <Compile Include="Agents\ServiceAgentResponseBuilder.cs" />
     <Compile Include="Decorators\QueryArgumentNotNullDecoratorTests.cs" />
     <Compile Include="Decorators\QueryCacheDecoratorTests.cs" />
-    <Compile Include="Query\Whitelist\ServiceQueryResultBuilder.cs" />
-    <Compile Include="Query\Whitelist\ServiceQueryTests.cs" />
-    <Compile Include="Query\Whitelist\ZoekBsnUzoviTests.cs" />
-    <Compile Include="Query\Whitelist\ZoekBsnTests.cs" />
-    <Compile Include="Query\Whitelist\ZoekAdresHandlerTests.cs" />
+    <Compile Include="Infrastructure\GuardTests.cs" />
+    <Compile Include="Query\Service\ServiceQueryResultBuilder.cs" />
+    <Compile Include="Query\Service\Handlers\ServiceQueryHandlerTests.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnUzoviHandlerTests.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnHandlerTests.cs" />
+    <Compile Include="Query\Zoek\Handlers\AdresHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

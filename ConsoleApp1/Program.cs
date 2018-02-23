@@ -58,7 +58,7 @@ namespace ConsoleApp1
             });
 
             var cache = new CachingService();
-            cache.DefaultCacheDuration = 1;
+            cache.DefaultCacheDuration = 100;
 
             var logger = new LoggerConfiguration()
                 .WriteTo.Console()
@@ -77,23 +77,24 @@ namespace ConsoleApp1
             // register tracer
             _container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
-                typeof(ClassLibrary1.Decorators.QueryTracerDecorator<,>));
+                typeof(ClassLibrary1.Decorators.QueryEventSourceDecorator<,>));
+
+            // cache only for sericeHandler
+            _container.RegisterDecorator(
+                typeof(IQueryHandler<ServiceQuery, ServiceResult>),
+                typeof(ClassLibrary1.Decorators.QueryCacheDecorator<ServiceQuery, ServiceResult>));
 
             // register decorators
             _container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(ClassLibrary1.Decorators.QueryArgumentNotNullDecorator<,>));
 
-            // cache only for sericeHandler
-            _container.RegisterDecorator(
-                typeof(IQueryHandler<ServiceQuery, ServiceResult>),
-                typeof(ClassLibrary1.Decorators.QueryCacheDecorator<ClassLibrary1.Query.Service.ServiceQuery, ClassLibrary1.Query.Service.ServiceResult>));
-
             _container.Verify();
 
             var adresHandler = _container.GetInstance<IQueryHandler<AdresQuery, ZoekResult>>();
 
-            var result = adresHandler.Handle(new ClassLibrary1.Query.Zoek.AdresQuery("Straat1"));
+            for (var i=0;i<1000;i++)
+                adresHandler.Handle(new ClassLibrary1.Query.Zoek.AdresQuery("Straat1"));
 
 
             var list = new List<ClassLibrary1.Query.Zoek.BsnUzoviQuery>();
@@ -102,11 +103,6 @@ namespace ConsoleApp1
             list.Add(new ClassLibrary1.Query.Zoek.BsnUzoviQuery(1, 1));
 
          
-
-            // cache test
-            Thread.Sleep(1000);
-            // force reload
-
             Console.ReadLine();
         }
     }

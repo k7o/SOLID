@@ -1,22 +1,24 @@
 ﻿using System;
-using ClassLibrary1.Infrastructure;
-using ClassLibrary1.Query.Service;
-using ClassLibrary1.Query.Zoek;
-using ClassLibrary1.Query.Zoek.Handlers;
-using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ClassLibrary1.Infrastructure;
+using FakeItEasy;
+using ClassLibrary1.UnitTests.Agents;
+using ClassLibrary1.Query.Zoek;
+using ClassLibrary1.Query.Service;
+using ClassLibrary1.Query.Zoek.Handlers;
+using ClassLibrary1.UnitTests.Query.Service;
 
-namespace ClassLibrary1.UnitTests.Query.Whitelist
+namespace ClassLibrary1.UnitTests.Query.Zoek.Handlers
 {
     [TestClass]
-    public class ZoekBsnTests
+    public class AdresHandlerTests
     {
-        BsnQuery _zoekBsn;
+        AdresQuery _zoekAdres;
         ServiceResult _serviceResult;
 
         IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
 
-        BsnHandler _sut;
+        AdresHandler _sut;
 
         [TestInitialize]
         public void Initialize()
@@ -25,13 +27,13 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_InWhitelist_False_When_Bsn_Is_Not_Found()
+        public void Should_Return_InWhitelist_False_When_Adress_Is_Not_Found()
         {
             _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(2)
+                .With("Hertogshoef")
                 .Build();
 
-            _zoekBsn = new BsnQuery(1);
+            _zoekAdres = new AdresQuery("Het Spant");
 
             var result = ExecuteHandleOnSut();
 
@@ -39,13 +41,13 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
         }
 
         [TestMethod]
-        public void Should_Return_InWhitelist_True_When_Bsn_Is_Found()
+        public void Should_Return_InWhitelist_True_When_Adress_Is_Found()
         {
             _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(1)
+                .With("Het Spant")
                 .Build();
 
-            _zoekBsn = new BsnQuery(1);
+            _zoekAdres = new AdresQuery("Het Spant");
 
             var result = ExecuteHandleOnSut();
 
@@ -54,7 +56,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
         private void CreateSut()
         {
-            _sut = new BsnHandler(_serviceQueryHandler);
+            _sut = new AdresHandler(_serviceQueryHandler);
         }
 
         private ZoekResult ExecuteHandleOnSut()
@@ -63,7 +65,7 @@ namespace ClassLibrary1.UnitTests.Query.Whitelist
 
             A.CallTo(() => _serviceQueryHandler.Handle(A<ServiceQuery>.Ignored)).Returns(_serviceResult);
 
-            return _sut.Handle(_zoekBsn);
+            return _sut.Handle(_zoekAdres);
         }
     }
 }

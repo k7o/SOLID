@@ -11,5 +11,11 @@ namespace ClassLibrary1.Infrastructure
         void Start();
 
         void Stop();
+
+        void Excute();
+
+        void Excuted();
+
+        void Failure(Exception ex);
     }
 }

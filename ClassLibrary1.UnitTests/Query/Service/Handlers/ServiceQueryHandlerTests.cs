@@ -8,10 +8,10 @@ using System;
 using ClassLibrary1.Query.Service;
 using ClassLibrary1.Query.Service.Handlers;
 
-namespace ClassLibrary1.UnitTests.Query.Whitelist
+namespace ClassLibrary1.UnitTests.Query.Service.Handlers
 {
     [TestClass]
-    public class ServiceQueryTests
+    public class ServiceQueryHandlerTests
     {
         ServiceAgentResponse _serviceAgentResponse;
 

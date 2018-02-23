@@ -55,13 +55,14 @@
     <Compile Include="Agents\ServiceAgentResponse.cs" />
     <Compile Include="Decorators\QueryArgumentNotNullDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
-    <Compile Include="Decorators\QueryTracerDecorator.cs" />
+    <Compile Include="Decorators\QueryEventSourceDecorator.cs" />
+    <Compile Include="Infrastructure\Guard.cs" />
     <Compile Include="Infrastructure\ICachedQuery.cs" />
     <Compile Include="Infrastructure\IAmTraceable.cs" />
     <Compile Include="Query\Service\Handlers\ServiceQueryHandler.cs" />
     <Compile Include="Query\Service\ServiceQuery.cs" />
     <Compile Include="Query\Service\ServiceResult.cs" />
-    <Compile Include="Query\Zoek\Tracers\AdresTracer.cs" />
+    <Compile Include="Infrastructure\ClassLibraryEventSource.cs" />
     <Compile Include="Query\Zoek\Handlers\AdresHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviHandler.cs" />
@@ -84,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Command\" />
+    <Folder Include="EventSource\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
