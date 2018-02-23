@@ -11,6 +11,8 @@ using System.Threading;
 using FakeItEasy;
 using SimpleInjector;
 using ClassLibrary1.Query.Zoek.Handlers;
+using ClassLibrary1.Query.Zoek;
+using ClassLibrary1.Query.Service;
 
 namespace ConsoleApp1
 {
@@ -20,9 +22,6 @@ namespace ConsoleApp1
 
         static void Main(string[] args)
         {
-            var configuration = A.Fake<IConfiguration>();
-            A.CallTo(() => configuration.EnableCache).Returns(true);
-            A.CallTo(() => configuration.EnableProfiler).Returns(true);
 
             var serviceAgent = A.Fake<IServiceAgent>();
             A.CallTo(() => serviceAgent.Get()).Returns(new ServiceAgentResponse
@@ -68,7 +67,6 @@ namespace ConsoleApp1
             _container = new Container();
                 
             // register fakes
-            _container.Register<IConfiguration>(() => configuration);
             _container.Register<IServiceAgent>(() => serviceAgent);
             _container.Register<IAppCache>(() => cache);
             _container.Register<ILogger>(() => logger);
@@ -76,26 +74,24 @@ namespace ConsoleApp1
             // register handlers
             _container.Register(typeof(IQueryHandler<,>), new[] { typeof(IQueryHandler<,>).Assembly });
 
+            // register tracer
+            _container.RegisterDecorator(
+                typeof(IQueryHandler<,>),
+                typeof(ClassLibrary1.Decorators.QueryTracerDecorator<,>));
+
             // register decorators
             _container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(ClassLibrary1.Decorators.QueryArgumentNotNullDecorator<,>));
 
-            _container.RegisterDecorator(
-                typeof(IQueryHandler<,>),
-                typeof(ClassLibrary1.Decorators.QueryTracerDecorator<,>));
-
             // cache only for sericeHandler
             _container.RegisterDecorator(
-                typeof(IQueryHandler<ClassLibrary1.Query.Service.ServiceQuery, ClassLibrary1.Query.Service.ServiceResult>),
-                typeof(ClassLibrary1.Decorators.QueryCacheDecorator<ClassLibrary1.Query.Service.ServiceQuery, ClassLibrary1.Query.Service.ServiceResult>),
-                c => _container.GetInstance<IConfiguration>().EnableCache);
-
-            
+                typeof(IQueryHandler<ServiceQuery, ServiceResult>),
+                typeof(ClassLibrary1.Decorators.QueryCacheDecorator<ClassLibrary1.Query.Service.ServiceQuery, ClassLibrary1.Query.Service.ServiceResult>));
 
             _container.Verify();
 
-            var adresHandler = _container.GetInstance<AdresHandler>();
+            var adresHandler = _container.GetInstance<IQueryHandler<AdresQuery, ZoekResult>>();
 
             var result = adresHandler.Handle(new ClassLibrary1.Query.Zoek.AdresQuery("Straat1"));
 

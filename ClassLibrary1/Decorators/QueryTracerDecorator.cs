@@ -2,7 +2,7 @@
 
 namespace ClassLibrary1.Decorators
 {
-    public class QueryTracerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>, IAmTraceable
+    public class QueryTracerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
     {
         readonly IQueryHandler<TQuery, TResult> _decorated;
 

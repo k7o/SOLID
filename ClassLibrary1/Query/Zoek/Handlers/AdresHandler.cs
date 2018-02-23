@@ -14,7 +14,6 @@ namespace ClassLibrary1.Query.Zoek.Handlers
 
         public AdresHandler(IQueryHandler<ServiceQuery, ServiceResult> serviceHandler)
         {
-            
             _serviceHandler = serviceHandler;
         }
 

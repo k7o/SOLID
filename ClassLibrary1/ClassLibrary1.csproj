@@ -57,9 +57,7 @@
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
     <Compile Include="Decorators\QueryTracerDecorator.cs" />
     <Compile Include="Infrastructure\ICachedQuery.cs" />
-    <Compile Include="Infrastructure\IConfiguration.cs" />
     <Compile Include="Infrastructure\IAmTraceable.cs" />
-    <Compile Include="Infrastructure\ITracer.cs" />
     <Compile Include="Query\Service\Handlers\ServiceQueryHandler.cs" />
     <Compile Include="Query\Service\ServiceQuery.cs" />
     <Compile Include="Query\Service\ServiceResult.cs" />
@@ -83,6 +81,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Command\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

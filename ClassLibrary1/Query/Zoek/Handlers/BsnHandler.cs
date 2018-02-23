@@ -6,7 +6,7 @@ namespace ClassLibrary1.Query.Zoek.Handlers
 {
     public class BsnHandler : IQueryHandler<BsnQuery, ZoekResult>
     {
-        IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
+        readonly IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
 
         public BsnHandler(IQueryHandler<ServiceQuery, ServiceResult> serviceQueryHandler)
         {

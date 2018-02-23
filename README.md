@@ -1,5 +1,7 @@
-Playground for SOLID principles useable on (specific) environment
+principles playground
 
-Application flow:
-- Zoek(.*)Query -> ServiceQuery (Cache) -> ServiceAgent - | internet | -> Service
+
+
+application flow:
+- (.*)query -> servicequery -> |seam| serviceagent
 
