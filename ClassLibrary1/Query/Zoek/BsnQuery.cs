@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using ClassLibrary1.Entities;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 
 namespace ClassLibrary1.Query.Zoek
 {

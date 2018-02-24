@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Infrastructure
+namespace Infrastructure
 {
-    public interface ICommand
+    public interface ICacheSettings
     {
+        int CacheTimeOut { get; }
     }
 }

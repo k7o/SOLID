@@ -1,6 +1,6 @@
 ﻿using System;
 using ClassLibrary1.Decorators;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 using ClassLibrary1.Query.Zoek;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

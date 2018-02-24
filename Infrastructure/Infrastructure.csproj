@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}</ProjectGuid>
+    <ProjectGuid>{16911397-5F70-4A63-9142-4EFA60EFC20D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1.Entities</RootNamespace>
-    <AssemblyName>ClassLibrary1.Entities</AssemblyName>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <RootNamespace>Infrastructure</RootNamespace>
+    <AssemblyName>Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,15 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adres.cs" />
-    <Compile Include="Bsn.cs" />
+    <Compile Include="ICache.cs" />
+    <Compile Include="ICacheSettings.cs" />
+    <Compile Include="IEventSource.cs" />
+    <Compile Include="ILog.cs" />
+    <Compile Include="IQueryLog.cs" />
+    <Compile Include="IQueryEventSource.cs" />
+    <Compile Include="Guard.cs" />
+    <Compile Include="IAmTraceable.cs" />
+    <Compile Include="ICachedQuery.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="ICommandHandler.cs" />
+    <Compile Include="IQuery.cs" />
+    <Compile Include="IQueryHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>
-      <Name>Infrastructure</Name>
-    </ProjectReference>
+    <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

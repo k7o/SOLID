@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 using FakeItEasy;
 using ClassLibrary1.UnitTests.Agents;
 using ClassLibrary1.Query.Zoek;

@@ -2,7 +2,7 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 using FakeItEasy;
 
 namespace ClassLibrary1.UnitTests.Infrastructure

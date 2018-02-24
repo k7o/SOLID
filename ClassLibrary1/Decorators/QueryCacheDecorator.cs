@@ -1,25 +1,21 @@
-﻿using System;
-using System.Runtime.Caching;
-using ClassLibrary1.Infrastructure;
-using LazyCache;
-using Serilog;
+﻿using Infrastructure;
 
 namespace ClassLibrary1.Decorators
 {
     public class QueryCacheDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : ICachedQuery<TResult>
     {
-        readonly IAppCache _appCache;
-        readonly ILogger _logger;
+        readonly ICache _cache;
+        readonly ILog _log;
         readonly IQueryHandler<TQuery, TResult> _decorated;
 
-        public QueryCacheDecorator(IAppCache appCache, ILogger logger, IQueryHandler<TQuery, TResult> decorated)
+        public QueryCacheDecorator(ICache cache, ILog log, IQueryHandler<TQuery, TResult> decorated)
         {
-            Guard.IsNotNull(appCache, nameof(appCache));
-            Guard.IsNotNull(logger, nameof(logger));
+            Guard.IsNotNull(cache, nameof(cache));
+            Guard.IsNotNull(log, nameof(log));
             Guard.IsNotNull(decorated, nameof(decorated));
 
-            _appCache = appCache;
-            _logger = logger;
+            _cache = cache;
+            _log = log;
             _decorated = decorated;
         }
 
@@ -27,9 +23,9 @@ namespace ClassLibrary1.Decorators
         {
             var key = $"{query.GetType().Name}.{query.CacheKey}";
 
-            return _appCache.GetOrAdd(key, () =>
+            return _cache.GetOrAdd(key, () =>
             {
-                _logger.Information($"Caching results of {key}");
+                _log.Informational($"Caching results of {key}");
                 return _decorated.Handle(query);
             });
         }

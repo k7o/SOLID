@@ -1,5 +1,5 @@
 ﻿using ClassLibrary1.Query.Service;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 using System.Linq;
 
 namespace ClassLibrary1.Query.Zoek.Handlers

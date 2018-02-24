@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Runtime.Caching;
-using ClassLibrary1.Infrastructure;
-using LazyCache;
-using Serilog;
+using Infrastructure;
 
 namespace ClassLibrary1.Decorators
 {

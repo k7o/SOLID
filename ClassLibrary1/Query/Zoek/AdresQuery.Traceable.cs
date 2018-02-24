@@ -1,34 +1,35 @@
 ﻿using System;
-using EventSources;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 
 namespace ClassLibrary1.Query.Zoek
 {
     public partial class AdresQuery : IAmTraceable
     {
-        public void Start()
+        private const string EventName = "Adres";
+
+        public void Start(IQueryEventSource queryEventSource)
         {
-            ClassLibraryEventSource.Log.QueryStart("Adres");
+            queryEventSource.QueryStart(EventName);
         }
 
-        public void Stop()
+        public void Stop(IQueryEventSource queryEventSource)
         {
-            ClassLibraryEventSource.Log.QueryStop("Adres", Postcode);
+            queryEventSource.QueryStop(EventName, Postcode);
         }
 
-        public void Excute()
+        public void Excute(IQueryEventSource queryEventSource)
         {
-            ClassLibraryEventSource.Log.QueryExecute("Adres");
+            queryEventSource.QueryExecute(EventName);
         }
 
-        public void Excuted()
+        public void Excuted(IQueryEventSource queryEventSource)
         {
-            ClassLibraryEventSource.Log.QueryExecuted("Adres", Postcode);
+            queryEventSource.QueryExecuted(EventName, Postcode);
         }
 
-        public void Failure(Exception ex)
+        public void Failure(IQueryEventSource queryEventSource, Exception ex)
         {
-            ClassLibraryEventSource.Log.Failure("Adres", ex.Message);
+            queryEventSource.Failure(EventName, Postcode);
         }
     }
 }

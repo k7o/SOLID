@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Infrastructure
+namespace Infrastructure
 {
-    public interface ICachedQuery<TResult> : IQuery<TResult>
+    public interface IEventSource
     {
-        string CacheKey { get; }
+        bool IsEnabled();
     }
 }

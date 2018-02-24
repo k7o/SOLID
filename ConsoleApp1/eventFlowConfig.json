@@ -14,7 +14,7 @@
       "type": "EventSource",
       "sources": [
         {
-          "providerName": "ClassLibraryEventSource",
+          "providerName": "QueryEventSource",
           "level": "Informational"
         }
       ]

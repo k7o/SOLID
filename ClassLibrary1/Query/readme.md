@@ -1,6 +1,4 @@
-﻿Classes in this folder don't use namespaces but static classes instead to identify objects with intellisense (+ extension benefits)
-
-Got the idea from:
+﻿Got the idea from:
 
 http://scrapbook.qujck.com/managing-command-and-query-parameter-objects/
 

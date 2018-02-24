@@ -1,5 +1,5 @@
 ﻿using System;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 using ClassLibrary1.Query.Service;
 using ClassLibrary1.Query.Zoek;
 using ClassLibrary1.Query.Zoek.Handlers;

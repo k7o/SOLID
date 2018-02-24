@@ -1,6 +1,6 @@
 ﻿using System;
 using ClassLibrary1.Decorators;
-using ClassLibrary1.Infrastructure;
+using Infrastructure;
 using ClassLibrary1.Query.Service;
 using ClassLibrary1.Query.Zoek;
 using FakeItEasy;
@@ -13,8 +13,8 @@ namespace ClassLibrary1.UnitTests.Decorators
     [TestClass]
     public class QueryCacheDecoratorTests
     {
-        ILogger _logger;
-        IAppCache _appCache;
+        ILog _log;
+        ICache _cache;
         
         IQueryHandler<ServiceQuery, ServiceResult> _decorated;
 
@@ -25,8 +25,8 @@ namespace ClassLibrary1.UnitTests.Decorators
         [TestInitialize]
         public void Initialize()
         {
-            _logger = A.Fake<ILogger>();
-            _appCache = A.Fake<IAppCache>();
+            _log = A.Fake<ILog>();
+            _cache = A.Fake<ICache>();
             _decorated = A.Fake<IQueryHandler<ServiceQuery, ServiceResult>>();
         }
 
@@ -43,7 +43,7 @@ namespace ClassLibrary1.UnitTests.Decorators
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctr_Should_Throw_ArgumentNullException_When_AppCache_Is_Null()
         {
-            _appCache = null;
+            _cache = null;
 
             ExecuteHandleOnSut();
         }
@@ -52,7 +52,7 @@ namespace ClassLibrary1.UnitTests.Decorators
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctr_Should_Throw_ArgumentNullException_When_Logger_Handler_Is_Null()
         {
-            _logger = null;
+            _log = null;
 
             ExecuteHandleOnSut();
         }
@@ -64,13 +64,13 @@ namespace ClassLibrary1.UnitTests.Decorators
 
             ExecuteHandleOnSut();
 
-            A.CallTo(() => _appCache.GetOrAdd(A<string>.Ignored, A<Func<ServiceResult>>.Ignored))
+            A.CallTo(() => _cache.GetOrAdd(A<string>.Ignored, A<Func<ServiceResult>>.Ignored))
                 .MustHaveHappened();
         }
 
         private void CreateSut()
         {
-            _sut = new QueryCacheDecorator<ServiceQuery, ServiceResult>(_appCache, _logger, _decorated);
+            _sut = new QueryCacheDecorator<ServiceQuery, ServiceResult>(_cache, _log, _decorated);
         }
 
         private ServiceResult ExecuteHandleOnSut()

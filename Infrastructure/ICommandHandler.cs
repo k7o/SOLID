@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Infrastructure
+namespace Infrastructure
 {
-    public interface ICommandHandler<TCommand> where TCommand : ICommand
+    public interface ICommandHandler<in TCommand> where TCommand : ICommand
     {
         void Handle(TCommand command);
     }

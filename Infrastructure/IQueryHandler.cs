@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Infrastructure
-{
+namespace Infrastructure
+{ 
     public interface IQueryHandler<in TQuery, out TResult> where TQuery : IQuery<TResult>
     {
         TResult Handle(TQuery query);

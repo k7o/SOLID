@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Infrastructure
+namespace Infrastructure
 {
-    public interface IQuery<TResult>
+    public interface ICommand
     {
     }
 }

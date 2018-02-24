@@ -1,4 +1,4 @@
-﻿using ClassLibrary1.Infrastructure;
+﻿using Infrastructure;
 using ClassLibrary1.Query.Service;
 using System;
 using System.Collections.Generic;

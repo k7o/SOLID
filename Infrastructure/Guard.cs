@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClassLibrary1.Infrastructure
+namespace Infrastructure
 {
-    static class Guard
+    public static class Guard
     {
         public static void IsNotNull(object o, string name)
         {
