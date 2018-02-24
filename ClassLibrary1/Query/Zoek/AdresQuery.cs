@@ -1,15 +1,16 @@
-﻿using ClassLibrary1.Infrastructure;
+﻿using ClassLibrary1.Entities;
+using ClassLibrary1.Infrastructure;
 using System.Linq;
 
 namespace ClassLibrary1.Query.Zoek
 {
     public partial class AdresQuery : IQuery<ZoekResult>
     {
-        public string Adres { get; private set; }
+        public string Postcode { get; private set; }
 
-        public AdresQuery(string adres)
+        public AdresQuery(string postcode)
         {
-            Adres = adres;
+            Postcode = postcode;
         }
     }
 }

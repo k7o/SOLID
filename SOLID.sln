@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{199F2006-4ADE-4217-9473-BA4CA09F11B0}"
 EndProject
@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{C139D7
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1.Entities", "ClassLibrary1.Entities\ClassLibrary1.Entities.csproj", "{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventSources", "EventSources\EventSources.csproj", "{929E0BC2-43B5-4D68-805F-0D5BAA896A4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,14 @@ Global
 		{15169550-DCEE-4D5D-8DE2-DDE7177A68F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15169550-DCEE-4D5D-8DE2-DDE7177A68F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15169550-DCEE-4D5D-8DE2-DDE7177A68F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{929E0BC2-43B5-4D68-805F-0D5BAA896A4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{929E0BC2-43B5-4D68-805F-0D5BAA896A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{929E0BC2-43B5-4D68-805F-0D5BAA896A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{929E0BC2-43B5-4D68-805F-0D5BAA896A4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

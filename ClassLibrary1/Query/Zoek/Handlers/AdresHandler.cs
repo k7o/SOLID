@@ -21,7 +21,7 @@ namespace ClassLibrary1.Query.Zoek.Handlers
         {
             return new ZoekResult(_serviceHandler
                 .Handle(new ServiceQuery())
-                .Adresses.Any(c => c == query.Adres));
+                .Adresses.Any(c => c == query.Postcode));
         }
     }
 }

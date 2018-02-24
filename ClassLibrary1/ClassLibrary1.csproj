@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ClassLibrary1</RootNamespace>
     <AssemblyName>ClassLibrary1</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,9 +37,6 @@
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
     </Reference>
-    <Reference Include="SimpleInjector, Version=4.0.12.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.4.0.12\lib\net45\SimpleInjector.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
@@ -53,16 +51,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agents\ServiceAgentResponse.cs" />
+    <Compile Include="Command\AdresCommand.cs" />
     <Compile Include="Decorators\QueryArgumentNotNullDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
     <Compile Include="Decorators\QueryEventSourceDecorator.cs" />
     <Compile Include="Infrastructure\Guard.cs" />
     <Compile Include="Infrastructure\ICachedQuery.cs" />
     <Compile Include="Infrastructure\IAmTraceable.cs" />
+    <Compile Include="Infrastructure\ICommand.cs" />
+    <Compile Include="Infrastructure\ICommandHandler.cs" />
     <Compile Include="Query\Service\Handlers\ServiceQueryHandler.cs" />
     <Compile Include="Query\Service\ServiceQuery.cs" />
     <Compile Include="Query\Service\ServiceResult.cs" />
-    <Compile Include="Infrastructure\ClassLibraryEventSource.cs" />
     <Compile Include="Query\Zoek\Handlers\AdresHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviHandler.cs" />
@@ -83,9 +83,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Command\" />
-    <Folder Include="EventSource\" />
+    <ProjectReference Include="..\ClassLibrary1.Entities\ClassLibrary1.Entities.csproj">
+      <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
+      <Name>ClassLibrary1.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EventSources\EventSources.csproj">
+      <Project>{929e0bc2-43b5-4d68-805f-0d5baa896a4b}</Project>
+      <Name>EventSources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

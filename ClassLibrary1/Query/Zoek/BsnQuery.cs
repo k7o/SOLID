@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
+using ClassLibrary1.Entities;
 using ClassLibrary1.Infrastructure;
 
 namespace ClassLibrary1.Query.Zoek
 {
-    public partial class BsnQuery : IQuery<ZoekResult>
+    public partial class BsnQuery : Bsn, IQuery<ZoekResult>
     {
-        public int Bsnnummer { get; private set; }
-
-        public BsnQuery(int bsnnummer)
+        public BsnQuery(int bsnnummer) 
+            : base(bsnnummer)
         {
-            Bsnnummer = bsnnummer;
         }
     }
 }

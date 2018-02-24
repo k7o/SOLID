@@ -1,4 +1,5 @@
 ﻿using System;
+using EventSources;
 using ClassLibrary1.Infrastructure;
 
 namespace ClassLibrary1.Query.Zoek
@@ -12,7 +13,7 @@ namespace ClassLibrary1.Query.Zoek
 
         public void Stop()
         {
-            ClassLibraryEventSource.Log.QueryStop("Adres", Adres);
+            ClassLibraryEventSource.Log.QueryStop("Adres", Postcode);
         }
 
         public void Excute()
@@ -22,7 +23,7 @@ namespace ClassLibrary1.Query.Zoek
 
         public void Excuted()
         {
-            ClassLibraryEventSource.Log.QueryExecuted("Adres", Adres);
+            ClassLibraryEventSource.Log.QueryExecuted("Adres", Postcode);
         }
 
         public void Failure(Exception ex)
