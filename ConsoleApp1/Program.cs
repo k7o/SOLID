@@ -104,7 +104,7 @@ namespace ConsoleApp1
             var adresHandler = _container.GetInstance<IQueryHandler<AdresQuery, ZoekResult>>();
 
             for (var i=0;i<1000;i++)
-                adresHandler.Handle(new AdresQuery("Straat1"));
+                adresHandler.Handle(new AdresQuery("fgvfgfgfg"));
                 
             Console.ReadLine();
         }

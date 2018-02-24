@@ -10,6 +10,8 @@ namespace ClassLibrary1.Query.Service.Handlers
 
         public ServiceQueryHandler(IServiceAgent serviceAgent)
         {
+            Guard.IsNotNull(serviceAgent, nameof(serviceAgent));
+
             _serviceAgent = serviceAgent;
         }
 

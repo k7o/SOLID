@@ -10,6 +10,8 @@ namespace ClassLibrary1.Query.Zoek.Handlers
 
         public AdresHandler(IQueryHandler<ServiceQuery, ServiceResult> serviceHandler)
         {
+            Guard.IsNotNull(serviceHandler, nameof(serviceHandler));
+
             _serviceHandler = serviceHandler;
         }
 

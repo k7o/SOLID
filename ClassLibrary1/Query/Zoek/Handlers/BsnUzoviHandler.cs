@@ -10,16 +10,18 @@ namespace ClassLibrary1.Query.Zoek.Handlers
 {
     public class BsnUzoviHandler : IQueryHandler<BsnUzoviQuery, ZoekResult>
     {
-        readonly IQueryHandler<ServiceQuery, ServiceResult> _serviceQuery;
+        readonly IQueryHandler<ServiceQuery, ServiceResult> _serviceHandler;
 
-        public BsnUzoviHandler(IQueryHandler<ServiceQuery, ServiceResult> serviceQuery)
+        public BsnUzoviHandler(IQueryHandler<ServiceQuery, ServiceResult> serviceHandler)
         {
-            _serviceQuery = serviceQuery;
+            Guard.IsNotNull(serviceHandler, nameof(serviceHandler));
+
+            _serviceHandler = serviceHandler;
         }
 
         public ZoekResult Handle(BsnUzoviQuery query)
         {
-            return new ZoekResult(_serviceQuery.Handle(new ServiceQuery())
+            return new ZoekResult(_serviceHandler.Handle(new ServiceQuery())
                 .BsnUzovis.Any(c => c.Key == query.Bsnnummer && c.Value == query.Uzovi));
         }
     }
