@@ -83,15 +83,15 @@ namespace ConsoleApp1
             _container.Register<ICache, Caches.LazyCache>();
             _container.Register<IServiceAgent>(() => serviceAgent);
             _container.Register<ICacheSettings>(() => cacheSettings);
-            _container.Register<ILog, Loggers.LogSerilog>();
-            _container.Register<IQueryLog, Loggers.QueryLogSerilog>();
+            _container.Register<ILog, EventSources.LogEventSource>();
+            _container.Register<IQueryTracer, EventSources.QueryEventSource>();
 
             // classlibrary1
             _container.Register(typeof(IQueryHandler<,>), new[] { typeof(ServiceQuery).Assembly });
             // classlibrary1 decorators
             _container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
-                typeof(ClassLibrary1.Decorators.QueryEventSourceDecorator<,>));
+                typeof(ClassLibrary1.Decorators.QueryTracerDecorator<,>));
             _container.RegisterDecorator(
                 typeof(IQueryHandler<ServiceQuery, ServiceResult>),
                 typeof(ClassLibrary1.Decorators.QueryCacheDecorator<ServiceQuery, ServiceResult>));
@@ -103,15 +103,8 @@ namespace ConsoleApp1
 
             var adresHandler = _container.GetInstance<IQueryHandler<AdresQuery, ZoekResult>>();
 
-            //for (var i=0;i<1000;i++)
+            for (var i=0;i<1000;i++)
                 adresHandler.Handle(new AdresQuery("Straat1"));
-
-
-            var list = new List<ClassLibrary1.Query.Zoek.BsnUzoviQuery>();
-            list.Add(new ClassLibrary1.Query.Zoek.BsnUzoviQuery(1, 2));
-            list.Add(new ClassLibrary1.Query.Zoek.BsnUzoviQuery(1, 1));
-            list.Add(new ClassLibrary1.Query.Zoek.BsnUzoviQuery(1, 1));
-
                 
             Console.ReadLine();
         }

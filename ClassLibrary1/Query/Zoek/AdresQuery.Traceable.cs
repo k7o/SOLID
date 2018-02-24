@@ -5,26 +5,31 @@ namespace ClassLibrary1.Query.Zoek
 {
     public partial class AdresQuery : IAmTraceable
     {
-        private const string EventName = "Adres";
+        private const string EventName = "AdresQuery";
 
-        public void Start(IQueryLog queryLog)
+        public void Start(IQueryTracer queryTracer)
         {
-            queryLog.QueryStart(EventName);
+            queryTracer.Start(EventName);
         }
 
-        public void Stop(IQueryLog queryLog)
+        public void Stop(IQueryTracer queryTracer)
         {
-            queryLog.QueryStop(EventName, Postcode);
+            queryTracer.Stop(EventName, Postcode);
         }
 
-        public void Excute(IQueryLog queryLog)
+        public void Excute(IQueryTracer queryTracer)
         {
-            queryLog.QueryExecute(EventName);
+            queryTracer.Execute(EventName);
         }
 
-        public void Excuted(IQueryLog queryLog)
+        public void Excuted(IQueryTracer queryTracer)
         {
-            queryLog.QueryExecuted(EventName, Postcode);
+            queryTracer.Executed(EventName, Postcode);
+        }
+
+        public void Exception(IQueryTracer queryTracer)
+        {
+            queryTracer.Exception(EventName, Postcode);
         }
     }
 }

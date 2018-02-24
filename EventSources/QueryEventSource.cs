@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventSources
 {
-    public class QueryEventSource : IQueryLog
+    public class QueryEventSource : IQueryTracer
     {
         private static readonly Lazy<NestedQueryEventSource> Instance =
               new Lazy<NestedQueryEventSource>(() => new NestedQueryEventSource());
@@ -19,29 +19,29 @@ namespace EventSources
             return innerLog.IsEnabled();
         }
 
-        public void Failure(string eventName, string message)
-        {
-            innerLog.Failure(eventName, message);
-        }
-
-        public void QueryExecute(string eventName)
+        public void Execute(string eventName)
         {
             innerLog.QueryExecute(eventName);
         }
 
-        public void QueryExecuted(string eventName, string string1)
+        public void Executed(string eventName, string executed)
         {
-            innerLog.QueryExecuted(eventName, string1);
+            innerLog.QueryExecuted(eventName, executed);
         }
 
-        public void QueryStart(string eventName)
+        public void Start(string eventName)
         {
             innerLog.QueryStart(eventName);
         }
 
-        public void QueryStop(string eventName, string string1)
+        public void Stop(string eventName, string stop)
         {
-            innerLog.QueryStop(eventName, string1);
+            innerLog.QueryStop(eventName, stop);
+        }
+
+        public void Exception(string eventName, string exception)
+        {
+            innerLog.Exception(eventName, exception);
         }
 
         [EventSource(Name = "QueryEventSource")]
@@ -59,39 +59,39 @@ namespace EventSources
                 public const EventTask Query = (EventTask)2;
             }
 
-            [Event(1, Message = "Failure: {0}")]
-            public void Failure(string eventName, string message)
+            [Event(1, Message = "Exception: {0}")]
+            public void Exception(string eventName, string exceptionValue)
             {
                 if (this.IsEnabled())
-                    this.WriteEvent(1, eventName, message);
+                    this.WriteEvent(1, eventName, exceptionValue);
             }
 
-            [Event(2, Message = "Start Query: {0}")]
+            [Event(2, Message = "Start {0}")]
             public void QueryStart(string eventName)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(2, eventName);
             }
 
-            [Event(3, Message = "Stop Query: {0}")]
-            public void QueryStop(string eventName, string string1)
+            [Event(3, Message = "Stop {0}")]
+            public void QueryStop(string eventName, string queryStopValue)
             {
                 if (this.IsEnabled())
-                    this.WriteEvent(3, eventName, string1);
+                    this.WriteEvent(3, eventName, queryStopValue);
             }
 
-            [Event(4, Message = "Execute Query: {0}")]
+            [Event(4, Message = "Execute {0}")]
             public void QueryExecute(string eventName)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(4, eventName);
             }
 
-            [Event(5, Message = "Executed Query: {0}")]
-            public void QueryExecuted(string eventName, string string1)
+            [Event(5, Message = "Executed {0}")]
+            public void QueryExecuted(string eventName, string executedValue)
             {
                 if (this.IsEnabled())
-                    this.WriteEvent(5, eventName, string1);
+                    this.WriteEvent(5, eventName, executedValue);
             }
         }
     }

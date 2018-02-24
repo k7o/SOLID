@@ -9,12 +9,15 @@ namespace ClassLibrary1.Decorators
 
         public QueryArgumentNotNullDecorator(IQueryHandler<TQuery, TResult> decorated)
         {
-            _decorated = decorated ?? throw new ArgumentNullException(nameof(decorated));
+            Guard.IsNotNull(decorated, nameof(decorated));
+
+            _decorated = decorated;
         }
 
         public TResult Handle(TQuery query)
         {
-            if (query == null) throw new ArgumentNullException(nameof(query));
+            Guard.IsNotNull(query, nameof(query));
+
             return _decorated.Handle(query);
         }
     }
