@@ -8,14 +8,12 @@ namespace Infrastructure
 {
     public interface IAmTraceable
     {
-        void Start(IQueryEventSource queryEventSource);
+        void Start(IQueryLog queryLog);
 
-        void Stop(IQueryEventSource queryEventSource);
+        void Stop(IQueryLog queryLog);
 
-        void Excute(IQueryEventSource queryEventSource);
+        void Excute(IQueryLog queryLog);
 
-        void Excuted(IQueryEventSource queryEventSource);
-
-        void Failure(IQueryEventSource queryEventSource, Exception ex);
+        void Excuted(IQueryLog queryLog);
     }
 }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Loggers
 {
-    public class SerilogLog : ILog
+    public class LogSerilog : ILog
     {
         readonly ILogger _logger;
 
-        public SerilogLog(ILogger logger)
+        public LogSerilog(ILogger logger)
         {
             Guard.IsNotNull(logger, nameof(logger));
 

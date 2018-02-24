@@ -1,4 +1,8 @@
-﻿HOWTO: Register the EventSource on your system 
+﻿The 
+
+
+
+HOWTO: Register the EventSource on your system 
 
 
 Open a cmd window (in administrator mode) and change directory to \{SolutionDir}\packages\Microsoft.Diagnostics.Tracing.EventRegister.1.1.28\build
@@ -24,3 +28,4 @@ Done!
 To remove the provider enter (relative to \{SolutionDir}\packages\Microsoft.Diagnostics.Tracing.EventRegister.1.1.28\build)
 
 wevtutil.exe um ..\..\..\EventSources\bin\Debug\EventSources.QueryEventSource.etwManifest.man
+

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure
 {
-    interface IQueryLog
+    public interface IQueryLog
     {
         void QueryExecute(string eventName);
         void QueryExecuted(string eventName, string string1);

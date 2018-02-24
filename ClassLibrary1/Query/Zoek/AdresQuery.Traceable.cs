@@ -7,29 +7,24 @@ namespace ClassLibrary1.Query.Zoek
     {
         private const string EventName = "Adres";
 
-        public void Start(IQueryEventSource queryEventSource)
+        public void Start(IQueryLog queryLog)
         {
-            queryEventSource.QueryStart(EventName);
+            queryLog.QueryStart(EventName);
         }
 
-        public void Stop(IQueryEventSource queryEventSource)
+        public void Stop(IQueryLog queryLog)
         {
-            queryEventSource.QueryStop(EventName, Postcode);
+            queryLog.QueryStop(EventName, Postcode);
         }
 
-        public void Excute(IQueryEventSource queryEventSource)
+        public void Excute(IQueryLog queryLog)
         {
-            queryEventSource.QueryExecute(EventName);
+            queryLog.QueryExecute(EventName);
         }
 
-        public void Excuted(IQueryEventSource queryEventSource)
+        public void Excuted(IQueryLog queryLog)
         {
-            queryEventSource.QueryExecuted(EventName, Postcode);
-        }
-
-        public void Failure(IQueryEventSource queryEventSource, Exception ex)
-        {
-            queryEventSource.Failure(EventName, Postcode);
+            queryLog.QueryExecuted(EventName, Postcode);
         }
     }
 }

@@ -7,38 +7,33 @@ namespace ClassLibrary1.Decorators
     public class QueryEventSourceDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
     {
         readonly IQueryHandler<TQuery, TResult> _decorated;
-        readonly IQueryEventSource _eventSource;
+        readonly IQueryLog _queryLog;
 
-        public QueryEventSourceDecorator(IQueryHandler<TQuery, TResult> decorated, IQueryEventSource eventSource)
+        public QueryEventSourceDecorator(IQueryHandler<TQuery, TResult> decorated, IQueryLog eventSource)
         {
             Guard.IsNotNull(decorated, nameof(decorated));
             Guard.IsNotNull(eventSource, nameof(eventSource));
 
             _decorated = decorated;
-            _eventSource = eventSource;
+            _queryLog = eventSource;
         }
 
         public TResult Handle(TQuery query)
         {
-            query.Start(_eventSource);
+            query.Start(_queryLog);
 
             TResult result;
             try
             {
-                query.Excute(_eventSource);
+                query.Excute(_queryLog);
 
                 result = _decorated.Handle(query);
 
-                query.Excuted(_eventSource);
+                query.Excuted(_queryLog);
             }
-            catch (Exception ex)
-            {
-                query.Failure(_eventSource, ex);
-                throw;
-            }                
             finally
             {
-                query.Stop(_eventSource);
+                query.Stop(_queryLog);
             }
 
             return result;

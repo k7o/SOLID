@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EventSources
 {
-    public class QueryEventSource : IQueryEventSource
+    public class QueryEventSource : IQueryLog
     {
         private static readonly Lazy<NestedQueryEventSource> Instance =
               new Lazy<NestedQueryEventSource>(() => new NestedQueryEventSource());
@@ -45,7 +45,7 @@ namespace EventSources
         }
 
         [EventSource(Name = "QueryEventSource")]
-        private sealed class NestedQueryEventSource : EventSource, IQueryEventSource
+        private sealed class NestedQueryEventSource : EventSource
         {
             private static class Keywords
             {

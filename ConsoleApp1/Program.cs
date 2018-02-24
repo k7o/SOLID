@@ -83,8 +83,8 @@ namespace ConsoleApp1
             _container.Register<ICache, Caches.LazyCache>();
             _container.Register<IServiceAgent>(() => serviceAgent);
             _container.Register<ICacheSettings>(() => cacheSettings);
-            _container.Register<ILog, Loggers.SerilogLog>();
-            _container.Register<IQueryEventSource, EventSources.QueryEventSource>();
+            _container.Register<ILog, Loggers.LogSerilog>();
+            _container.Register<IQueryLog, Loggers.QueryLogSerilog>();
 
             // classlibrary1
             _container.Register(typeof(IQueryHandler<,>), new[] { typeof(ServiceQuery).Assembly });

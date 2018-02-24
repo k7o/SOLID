@@ -45,7 +45,6 @@
     <Compile Include="IEventSource.cs" />
     <Compile Include="ILog.cs" />
     <Compile Include="IQueryLog.cs" />
-    <Compile Include="IQueryEventSource.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="IAmTraceable.cs" />
     <Compile Include="ICachedQuery.cs" />
