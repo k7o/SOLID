@@ -1,8 +1,8 @@
 principles playground
 
-composite root composed in entry point ConsoleApp1.Program.Main
+composite root composed in entry point Implementation
 
-application logic can be found in ConsoleApp1.ClassLibrary1
+application logic can be found in ConsoleApp1
 
 constraints:
 - follow SOLID principles
