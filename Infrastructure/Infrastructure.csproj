@@ -40,18 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeLog.cs" />
     <Compile Include="ICache.cs" />
     <Compile Include="ICacheSettings.cs" />
-    <Compile Include="IEventSource.cs" />
     <Compile Include="ILog.cs" />
-    <Compile Include="IQueryTracer.cs" />
-    <Compile Include="Guard.cs" />
-    <Compile Include="IAmTraceable.cs" />
-    <Compile Include="ICachedQuery.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="ICommandHandler.cs" />
-    <Compile Include="IQuery.cs" />
-    <Compile Include="IQueryHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

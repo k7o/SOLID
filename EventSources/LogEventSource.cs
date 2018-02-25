@@ -1,10 +1,6 @@
 ﻿using Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.Tracing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EventSources
 {
@@ -12,46 +8,46 @@ namespace EventSources
     {
         private static readonly Lazy<NestedLogEventSource> Instance =
               new Lazy<NestedLogEventSource>(() => new NestedLogEventSource());
-        private static NestedLogEventSource innerLog { get { return Instance.Value; } }
+        private static NestedLogEventSource InnerLog { get { return Instance.Value; } }
 
         public void Debug(string message)
         {
-            innerLog.Debug("debug", message);
+            InnerLog.Debug("debug", message);
         }
 
         public void Debug(Exception ex, string message)
         {
-            innerLog.Debug("debug", message);
+            InnerLog.Debug("debug", message);
         }
 
         public void Exception(string message)
         {
-            innerLog.Exception("exception", message);
+            InnerLog.Exception("exception", message);
         }
 
         public void Exception(Exception ex, string message)
         {
-            innerLog.Exception("exception", message);
+            InnerLog.Exception("exception", message);
         }
 
         public void Informational(string message)
         {
-            innerLog.Exception("information", message);
+            InnerLog.Exception("information", message);
         }
 
         public void Informational(Exception ex, string message)
         {
-            innerLog.Exception("information", message);
+            InnerLog.Exception("information", message);
         }
 
         public void Warning(string message)
         {
-            innerLog.Exception("warning", message);
+            InnerLog.Exception("warning", message);
         }
 
         public void Warning(Exception ex, string message)
         {
-            innerLog.Exception("warning", message);
+            InnerLog.Exception("warning", message);
         }
 
         [EventSource(Name = "LogEventSource")]

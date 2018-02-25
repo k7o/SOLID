@@ -1,21 +1,18 @@
-﻿using ClassLibrary1;
-using ClassLibrary1.Agents;
-using Infrastructure;
+﻿using Implementation.Agents;
+using Contracts;
 using LazyCache;
 using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
 using FakeItEasy;
 using SimpleInjector;
-using ClassLibrary1.Query.Zoek.Handlers;
-using ClassLibrary1.Query.Zoek;
-using ClassLibrary1.Query.Service;
-using ClassLibrary1.Entities;
+using Implementation.Query.Zoek;
+using Implementation.Query.Service;
 using Microsoft.Diagnostics.EventFlow;
-using ClassLibrary1.Query.Service.Handlers;
+using Contracts;
+using BTDB.ODBLayer;
+using Implementation.Command.Handlers;
+using Infrastructure;
 
 namespace ConsoleApp1
 {
@@ -79,25 +76,36 @@ namespace ConsoleApp1
                     .CreateLogger());
 
             // own dependecies
+
+            // db
+            // _container.Register<IObjectDB, ObjectDB>();
+            // _container.Register<IObjectDBTransaction>(() => _container.GetInstance<IObjectDB>().StartTransaction(), Lifestyle.Scoped);
+
             // crosscutting
             _container.Register<ICache, Caches.LazyCache>();
             _container.Register<IServiceAgent>(() => serviceAgent);
             _container.Register<ICacheSettings>(() => cacheSettings);
-            _container.Register<ILog, EventSources.LogEventSource>();
+            _container.Register<ILog, CompositeLog>();
+            _container.RegisterCollection<ILog>(new[] { typeof(EventSources.LogEventSource), typeof(Loggers.LogSerilog) });
             _container.Register<IQueryTracer, EventSources.QueryEventSource>();
 
-            // classlibrary1
+            // Implementation
+            //_container.Register(typeof(ICommandStrategyHandler<>), new[] { typeof(AddAdresStrategyCommandHandler).Assembly });
+            //_container.Register(typeof(IDataCommandHandler<>), new[] { typeof(AddAdresDataCommandHandler).Assembly });
+
             _container.Register(typeof(IQueryHandler<,>), new[] { typeof(ServiceQuery).Assembly });
-            // classlibrary1 decorators
+
+
+            // Implementation decorators
             _container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
-                typeof(ClassLibrary1.Decorators.QueryTracerDecorator<,>));
+                typeof(Implementation.Decorators.QueryTracerDecorator<,>));
             _container.RegisterDecorator(
                 typeof(IQueryHandler<ServiceQuery, ServiceResult>),
-                typeof(ClassLibrary1.Decorators.QueryCacheDecorator<ServiceQuery, ServiceResult>));
+                typeof(Implementation.Decorators.QueryCacheDecorator<ServiceQuery, ServiceResult>));
             _container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
-                typeof(ClassLibrary1.Decorators.QueryArgumentNotNullDecorator<,>));
+                typeof(Implementation.Decorators.QueryArgumentNotNullDecorator<,>));
 
             _container.Verify();
 

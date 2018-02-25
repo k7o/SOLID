@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BTDB, Version=12.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BTDB.12.5.0\lib\net46\BTDB.dll</HintPath>
+    </Reference>
     <Reference Include="FakeItEasy, Version=4.0.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <HintPath>..\packages\FakeItEasy.4.5.0\lib\net45\FakeItEasy.dll</HintPath>
     </Reference>
@@ -207,17 +210,21 @@
       <Project>{51d95066-ecd8-4363-b472-c7acc1867735}</Project>
       <Name>Caches</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary1.Entities\ClassLibrary1.Entities.csproj">
-      <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
-      <Name>ClassLibrary1.Entities</Name>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
+      <Name>Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj">
-      <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
-      <Name>ClassLibrary1</Name>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\EventSources\EventSources.csproj">
       <Project>{929e0bc2-43b5-4d68-805f-0d5baa896a4b}</Project>
       <Name>EventSources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Implementation\Implementation.csproj">
+      <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
+      <Name>Implementation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>

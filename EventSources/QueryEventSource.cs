@@ -1,4 +1,4 @@
-﻿using Infrastructure;
+﻿using Contracts;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
@@ -12,36 +12,31 @@ namespace EventSources
     {
         private static readonly Lazy<NestedQueryEventSource> Instance =
               new Lazy<NestedQueryEventSource>(() => new NestedQueryEventSource());
-        private static NestedQueryEventSource innerLog { get { return Instance.Value; } }
-
-        public bool IsEnabled()
-        {
-            return innerLog.IsEnabled();
-        }
+        private static NestedQueryEventSource InnerLog { get { return Instance.Value; } }
 
         public void Execute(string eventName)
         {
-            innerLog.QueryExecute(eventName);
+            InnerLog.QueryExecute(eventName);
         }
 
         public void Executed(string eventName, string executed)
         {
-            innerLog.QueryExecuted(eventName, executed);
+            InnerLog.QueryExecuted(eventName, executed);
         }
 
         public void Start(string eventName)
         {
-            innerLog.QueryStart(eventName);
+            InnerLog.QueryStart(eventName);
         }
 
         public void Stop(string eventName, string stop)
         {
-            innerLog.QueryStop(eventName, stop);
+            InnerLog.QueryStop(eventName, stop);
         }
 
         public void Exception(string eventName, string exception)
         {
-            innerLog.Exception(eventName, exception);
+            InnerLog.QueryException(eventName, exception);
         }
 
         [EventSource(Name = "QueryEventSource")]
@@ -59,8 +54,8 @@ namespace EventSources
                 public const EventTask Query = (EventTask)2;
             }
 
-            [Event(1, Message = "Exception: {0}")]
-            public void Exception(string eventName, string exceptionValue)
+            [Event(1, Message = "Exception thrown")]
+            public void QueryException(string eventName, string exceptionValue)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(1, eventName, exceptionValue);

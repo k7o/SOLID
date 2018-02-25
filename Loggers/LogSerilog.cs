@@ -1,4 +1,5 @@
-﻿using Infrastructure;
+﻿using Contracts;
+using Infrastructure;
 using Serilog;
 using System;
 using System.Collections.Generic;

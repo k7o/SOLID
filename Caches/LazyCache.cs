@@ -1,10 +1,7 @@
-﻿using Infrastructure;
+﻿using Contracts;
+using Infrastructure;
 using LazyCache;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Caches
 {
