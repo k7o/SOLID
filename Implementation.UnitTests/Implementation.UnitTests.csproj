@@ -58,12 +58,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agents\ServiceAgentResponseBuilder.cs" />
     <Compile Include="Decorators\QueryArgumentNotNullDecoratorTests.cs" />
     <Compile Include="Decorators\QueryCacheDecoratorTests.cs" />
     <Compile Include="Infrastructure\GuardTests.cs" />
-    <Compile Include="Query\Service\ServiceQueryResultBuilder.cs" />
-    <Compile Include="Query\Service\Handlers\ServiceQueryHandlerTests.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviHandlerTests.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnHandlerTests.cs" />
     <Compile Include="Query\Zoek\Handlers\AdresHandlerTests.cs" />
@@ -76,6 +73,10 @@
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Implementation\Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>

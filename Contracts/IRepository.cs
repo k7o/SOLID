@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Implementation.Agents
+namespace Contracts
 {
-    public interface IServiceAgent
+    public interface IRepository<TEntity>
     {
-        ServiceAgentResponse Get();
+        IEnumerable<TEntity> GetAll();
+
+        void Add(TEntity entity);
     }
 }

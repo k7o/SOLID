@@ -1,38 +1,41 @@
 ﻿using System;
 using Implementation.Decorators;
 using Contracts;
-using Implementation.Query.Service;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Infrastructure;
+using Implementation.Query.Zoek;
 
 namespace Implementation.UnitTests.Decorators
 {
     [TestClass]
     public class QueryCacheDecoratorTests
     {
+        IQueryHandler<BsnQuery, ZoekResult> _decorated;
+
         ILog _log;
         ICache _cache;
-        
-        IQueryHandler<ServiceQuery, ServiceResult> _decorated;
+        IUnitOfWork _unitOfWork;
 
-        ServiceQuery _query;
+        BsnQuery _bsnQuery;
 
-        QueryCacheDecorator<ServiceQuery, ServiceResult> _sut;
+        QueryCacheDecorator<BsnQuery, ZoekResult> _sut;
 
         [TestInitialize]
         public void Initialize()
         {
             _log = A.Fake<ILog>();
             _cache = A.Fake<ICache>();
-            _decorated = A.Fake<IQueryHandler<ServiceQuery, ServiceResult>>();
+            
+            _unitOfWork = A.Fake<IUnitOfWork>();
+            _decorated = A.Fake<IQueryHandler<BsnQuery, ZoekResult>>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Ctr_Should_Throw_ArgumentNullException_When_Decorated_Handler_Is_Null()
+        public void Ctr_Should_Throw_ArgumentNullException_When_UnitOfWork_Is_Null()
         {
-            _decorated = null;
+            _unitOfWork = null;
 
             ExecuteHandleOnSut();
         }
@@ -58,24 +61,24 @@ namespace Implementation.UnitTests.Decorators
         [TestMethod]
         public void Handle_Should_Call_GetOrAdd_On_AppCache()
         {
-            _query = new ServiceQuery();
+            _bsnQuery = new BsnQuery(1);
 
             ExecuteHandleOnSut();
 
-            A.CallTo(() => _cache.GetOrAdd(A<string>.Ignored, A<Func<ServiceResult>>.Ignored))
+            A.CallTo(() => _cache.GetOrAdd(A<string>.Ignored, A<Func<BsnQuery>>.Ignored))
                 .MustHaveHappened();
         }
 
         private void CreateSut()
         {
-            _sut = new QueryCacheDecorator<ServiceQuery, ServiceResult>(_cache, _log, _decorated);
+            _sut = new QueryCacheDecorator<BsnQuery, ZoekResult>(_decorated, _cache, _log);
         }
 
-        private ServiceResult ExecuteHandleOnSut()
+        private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 
-            return _sut.Handle(_query);
+            return _sut.Handle(_bsnQuery);
         }
     }
 }

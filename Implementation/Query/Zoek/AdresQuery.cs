@@ -2,9 +2,11 @@
 
 namespace Implementation.Query.Zoek
 {
-    public partial class AdresQuery : IQuery<ZoekResult>
+    public partial class AdresQuery : ICachedQuery<ZoekResult>
     {
         public string Postcode { get; private set; }
+
+        public string CacheKey => throw new System.NotImplementedException();
 
         public AdresQuery(string postcode)
         {

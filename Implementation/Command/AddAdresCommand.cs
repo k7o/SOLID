@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Implementation.Command
 {
-    public class AddAdresCommand : ICommand, IDataCommand
+    public class AddAdresCommand : IDataCommand
     {
         public string Postcode { get; private set; }
 

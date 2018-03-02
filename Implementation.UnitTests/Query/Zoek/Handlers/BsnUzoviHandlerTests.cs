@@ -1,12 +1,9 @@
-﻿using System;
-using Contracts;
-using Implementation.Query.Service;
+﻿using Contracts;
 using Implementation.Query.Zoek;
 using Implementation.Query.Zoek.Handlers;
-using Implementation.UnitTests.Query.Service;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Contracts;
+using Entities;
 
 namespace Implementation.UnitTests.Query.Zoek.Handlers
 {
@@ -14,24 +11,22 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
     public class BsnUzoviHandlerTests
     {
         BsnUzoviQuery _zoekBsnUzovi;
-        ServiceResult _serviceResult;
 
-        IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
+        IUnitOfWork _unitOfWork;
 
-        BsnUzoviHandler _sut;
+        BsnUzoviDataHandler _sut;
 
         [TestInitialize]
         public void Initialize()
         {
-            _serviceQueryHandler = A.Fake<IQueryHandler<ServiceQuery, ServiceResult>>();
+            _unitOfWork = A.Fake<IUnitOfWork>();
         }
 
         [TestMethod]
         public void Should_Return_InWhitelist_False_When_BsnUzovi_Is_Not_Found()
         {
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(1, 2)
-                .Build();
+            _unitOfWork.Repository<BsnUzovi>()
+                .Add(new BsnUzovi(1, 2));
 
             _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
 
@@ -43,9 +38,8 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         [TestMethod]
         public void Should_Return_InWhitelist_True_When_BsnUzovi_Is_Found()
         {
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(1, 1)
-                .Build();
+            _unitOfWork.Repository<BsnUzovi>()
+                .Add(new BsnUzovi(1, 1));
 
             _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
 
@@ -56,14 +50,14 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
 
         private void CreateSut()
         {
-            _sut = new BsnUzoviHandler(_serviceQueryHandler);
+            _sut = new BsnUzoviDataHandler(_unitOfWork);
         }
 
         private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 
-            A.CallTo(() => _serviceQueryHandler.Handle(A<ServiceQuery>.Ignored)).Returns(_serviceResult);
+            A.CallTo(() => _unitOfWork.Repository<BsnUzovi>());
 
             return _sut.Handle(_zoekBsnUzovi);
         }

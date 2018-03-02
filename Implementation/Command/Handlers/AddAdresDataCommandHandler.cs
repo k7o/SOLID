@@ -1,23 +1,24 @@
 ﻿using Entities;
 using Contracts;
-using Infrastructure;
 
 namespace Implementation.Command.Handlers
 {
     public class AddAdresDataCommandHandler : IDataCommandHandler<AddAdresCommand>
     {
-        readonly IContext<Adres> _adresContext;
+        readonly IUnitOfWork _unitOfWork;
 
-        public AddAdresDataCommandHandler(IContext<Adres> adresContext)
+        public AddAdresDataCommandHandler(IUnitOfWork unitOfWork)
         {
-            Guard.IsNotNull(adresContext, nameof(adresContext));
+            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
 
-            _adresContext = adresContext;
+            _unitOfWork = unitOfWork;
         }
 
         public void Handle(AddAdresCommand command)
         {
-            _adresContext.Add(new Adres(command.Postcode));
+            _unitOfWork
+                .Repository<Adres>()
+                .Add(new Adres(command.Postcode));
         }
     }
 }

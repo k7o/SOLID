@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Adres.cs" />
     <Compile Include="Bsn.cs" />
+    <Compile Include="BsnUzovi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

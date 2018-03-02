@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    public interface ITransaction
+    public interface IUnitOfWork
     {
-        void Commit();
+        IRepository<TEntity> Repository<TEntity>() where TEntity : class;
+
+        int SaveChanges();
     }
 }

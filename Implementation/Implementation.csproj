@@ -44,27 +44,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agents\ServiceAgentResponse.cs" />
     <Compile Include="Command\AddAdresCommand.cs" />
+    <Compile Include="Command\AddBsnUzoviCommand.cs" />
     <Compile Include="Command\Handlers\AddAdresDataCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddAdresStrategyCommandHandler.cs" />
+    <Compile Include="Command\Handlers\AddBsnUzoviDataCommandHandler.cs" />
+    <Compile Include="Command\Handlers\AddBsnUzoviStrategyCommandHandler.cs" />
     <Compile Include="Decorators\CommandTransactionDecorator.cs" />
     <Compile Include="Decorators\QueryArgumentNotNullDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
     <Compile Include="Decorators\QueryTracerDecorator.cs" />
-    <Compile Include="Query\Service\Handlers\ServiceQueryHandler.cs" />
-    <Compile Include="Query\Service\ServiceQuery.cs" />
-    <Compile Include="Query\Service\ServiceResult.cs" />
-    <Compile Include="Query\Zoek\Handlers\AdresHandler.cs" />
-    <Compile Include="Query\Zoek\Handlers\BsnHandler.cs" />
-    <Compile Include="Query\Zoek\Handlers\BsnUzoviHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\AdresDataHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnDataHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnUzoviDataHandler.cs" />
     <Compile Include="Query\Zoek\AdresQuery.Traceable.cs" />
     <Compile Include="Query\Zoek\ZoekResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\Zoek\BsnQuery.cs" />
     <Compile Include="Query\Zoek\AdresQuery.cs" />
     <Compile Include="Query\Zoek\BsnUzoviQuery.cs" />
-    <Compile Include="Agents\IServiceAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Query\README.md" />

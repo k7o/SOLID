@@ -8,29 +8,26 @@ using System.Threading.Tasks;
 
 namespace Implementation.Decorators
 { 
-    public class CommandTransactionDecorator<TCommand, TContext> : IDataCommandHandler<TCommand> 
+    public class CommandTransactionDecorator<TCommand> : ICommandStrategyHandler<TCommand> 
         where TCommand : IDataCommand 
-        where TContext : IContext<TContext>
     {
-        readonly TContext _context;
-        readonly IDataCommandHandler<TCommand> _decorated;
+        readonly ICommandStrategyHandler<TCommand> _decorated;
+        readonly IUnitOfWork _unitOfWork;
 
-        public CommandTransactionDecorator(IDataCommandHandler<TCommand> decorated, TContext context)
+        public CommandTransactionDecorator(ICommandStrategyHandler<TCommand> decorated, IUnitOfWork unitOfWork)
         {
             Guard.IsNotNull(decorated, nameof(decorated));
-            Guard.IsNotNull(context, nameof(context));
+            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
 
             _decorated = decorated;
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         public void Handle(TCommand command)
         {
-            _context.StartTransaction();
-
             _decorated.Handle(command);
 
-            
+            _unitOfWork.SaveChanges();
         }
     }
 }

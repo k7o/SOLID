@@ -1,12 +1,8 @@
-﻿using System;
-using Contracts;
-using Implementation.Query.Service;
+﻿using Contracts;
 using Implementation.Query.Zoek;
 using Implementation.Query.Zoek.Handlers;
-using Implementation.UnitTests.Query.Service;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Contracts;
 
 namespace Implementation.UnitTests.Query.Zoek.Handlers
 {
@@ -14,24 +10,21 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
     public class BsnHandlerTests
     {
         BsnQuery _zoekBsn;
-        ServiceResult _serviceResult;
 
-        IQueryHandler<ServiceQuery, ServiceResult> _serviceQueryHandler;
+        IUnitOfWork _unitOfWork;
 
-        BsnHandler _sut;
+        BsnDataHandler _sut;
 
         [TestInitialize]
         public void Initialize()
         {
-            _serviceQueryHandler = A.Fake<IQueryHandler<ServiceQuery, ServiceResult>>();
+            _unitOfWork = A.Fake<IUnitOfWork>();
         }
 
         [TestMethod]
         public void Should_Return_InWhitelist_False_When_Bsn_Is_Not_Found()
         {
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(2)
-                .Build();
+            _unitOfWork.Repository<BsnQuery>().Add(new BsnQuery(1));
 
             _zoekBsn = new BsnQuery(1);
 
@@ -43,9 +36,8 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         [TestMethod]
         public void Should_Return_InWhitelist_True_When_Bsn_Is_Found()
         {
-            _serviceResult = ServiceQueryResultBuilder.Construct()
-                .With(1)
-                .Build();
+            _unitOfWork.Repository<BsnQuery>().Add(new BsnQuery(1));
+
 
             _zoekBsn = new BsnQuery(1);
 
@@ -56,16 +48,14 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
 
         private void CreateSut()
         {
-            _sut = new BsnHandler(_serviceQueryHandler);
+            _sut = new BsnDataHandler(_unitOfWork);
         }
 
         private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 
-            A.CallTo(() => _serviceQueryHandler.Handle(A<ServiceQuery>.Ignored)).Returns(_serviceResult);
-
-            return _sut.Handle(_zoekBsn);
+           return _sut.Handle(_zoekBsn);
         }
     }
 }

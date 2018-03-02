@@ -47,13 +47,16 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandHandler.cs" />
     <Compile Include="ICommandStrategyHandler.cs" />
-    <Compile Include="IContext.cs" />
     <Compile Include="IDataCommand.cs" />
     <Compile Include="IDataCommandHandler.cs" />
+    <Compile Include="IDataQuery.cs" />
+    <Compile Include="IDataQueryHandler.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryHandler.cs" />
+    <Compile Include="IQueryStrategyHandler.cs" />
     <Compile Include="IQueryTracer.cs" />
-    <Compile Include="ITransaction.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
