@@ -11,14 +11,14 @@ Execute following commands:
 .\eventRegister.exe -DumpRegDlls ..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.dll -forceall=true
 
 -- register the manifest and dll's on your system
-wevtutil.exe im ..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.QueryEventSource.etwManifest.man /rf:"..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.QueryEventSource.etwManifest.dll" /mf:"..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.QueryEventSource.etwManifest.dll"
+wevtutil.exe im ..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.k7o.TraceEventSource.etwManifest.man /rf:"..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.k7o.TraceEventSource.etwManifest.dll" /mf:"..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.k7o.TraceEventSource.etwManifest.dll"
 
 -- check if the manifest is correctly registered on you system
-logman.exe -query providers | Select-String -Pattern '^QueryEventSource(.*)'
+logman.exe -query providers | Select-String -Pattern '^k7o.TraceEventSource(.*)'
 
 If you get a result like:
 
-QueryEventSource                         {B187C1D9-3C15-53BD-B8AB-E986EB0A7520}
+k7o.TraceEventSource                         {B187C1D9-3C15-53BD-B8AB-E986EB0A7520}
 
 you're set, otherwise something went wrong!
 
@@ -30,5 +30,5 @@ Repeat this process for all providers you want to register
 
 To remove a provider enter (relative to \{SolutionDir}\packages\Microsoft.Diagnostics.Tracing.EventRegister.1.1.28\build):
 
-wevtutil.exe um ..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.QueryEventSource.etwManifest.man
+wevtutil.exe um ..\..\..\Crosscutting.Loggers\bin\Debug\Crosscutting.Loggers.k7o.TraceEventSource.etwManifest.man
 

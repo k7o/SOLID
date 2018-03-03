@@ -15,9 +15,9 @@ namespace Crosscutting.Loggers
             InnerLog.TraceExecute(eventName);
         }
 
-        public void Executed(string eventName, string executed)
+        public void Executed(string eventName, string executedWith)
         {
-            InnerLog.TraceExecuted(eventName, executed);
+            InnerLog.TraceExecuted(eventName, executedWith);
         }
 
         public void Start(string eventName)
@@ -30,12 +30,13 @@ namespace Crosscutting.Loggers
             InnerLog.TraceStop(eventName, stop);
         }
 
-        public void Exception(string eventName, string exception)
+        public void Exception(string eventName, string exceptionMessage)
         {
-            InnerLog.TraceException(eventName, exception);
+            InnerLog.TraceException(eventName, exceptionMessage);
         }
 
-        [EventSource(Name = "QueryEventSource")]
+        // eventsource name should be unique
+        [EventSource(Name = "k7o.TraceEventSource")]
         private sealed class NestedTraceEventSource : EventSource
         {
             private static class Keywords

@@ -44,6 +44,7 @@
     <Compile Include="CompositeLog.cs" />
     <Compile Include="CompositeQueryTracer.cs" />
     <Compile Include="Guard.cs" />
+    <Compile Include="HandlerType.cs" />
     <Compile Include="IAmCacheable.cs" />
     <Compile Include="IAmTraceable.cs" />
     <Compile Include="ICache.cs" />
