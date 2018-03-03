@@ -1,23 +1,24 @@
 ﻿using Contracts;
+using Contracts.Crosscutting;
 
 namespace Implementation.Decorators
 {
     public class QueryArgumentNotNullDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
-        readonly IQueryHandler<TQuery, TResult> _decorated;
+        readonly IQueryHandler<TQuery, TResult> _decoratee;
 
-        public QueryArgumentNotNullDecorator(IQueryHandler<TQuery, TResult> decorated)
+        public QueryArgumentNotNullDecorator(IQueryHandler<TQuery, TResult> decoratee)
         {
-            Guard.IsNotNull(decorated, nameof(decorated));
+            Guard.IsNotNull(decoratee, nameof(decoratee));
 
-            _decorated = decorated;
+            _decoratee = decoratee;
         }
 
         public TResult Handle(TQuery query)
         {
             Guard.IsNotNull(query, nameof(query));
 
-            return _decorated.Handle(query);
+            return _decoratee.Handle(query);
         }
     }
 }

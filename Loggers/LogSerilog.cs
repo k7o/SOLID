@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Infrastructure;
+using Contracts.Crosscutting;
 using Serilog;
 using System;
 using System.Collections.Generic;

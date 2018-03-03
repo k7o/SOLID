@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Infrastructure;
+using Contracts.Crosscutting;
 
 namespace Implementation.Command.Handlers
 {

@@ -6,13 +6,14 @@ using SimpleInjector;
 using Implementation.Query.Zoek;
 using Microsoft.Diagnostics.EventFlow;
 using Implementation.Command.Handlers;
-using Infrastructure;
+using Contracts.Crosscutting;
 using Implementation.Command;
 using Contexts;
 using Microsoft.EntityFrameworkCore;
 using Caches;
 using Implementation.Query.Zoek.Handlers;
 using SimpleInjector.Lifestyles;
+using Proxies;
 
 namespace ConsoleApp1
 {
@@ -25,7 +26,7 @@ namespace ConsoleApp1
             container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
             // bootstrap
             // diagnostics pipeline
-            var diagnosticPipeline = DiagnosticPipelineFactory.CreatePipeline("eventFlowConfig.json"); // TODO: check how this is being disposed
+            var diagnosticPipeline = DiagnosticPipelineFactory.CreatePipeline("eventFlowConfig.json");
             // logging
             container.Register<ILogger>(() =>
                 new LoggerConfiguration()
@@ -53,35 +54,45 @@ namespace ConsoleApp1
             container.Register(typeof(IQueryStrategyHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
             container.Register(typeof(IDataQueryHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
             // decorators
+            // commands
+            container.RegisterDecorator(
+                typeof(ICommandStrategyHandler<>),
+                typeof(Implementation.Decorators.CommandStrategyContextDecorator<>));
+            // run every commandstrategy in own scope
+            container.RegisterDecorator(
+                typeof(ICommandStrategyHandler<>),
+                typeof(ThreadScopedCommandStrategyHandlerProxy<>),
+                Lifestyle.Singleton);
+            // queries
             container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(Implementation.Decorators.QueryTracerDecorator<,>));
             container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(Implementation.Decorators.QueryArgumentNotNullDecorator<,>));
+            // run every querystrategy in own scope
             container.RegisterDecorator(
-                typeof(ICommandStrategyHandler<>),
-                typeof(Implementation.Decorators.CommandTransactionDecorator<>));
+                typeof(IQueryStrategyHandler<,>),
+                typeof(ThreadScopedQueryStrategyHandlerProxy<,>),
+                Lifestyle.Singleton);
+
             // verify container
             container.Verify();
 
             // application logic
-            using (ThreadScopedLifestyle.BeginScope(container))
-            {
-                var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
-                var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
+            var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
+            var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
 
-                addAdresCommand.Handle(new AddAdresCommand("1212"));
+            addAdresCommand.Handle(new AddAdresCommand("1212"));
 
-                addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("1", 2));
-                addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("3", 4));
-                addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("4", 5));
+            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("1", 2));
+            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("3", 4));
+            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("4", 5));
 
-                var zoekAdresQuery = container.GetInstance<IDataQueryHandler<AdresQuery, ZoekResult>>();
-                zoekAdresQuery.Handle(new AdresQuery("1212"));
-            }
+            var zoekAdresQuery = container.GetInstance<IQueryStrategyHandler<AdresQuery, ZoekResult>>();
+            if (!zoekAdresQuery.Handle(new AdresQuery("1212")).InWhitelist)
+                throw new Exception("Not found");
 
-            Console.ReadLine();
         }
     }
 }

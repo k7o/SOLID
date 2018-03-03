@@ -245,6 +245,10 @@
       <Project>{ef0a9fe9-299b-4845-840d-d7228fe69f45}</Project>
       <Name>Contexts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Contracts.Crosscutting\Contracts.Crosscutting.csproj">
+      <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
+      <Name>Contracts.Crosscutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
@@ -261,13 +265,13 @@
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
       <Name>Implementation</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
-      <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
-      <Name>Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Loggers\Loggers.csproj">
       <Project>{39dbc122-54ba-4fcc-ae0f-1b864884714b}</Project>
       <Name>Loggers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Proxies\Proxies.csproj">
+      <Project>{b5b8febe-1b48-4611-a7a9-3cf1e831a3c3}</Project>
+      <Name>Proxies</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

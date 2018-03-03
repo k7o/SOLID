@@ -3,7 +3,7 @@ using Implementation.Decorators;
 using Contracts;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Infrastructure;
+using Contracts.Crosscutting;
 using Implementation.Query.Zoek;
 
 namespace Implementation.UnitTests.Decorators
@@ -11,7 +11,7 @@ namespace Implementation.UnitTests.Decorators
     [TestClass]
     public class QueryCacheDecoratorTests
     {
-        IQueryHandler<AdresQuery, ZoekResult> _decorated;
+        IQueryHandler<AdresQuery, ZoekResult> _decoratee;
 
         ILog _log;
         ICache _cache;
@@ -25,14 +25,14 @@ namespace Implementation.UnitTests.Decorators
         {
             _log = A.Fake<ILog>();
             _cache = A.Fake<ICache>();
-            _decorated = A.Fake<IQueryHandler<AdresQuery, ZoekResult>>();
+            _decoratee = A.Fake<IQueryHandler<AdresQuery, ZoekResult>>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Ctr_Should_Throw_ArgumentNullException_When_Decorated_Is_Null()
         {
-            _decorated = null;
+            _decoratee = null;
 
             ExecuteHandleOnSut();
         }
@@ -68,7 +68,7 @@ namespace Implementation.UnitTests.Decorators
 
         private void CreateSut()
         {
-            _sut = new QueryCacheDecorator<AdresQuery, ZoekResult>(_decorated, _cache, _log);
+            _sut = new QueryCacheDecorator<AdresQuery, ZoekResult>(_cache, _log, _decoratee);
         }
 
         private ZoekResult ExecuteHandleOnSut()

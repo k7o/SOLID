@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts
+namespace Contracts.Crosscutting
 {
-    public interface IAmCacheable
+    public interface ICacheSettings
     {
-        string CacheKey { get; }
+        int CacheTimeOut { get; }
     }
 }

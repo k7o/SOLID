@@ -1,4 +1,4 @@
-﻿using Infrastructure;
+﻿using Contracts.Crosscutting;
 using System;
 using System.Diagnostics.Tracing;
 

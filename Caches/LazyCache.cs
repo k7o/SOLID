@@ -1,5 +1,4 @@
-﻿using Contracts;
-using Infrastructure;
+﻿using Contracts.Crosscutting;
 using LazyCache;
 using System;
 

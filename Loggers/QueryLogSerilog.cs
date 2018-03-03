@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Contracts.Crosscutting;
 using Serilog;
 using System;
 

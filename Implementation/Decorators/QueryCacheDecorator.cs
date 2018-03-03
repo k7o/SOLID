@@ -1,4 +1,4 @@
-﻿using Infrastructure;
+﻿using Contracts.Crosscutting;
 using Contracts;
 
 namespace Implementation.Decorators
@@ -7,17 +7,17 @@ namespace Implementation.Decorators
     {
         readonly ICache _cache;
         readonly ILog _log;
-        readonly IQueryHandler<TQuery, TResult> _decorated;
+        readonly IQueryHandler<TQuery, TResult> _decoratee;
 
-        public QueryCacheDecorator(IQueryHandler<TQuery, TResult> decorated, ICache cache, ILog log)
+        public QueryCacheDecorator(ICache cache, ILog log, IQueryHandler<TQuery, TResult> decoratee)
         {
             Guard.IsNotNull(cache, nameof(cache));
             Guard.IsNotNull(log, nameof(log));
-            Guard.IsNotNull(decorated, nameof(decorated));
+            Guard.IsNotNull(decoratee, nameof(decoratee));
 
             _cache = cache;
             _log = log;
-            _decorated = decorated;
+            _decoratee = decoratee;
         }
 
         public TResult Handle(TQuery query)
@@ -27,7 +27,7 @@ namespace Implementation.Decorators
             return _cache.GetOrAdd(key, () =>
             {
                 _log.Informational($"Caching results of {key}");
-                return _decorated.Handle(query);
+                return _decoratee.Handle(query);
             });
         }
     }

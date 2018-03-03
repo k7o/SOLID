@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Infrastructure;
+using Contracts.Crosscutting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace Implementation.Decorators
 { 
-    public class CommandTransactionDecorator<TCommand> : ICommandStrategyHandler<TCommand> 
+    public class CommandStrategyContextDecorator<TCommand> : ICommandStrategyHandler<TCommand> 
         where TCommand : IDataCommand 
     {
-        readonly ICommandStrategyHandler<TCommand> _decorated;
+        readonly ICommandStrategyHandler<TCommand> _decoratee;
         readonly IUnitOfWork _unitOfWork;
 
-        public CommandTransactionDecorator(ICommandStrategyHandler<TCommand> decorated, IUnitOfWork unitOfWork)
+        public CommandStrategyContextDecorator(IUnitOfWork unitOfWork, ICommandStrategyHandler<TCommand> decoratee)
         {
-            Guard.IsNotNull(decorated, nameof(decorated));
+            Guard.IsNotNull(decoratee, nameof(decoratee));
             Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
 
-            _decorated = decorated;
+            _decoratee = decoratee;
             _unitOfWork = unitOfWork;
         }
 
         public void Handle(TCommand command)
         {
-            _decorated.Handle(command);
+            _decoratee.Handle(command);
 
             _unitOfWork.SaveChanges();
         }

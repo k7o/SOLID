@@ -40,11 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeQueryTracer.cs" />
-    <Compile Include="Guard.cs" />
-    <Compile Include="IAmCacheable.cs" />
-    <Compile Include="IAmTraceable.cs" />
-    <Compile Include="ICachedQuery.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandHandler.cs" />
     <Compile Include="ICommandStrategyHandler.cs" />
@@ -55,7 +50,6 @@
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryHandler.cs" />
     <Compile Include="IQueryStrategyHandler.cs" />
-    <Compile Include="IQueryTracer.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

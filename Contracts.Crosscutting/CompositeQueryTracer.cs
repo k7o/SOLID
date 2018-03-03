@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Contracts
+namespace Contracts.Crosscutting
 {
     public class CompositeQueryTracer : IQueryTracer
     {

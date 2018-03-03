@@ -1,5 +1,4 @@
-﻿using Contracts;
-using Infrastructure;
+﻿using Contracts.Crosscutting;
 
 namespace Implementation.Query.Zoek
 {
