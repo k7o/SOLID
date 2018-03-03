@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompositeLog.cs" />
-    <Compile Include="CompositeQueryTracer.cs" />
+    <Compile Include="CompositeTrace.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="HandlerType.cs" />
     <Compile Include="IAmCacheable.cs" />

@@ -53,7 +53,7 @@
     <Compile Include="Decorators\CommandStrategyContextDecorator.cs" />
     <Compile Include="Decorators\QueryArgumentNotNullDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
-    <Compile Include="Decorators\QueryTracerDecorator.cs" />
+    <Compile Include="Decorators\QueryTraceDecorator.cs" />
     <Compile Include="Query\Zoek\AdresQuery.Cacheable.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviStrategyHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnStrategyHandler.cs" />

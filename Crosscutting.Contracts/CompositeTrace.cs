@@ -2,22 +2,22 @@
 
 namespace Crosscutting.Contracts
 {
-    public class CompositeQueryTracer : ITrace
+    public class CompositeTrace : ITrace
     {
         readonly IEnumerable<ITrace> _queryTracers;
 
-        public CompositeQueryTracer(IEnumerable<ITrace> queryTracers)
+        public CompositeTrace(IEnumerable<ITrace> queryTracers)
         {
             Guard.IsNotNull(queryTracers, nameof(queryTracers));
 
             _queryTracers = queryTracers;
         }
 
-        public void Exception(string eventName, string exception)
+        public void Exception(string eventName, string exceptionMessage)
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Exception(eventName, exception);
+                queryTracer.Exception(eventName, exceptionMessage);
             }
         }
 
@@ -29,11 +29,11 @@ namespace Crosscutting.Contracts
             }
         }
 
-        public void Executed(string eventName, string executed)
+        public void Executed(string eventName, string executedWith)
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Executed(eventName, executed);
+                queryTracer.Executed(eventName, executedWith);
             }
         }
 

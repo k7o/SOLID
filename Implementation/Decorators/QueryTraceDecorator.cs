@@ -4,12 +4,12 @@ using System;
 
 namespace Implementation.Decorators
 {
-    public class QueryTracerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
+    public class QueryTraceDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
     {
         readonly IQueryHandler<TQuery, TResult> _decoratee;
         readonly ITrace _queryTracer;
 
-        public QueryTracerDecorator(ITrace queryTracer, IQueryHandler<TQuery, TResult> decoratee)
+        public QueryTraceDecorator(ITrace queryTracer, IQueryHandler<TQuery, TResult> decoratee)
         {
             Guard.IsNotNull(decoratee, nameof(decoratee));
             Guard.IsNotNull(queryTracer, nameof(queryTracer));

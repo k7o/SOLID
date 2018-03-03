@@ -37,7 +37,8 @@ namespace ConsoleApp1
             container.RegisterSingleton(diagnosticPipeline);
             container.Register<ILog, CompositeLog>();
             container.RegisterCollection<ILog>(new[] { typeof(LogEventSource), typeof(LogSerilog) });
-            container.Register<ITrace, TraceEventSource>();
+            container.Register<ITrace, CompositeTrace>();
+            container.RegisterCollection<ITrace>(new[] { typeof(TraceEventSource) });
             // cache
             container.Register<IAppCache>(() => new CachingService());
             container.Register<ICacheSettings, CacheSettings>();
@@ -67,7 +68,7 @@ namespace ConsoleApp1
             // queries
             container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
-                typeof(Implementation.Decorators.QueryTracerDecorator<,>));
+                typeof(Implementation.Decorators.QueryTraceDecorator<,>));
             container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(Implementation.Decorators.QueryArgumentNotNullDecorator<,>));
