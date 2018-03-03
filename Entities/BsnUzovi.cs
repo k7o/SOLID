@@ -17,5 +17,9 @@ namespace Entities
             Bsnnummer = bsnnummer;
             Uzovi = uzovi;
         }
+
+        private BsnUzovi()
+        {
+        }
     }
 }

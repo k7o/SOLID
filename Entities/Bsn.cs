@@ -14,5 +14,9 @@ namespace Entities
         {
             Bsnnummer = bsnnummer;
         }
+
+        private Bsn()
+        {
+        }
     }
 }

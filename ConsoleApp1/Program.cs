@@ -2,7 +2,6 @@
 using LazyCache;
 using Serilog;
 using System;
-using FakeItEasy;
 using SimpleInjector;
 using Implementation.Query.Zoek;
 using Microsoft.Diagnostics.EventFlow;
@@ -12,77 +11,76 @@ using Implementation.Command;
 using Contexts;
 using Microsoft.EntityFrameworkCore;
 using Caches;
+using Implementation.Query.Zoek.Handlers;
+using SimpleInjector.Lifestyles;
 
 namespace ConsoleApp1
 {
     class Program
     {
-        static Container _container;
-
         static void Main(string[] args)
         {
-            // TODO: remove
-
             // Compose DI container (https://simpleinjector.readthedocs.io/en/latest/)
-            _container = new Container();
+            var container = new Container();
+            container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
             // bootstrap
             // diagnostics pipeline
             var diagnosticPipeline = DiagnosticPipelineFactory.CreatePipeline("eventFlowConfig.json"); // TODO: check how this is being disposed
             // logging
-            _container.Register<ILogger>(() =>
+            container.Register<ILogger>(() =>
                 new LoggerConfiguration()
                     .WriteTo
                     .EventFlow(diagnosticPipeline)
                     .CreateLogger());
-            _container.RegisterSingleton(diagnosticPipeline);
-            _container.Register<ILog, CompositeLog>();
-            _container.RegisterCollection<ILog>(new[] { typeof(EventSources.LogEventSource), typeof(Loggers.LogSerilog) });
-            _container.Register<IQueryTracer, EventSources.QueryEventSource>();
+            container.RegisterSingleton(diagnosticPipeline);
+            container.Register<ILog, CompositeLog>();
+            container.RegisterCollection<ILog>(new[] { typeof(EventSources.LogEventSource), typeof(Loggers.LogSerilog) });
+            container.Register<IQueryTracer, EventSources.QueryEventSource>();
             // cache
-            _container.Register<IAppCache>(() => new CachingService());
-            _container.Register<ICacheSettings, CacheSettings>();
-            _container.Register<ICache, Caches.LazyCache>();
+            container.Register<IAppCache>(() => new CachingService());
+            container.Register<ICacheSettings, CacheSettings>();
+            container.Register<ICache, Caches.LazyCache>();
             // db
-            _container.RegisterSingleton<IUnitOfWork>(() => 
+            container.Register<IUnitOfWork>(() => 
                     new WhitelistUnitOfWork(
                             new DbContextOptionsBuilder()
                                 .UseInMemoryDatabase("Whitelist")
-                                .Options)); // TODO: Check lifetime, this should not be a singleton I think
+                                .Options), Lifestyle.Scoped);
             // commands
-            _container.Register(typeof(ICommandStrategyHandler<>), new[] { typeof(AddAdresStrategyCommandHandler).Assembly });
-            _container.Register(typeof(IDataCommandHandler<>), new[] { typeof(AddAdresDataCommandHandler).Assembly });
+            container.Register(typeof(ICommandStrategyHandler<>), new[] { typeof(AddAdresStrategyCommandHandler).Assembly });
+            container.Register(typeof(IDataCommandHandler<>), new[] { typeof(AddAdresDataCommandHandler).Assembly });
             // queries
-            _container.Register(typeof(IQueryStrategyHandler<,>), new[] { typeof(IQueryStrategyHandler<,>).Assembly });
-            _container.Register(typeof(IDataQueryHandler<,>), new[] { typeof(IDataQueryHandler<,>).Assembly });
+            container.Register(typeof(IQueryStrategyHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
+            container.Register(typeof(IDataQueryHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
             // decorators
-            _container.RegisterDecorator(
+            container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(Implementation.Decorators.QueryTracerDecorator<,>));
-            _container.RegisterDecorator(
+            container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(Implementation.Decorators.QueryArgumentNotNullDecorator<,>));
-            _container.RegisterDecorator(
+            container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
                 typeof(Implementation.Decorators.CommandTransactionDecorator<>));
-
             // verify container
-            _container.Verify();
+            container.Verify();
 
+            // application logic
+            using (ThreadScopedLifestyle.BeginScope(container))
+            {
+                var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
+                var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
 
-            // application
+                addAdresCommand.Handle(new AddAdresCommand("1212"));
 
-            var addAdresCommand = _container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
-            var addBsnUzoviCommand = _container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
+                addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("1", 2));
+                addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("3", 4));
+                addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("4", 5));
 
-            addAdresCommand.Handle(new AddAdresCommand("1212"));
-            
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("1", 2));
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("3", 4));
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("4", 5));
+                var zoekAdresQuery = container.GetInstance<IDataQueryHandler<AdresQuery, ZoekResult>>();
+                zoekAdresQuery.Handle(new AdresQuery("1212"));
+            }
 
-            var zoekAdresQuery = _container.GetInstance<IDataQueryHandler<AdresQuery, ZoekResult>>();
-            zoekAdresQuery.Handle(new AdresQuery("1212"));
-            
             Console.ReadLine();
         }
     }

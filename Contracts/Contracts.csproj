@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="CompositeQueryTracer.cs" />
     <Compile Include="Guard.cs" />
+    <Compile Include="IAmCacheable.cs" />
     <Compile Include="IAmTraceable.cs" />
     <Compile Include="ICachedQuery.cs" />
     <Compile Include="ICommand.cs" />

@@ -3,7 +3,7 @@ using Contracts;
 
 namespace Implementation.Decorators
 {
-    public class QueryCacheDecorator<TQuery, TResult> : IDataQueryHandler<TQuery, TResult> where TQuery : ICachedQuery<TResult>
+    public class QueryCacheDecorator<TQuery, TResult> : IDataQueryHandler<TQuery, TResult> where TQuery : IAmCacheable, IDataQuery<TResult>
     {
         readonly ICache _cache;
         readonly ILog _log;

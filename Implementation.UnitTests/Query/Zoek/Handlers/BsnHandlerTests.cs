@@ -3,6 +3,8 @@ using Implementation.Query.Zoek;
 using Implementation.Query.Zoek.Handlers;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Entities;
+using System.Collections.Generic;
 
 namespace Implementation.UnitTests.Query.Zoek.Handlers
 {
@@ -11,6 +13,8 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
     {
         BsnQuery _zoekBsn;
 
+        List<Bsn> _bsns;
+        IRepository<Bsn> _bsnRepository;
         IUnitOfWork _unitOfWork;
 
         BsnDataHandler _sut;
@@ -18,13 +22,16 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         [TestInitialize]
         public void Initialize()
         {
+            _bsns = new List<Bsn>();
+             _bsnRepository = A.Fake<IRepository<Bsn>>();
+
             _unitOfWork = A.Fake<IUnitOfWork>();
         }
 
         [TestMethod]
         public void Should_Return_InWhitelist_False_When_Bsn_Is_Not_Found()
         {
-            _unitOfWork.Repository<BsnQuery>().Add(new BsnQuery(1));
+            _bsns.Add(new Bsn(2));
 
             _zoekBsn = new BsnQuery(1);
 
@@ -36,8 +43,7 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         [TestMethod]
         public void Should_Return_InWhitelist_True_When_Bsn_Is_Found()
         {
-            _unitOfWork.Repository<BsnQuery>().Add(new BsnQuery(1));
-
+            _bsns.Add(new Bsn(1));
 
             _zoekBsn = new BsnQuery(1);
 
@@ -55,7 +61,12 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         {
             CreateSut();
 
-           return _sut.Handle(_zoekBsn);
+            A.CallTo(() => _bsnRepository.GetAll())
+               .Returns(_bsns);
+            A.CallTo(() => _unitOfWork.Repository<Bsn>())
+                .Returns(_bsnRepository);
+
+            return _sut.Handle(_zoekBsn);
         }
     }
 }

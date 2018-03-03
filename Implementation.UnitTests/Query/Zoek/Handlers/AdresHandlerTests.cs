@@ -4,28 +4,33 @@ using Implementation.Query.Zoek;
 using Implementation.Query.Zoek.Handlers;
 using Contracts;
 using Entities;
+using System.Collections.Generic;
 
 namespace Implementation.UnitTests.Query.Zoek.Handlers
 {
     [TestClass]
     public class AdresHandlerTests
     {
-        AdresQuery _zoekAdres;
-
+        IRepository<Adres> _adresRepository;
         IUnitOfWork _unitOfWork;
+        List<Adres> _adressen;
+
+        AdresQuery _zoekAdres;
 
         AdresDataHandler _sut;
 
         [TestInitialize]
         public void Initialize()
         {
+            _adressen = new List<Adres>();
             _unitOfWork = A.Fake<IUnitOfWork>();
+            _adresRepository = A.Fake<IRepository<Adres>>();
         }
 
         [TestMethod]
         public void Should_Return_InWhitelist_False_When_Adress_Is_Not_Found()
         {
-            _unitOfWork.Repository<Adres>().Add(new Adres("1111AA"));
+            _adressen.Add(new Adres("1111AA"));
 
             _zoekAdres = new AdresQuery("1111AB");
 
@@ -37,7 +42,7 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         [TestMethod]
         public void Should_Return_InWhitelist_True_When_Adress_Is_Found()
         {
-            _unitOfWork.Repository<Adres>().Add(new Adres("1111AA"));
+            _adressen.Add(new Adres("1111AA"));
 
             _zoekAdres = new AdresQuery("1111AA");
 
@@ -55,7 +60,10 @@ namespace Implementation.UnitTests.Query.Zoek.Handlers
         {
             CreateSut();
 
-            A.CallTo(() => _unitOfWork.Repository<Adres>());
+            A.CallTo(() => _adresRepository.GetAll())
+                .Returns(_adressen);
+            A.CallTo(() => _unitOfWork.Repository<Adres>())
+                .Returns(_adresRepository);
 
             return _sut.Handle(_zoekAdres);
         }

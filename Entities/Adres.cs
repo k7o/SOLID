@@ -14,5 +14,9 @@ namespace Entities
         {
             Postcode = postcode;
         }
+
+        private Adres()
+        {
+        }
     }
 }

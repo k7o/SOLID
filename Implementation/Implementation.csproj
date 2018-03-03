@@ -7,8 +7,8 @@
     <ProjectGuid>{4F908E41-63CB-48AE-8CE3-FD689E0A56AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClassLibrary1</RootNamespace>
-    <AssemblyName>ClassLibrary1</AssemblyName>
+    <RootNamespace>Implementation</RootNamespace>
+    <AssemblyName>Implementation</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -54,6 +54,7 @@
     <Compile Include="Decorators\QueryArgumentNotNullDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
     <Compile Include="Decorators\QueryTracerDecorator.cs" />
+    <Compile Include="Query\Zoek\AdresQuery.Cacheable.cs" />
     <Compile Include="Query\Zoek\Handlers\AdresDataHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnDataHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviDataHandler.cs" />

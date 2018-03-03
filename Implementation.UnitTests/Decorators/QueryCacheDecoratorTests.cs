@@ -11,31 +11,28 @@ namespace Implementation.UnitTests.Decorators
     [TestClass]
     public class QueryCacheDecoratorTests
     {
-        IQueryHandler<BsnQuery, ZoekResult> _decorated;
+        IQueryHandler<AdresQuery, ZoekResult> _decorated;
 
         ILog _log;
         ICache _cache;
-        IUnitOfWork _unitOfWork;
 
-        BsnQuery _bsnQuery;
+        AdresQuery _adresQuery;
 
-        QueryCacheDecorator<BsnQuery, ZoekResult> _sut;
+        QueryCacheDecorator<AdresQuery, ZoekResult> _sut;
 
         [TestInitialize]
         public void Initialize()
         {
             _log = A.Fake<ILog>();
             _cache = A.Fake<ICache>();
-            
-            _unitOfWork = A.Fake<IUnitOfWork>();
-            _decorated = A.Fake<IQueryHandler<BsnQuery, ZoekResult>>();
+            _decorated = A.Fake<IQueryHandler<AdresQuery, ZoekResult>>();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public void Ctr_Should_Throw_ArgumentNullException_When_UnitOfWork_Is_Null()
+        public void Ctr_Should_Throw_ArgumentNullException_When_Decorated_Is_Null()
         {
-            _unitOfWork = null;
+            _decorated = null;
 
             ExecuteHandleOnSut();
         }
@@ -61,24 +58,24 @@ namespace Implementation.UnitTests.Decorators
         [TestMethod]
         public void Handle_Should_Call_GetOrAdd_On_AppCache()
         {
-            _bsnQuery = new BsnQuery(1);
+            _adresQuery = new AdresQuery("1111AA");
 
             ExecuteHandleOnSut();
 
-            A.CallTo(() => _cache.GetOrAdd(A<string>.Ignored, A<Func<BsnQuery>>.Ignored))
+            A.CallTo(() => _cache.GetOrAdd(A<string>.Ignored, A<Func<ZoekResult>>.Ignored))
                 .MustHaveHappened();
         }
 
         private void CreateSut()
         {
-            _sut = new QueryCacheDecorator<BsnQuery, ZoekResult>(_decorated, _cache, _log);
+            _sut = new QueryCacheDecorator<AdresQuery, ZoekResult>(_decorated, _cache, _log);
         }
 
         private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 
-            return _sut.Handle(_bsnQuery);
+            return _sut.Handle(_adresQuery);
         }
     }
 }
