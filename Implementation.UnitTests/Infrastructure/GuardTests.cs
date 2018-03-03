@@ -2,11 +2,11 @@
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using FakeItEasy;
 using Contracts;
 
-namespace Implementation.UnitTests.Contracts.Crosscutting
+namespace Implementation.UnitTests.Crosscutting.Contracts
 {
     /// <summary>
     /// Summary description for GuardTests

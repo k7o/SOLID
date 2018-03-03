@@ -1,8 +1,8 @@
-﻿using Contracts.Crosscutting;
+﻿using Crosscutting.Contracts;
 using LazyCache;
 using System;
 
-namespace Caches
+namespace Crosscutting.Caches
 {
     public class LazyCache : ICache
     {

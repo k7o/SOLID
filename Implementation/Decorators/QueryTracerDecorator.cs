@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using System;
 
 namespace Implementation.Decorators
@@ -7,9 +7,9 @@ namespace Implementation.Decorators
     public class QueryTracerDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
     {
         readonly IQueryHandler<TQuery, TResult> _decoratee;
-        readonly IQueryTracer _queryTracer;
+        readonly ITrace _queryTracer;
 
-        public QueryTracerDecorator(IQueryTracer queryTracer, IQueryHandler<TQuery, TResult> decoratee)
+        public QueryTracerDecorator(ITrace queryTracer, IQueryHandler<TQuery, TResult> decoratee)
         {
             Guard.IsNotNull(decoratee, nameof(decoratee));
             Guard.IsNotNull(queryTracer, nameof(queryTracer));

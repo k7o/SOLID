@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Contracts;
 using Entities;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 
 namespace Implementation.Query.Zoek.Handlers
 {

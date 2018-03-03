@@ -1,11 +1,6 @@
-﻿using Contracts.Crosscutting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Crosscutting.Contracts;
 
-namespace Caches
+namespace Crosscutting.Caches
 {
     public class CacheSettings : ICacheSettings
     {

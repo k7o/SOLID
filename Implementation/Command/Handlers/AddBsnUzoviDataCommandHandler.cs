@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using Entities;
 
 namespace Implementation.Command.Handlers

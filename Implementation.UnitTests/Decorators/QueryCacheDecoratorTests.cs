@@ -3,7 +3,7 @@ using Implementation.Decorators;
 using Contracts;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using Implementation.Query.Zoek;
 
 namespace Implementation.UnitTests.Decorators

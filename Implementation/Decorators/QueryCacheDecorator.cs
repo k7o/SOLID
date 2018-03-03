@@ -1,4 +1,4 @@
-﻿using Contracts.Crosscutting;
+﻿using Crosscutting.Contracts;
 using Contracts;
 
 namespace Implementation.Decorators

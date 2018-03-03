@@ -15,6 +15,7 @@ namespace Entities
             Bsnnummer = bsnnummer;
         }
 
+        // Default constructors are needed for certain ORM frameworks
         private Bsn()
         {
         }

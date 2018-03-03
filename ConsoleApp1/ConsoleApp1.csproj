@@ -237,41 +237,37 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Caches\Caches.csproj">
-      <Project>{51d95066-ecd8-4363-b472-c7acc1867735}</Project>
-      <Name>Caches</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Contexts\Contexts.csproj">
       <Project>{ef0a9fe9-299b-4845-840d-d7228fe69f45}</Project>
       <Name>Contexts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Contracts.Crosscutting\Contracts.Crosscutting.csproj">
-      <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
-      <Name>Contracts.Crosscutting</Name>
+    <ProjectReference Include="..\Contracts.Proxies\Contracts.Proxies.csproj">
+      <Project>{b5b8febe-1b48-4611-a7a9-3cf1e831a3c3}</Project>
+      <Name>Contracts.Proxies</Name>
     </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj">
+      <Project>{51D95066-ECD8-4363-B472-C7ACC1867735}</Project>
+      <Name>Crosscutting.Caches</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
+      <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
+      <Name>Crosscutting.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Loggers\Crosscutting.Loggers.csproj">
+      <Project>{39DBC122-54BA-4FCC-AE0F-1B864884714B}</Project>
+      <Name>Crosscutting.Loggers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
       <Name>Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EventSources\EventSources.csproj">
-      <Project>{929e0bc2-43b5-4d68-805f-0d5baa896a4b}</Project>
-      <Name>EventSources</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Implementation\Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
       <Name>Implementation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Loggers\Loggers.csproj">
-      <Project>{39dbc122-54ba-4fcc-ae0f-1b864884714b}</Project>
-      <Name>Loggers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Proxies\Proxies.csproj">
-      <Project>{b5b8febe-1b48-4611-a7a9-3cf1e831a3c3}</Project>
-      <Name>Proxies</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

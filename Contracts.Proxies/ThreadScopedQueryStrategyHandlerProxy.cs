@@ -1,10 +1,10 @@
 ﻿using Contracts;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
 
-namespace Proxies
+namespace Contracts.Proxies
 {
     public class ThreadScopedQueryStrategyHandlerProxy<TQuery, TResult> : IQueryStrategyHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {

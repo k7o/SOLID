@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts.Crosscutting
+namespace Crosscutting.Contracts
 {
-    public interface IQueryTracer
+    public interface ITrace
     {
         void Exception(string eventName, string exception);
         void Execute(string eventName);

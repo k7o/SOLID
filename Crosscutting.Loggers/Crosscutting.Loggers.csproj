@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B5B8FEBE-1B48-4611-A7A9-3CF1E831A3C3}</ProjectGuid>
+    <ProjectGuid>{39DBC122-54BA-4FCC-AE0F-1B864884714B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Proxies</RootNamespace>
-    <AssemblyName>Proxies</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Crosscutting.Loggers</RootNamespace>
+    <AssemblyName>Crosscutting.Loggers</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SimpleInjector, Version=4.0.12.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
-      <HintPath>..\packages\SimpleInjector.4.0.12\lib\net45\SimpleInjector.dll</HintPath>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,21 +44,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogEventSource.cs" />
+    <Compile Include="LogSerilog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ThreadScopedCommandStrategyHandlerProxy.cs" />
-    <Compile Include="ThreadScopedQueryStrategyHandlerProxy.cs" />
+    <Compile Include="TraceEventSource.cs" />
+    <Compile Include="TraceSerilog.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="README.md" />
+    <None Include="_EventRegisterUsersGuide.docx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts.Crosscutting\Contracts.Crosscutting.csproj">
-      <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>
-      <Name>Contracts.Crosscutting</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
+      <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
+      <Name>Crosscutting.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

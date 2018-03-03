@@ -1,4 +1,4 @@
-﻿using Contracts.Crosscutting;
+﻿using Crosscutting.Contracts;
 
 namespace Implementation.Query.Zoek
 {
@@ -6,27 +6,27 @@ namespace Implementation.Query.Zoek
     {
         private const string EventName = "AdresQuery";
 
-        public void Start(IQueryTracer queryTracer)
+        public void Start(ITrace queryTracer)
         {
             queryTracer.Start(EventName);
         }
 
-        public void Stop(IQueryTracer queryTracer)
+        public void Stop(ITrace queryTracer)
         {
             queryTracer.Stop(EventName, Postcode);
         }
 
-        public void Excute(IQueryTracer queryTracer)
+        public void Excute(ITrace queryTracer)
         {
             queryTracer.Execute(EventName);
         }
 
-        public void Excuted(IQueryTracer queryTracer)
+        public void Excuted(ITrace queryTracer)
         {
             queryTracer.Executed(EventName, Postcode);
         }
 
-        public void Exception(IQueryTracer queryTracer)
+        public void Exception(ITrace queryTracer)
         {
             queryTracer.Exception(EventName, Postcode);
         }

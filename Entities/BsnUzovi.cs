@@ -18,6 +18,7 @@ namespace Entities
             Uzovi = uzovi;
         }
 
+        // Default constructors are needed for certain ORM frameworks
         private BsnUzovi()
         {
         }

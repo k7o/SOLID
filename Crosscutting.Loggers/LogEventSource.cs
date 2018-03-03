@@ -1,8 +1,8 @@
-﻿using Contracts.Crosscutting;
+﻿using Crosscutting.Contracts;
 using System;
 using System.Diagnostics.Tracing;
 
-namespace EventSources
+namespace Crosscutting.Loggers
 {
     public class LogEventSource : ILog
     {

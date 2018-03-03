@@ -1,10 +1,10 @@
 ﻿using Contracts;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
 
-namespace Proxies
+namespace Contracts.Proxies
 {
     public class ThreadScopedCommandStrategyHandlerProxy<TCommand> : ICommandStrategyHandler<TCommand> where TCommand : ICommand
     {

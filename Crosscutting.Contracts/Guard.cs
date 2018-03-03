@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Contracts.Crosscutting
+namespace Crosscutting.Contracts
 {
     public static class Guard
     {

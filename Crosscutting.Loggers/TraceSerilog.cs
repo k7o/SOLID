@@ -1,14 +1,14 @@
-﻿using Contracts.Crosscutting;
+﻿using Crosscutting.Contracts;
 using Serilog;
 using System;
 
-namespace Loggers
+namespace Crosscutting.Loggers
 {
-    public class QueryLogSerilog : IQueryTracer
+    public class TraceSerilog : ITrace
     {
         readonly ILogger _logger;
 
-        public QueryLogSerilog(ILogger logger)
+        public TraceSerilog(ILogger logger)
         {
             Guard.IsNotNull(logger, "logger");
 

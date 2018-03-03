@@ -6,14 +6,15 @@ using SimpleInjector;
 using Implementation.Query.Zoek;
 using Microsoft.Diagnostics.EventFlow;
 using Implementation.Command.Handlers;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using Implementation.Command;
 using Contexts;
 using Microsoft.EntityFrameworkCore;
-using Caches;
 using Implementation.Query.Zoek.Handlers;
 using SimpleInjector.Lifestyles;
-using Proxies;
+using Crosscutting.Caches;
+using Crosscutting.Loggers;
+using Contracts.Proxies;
 
 namespace ConsoleApp1
 {
@@ -35,12 +36,12 @@ namespace ConsoleApp1
                     .CreateLogger());
             container.RegisterSingleton(diagnosticPipeline);
             container.Register<ILog, CompositeLog>();
-            container.RegisterCollection<ILog>(new[] { typeof(EventSources.LogEventSource), typeof(Loggers.LogSerilog) });
-            container.Register<IQueryTracer, EventSources.QueryEventSource>();
+            container.RegisterCollection<ILog>(new[] { typeof(LogEventSource), typeof(LogSerilog) });
+            container.Register<ITrace, TraceEventSource>();
             // cache
             container.Register<IAppCache>(() => new CachingService());
             container.Register<ICacheSettings, CacheSettings>();
-            container.Register<ICache, Caches.LazyCache>();
+            container.Register<ICache, Crosscutting.Caches.LazyCache>();
             // db
             container.Register<IUnitOfWork>(() => 
                     new WhitelistUnitOfWork(

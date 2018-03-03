@@ -1,42 +1,42 @@
-﻿using Contracts.Crosscutting;
+﻿using Crosscutting.Contracts;
 using System;
 using System.Diagnostics.Tracing;
 
-namespace EventSources
+namespace Crosscutting.Loggers
 {
-    public class QueryEventSource : IQueryTracer
+    public class TraceEventSource : ITrace
     {
-        private static readonly Lazy<NestedQueryEventSource> Instance =
-              new Lazy<NestedQueryEventSource>(() => new NestedQueryEventSource());
-        private static NestedQueryEventSource InnerLog { get { return Instance.Value; } }
+        private static readonly Lazy<NestedTraceEventSource> Instance =
+              new Lazy<NestedTraceEventSource>(() => new NestedTraceEventSource());
+        private static NestedTraceEventSource InnerLog { get { return Instance.Value; } }
 
         public void Execute(string eventName)
         {
-            InnerLog.QueryExecute(eventName);
+            InnerLog.TraceExecute(eventName);
         }
 
         public void Executed(string eventName, string executed)
         {
-            InnerLog.QueryExecuted(eventName, executed);
+            InnerLog.TraceExecuted(eventName, executed);
         }
 
         public void Start(string eventName)
         {
-            InnerLog.QueryStart(eventName);
+            InnerLog.TraceStart(eventName);
         }
 
         public void Stop(string eventName, string stop)
         {
-            InnerLog.QueryStop(eventName, stop);
+            InnerLog.TraceStop(eventName, stop);
         }
 
         public void Exception(string eventName, string exception)
         {
-            InnerLog.QueryException(eventName, exception);
+            InnerLog.TraceException(eventName, exception);
         }
 
         [EventSource(Name = "QueryEventSource")]
-        private sealed class NestedQueryEventSource : EventSource
+        private sealed class NestedTraceEventSource : EventSource
         {
             private static class Keywords
             {
@@ -51,35 +51,35 @@ namespace EventSources
             }
 
             [Event(1, Message = "Exception thrown")]
-            public void QueryException(string eventName, string exceptionValue)
+            public void TraceException(string eventName, string exceptionValue)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(1, eventName, exceptionValue);
             }
 
             [Event(2, Message = "Start {0}")]
-            public void QueryStart(string eventName)
+            public void TraceStart(string eventName)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(2, eventName);
             }
 
             [Event(3, Message = "Stop {0}")]
-            public void QueryStop(string eventName, string queryStopValue)
+            public void TraceStop(string eventName, string queryStopValue)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(3, eventName, queryStopValue);
             }
 
             [Event(4, Message = "Execute {0}")]
-            public void QueryExecute(string eventName)
+            public void TraceExecute(string eventName)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(4, eventName);
             }
 
             [Event(5, Message = "Executed {0}")]
-            public void QueryExecuted(string eventName, string executedValue)
+            public void TraceExecuted(string eventName, string executedValue)
             {
                 if (this.IsEnabled())
                     this.WriteEvent(5, eventName, executedValue);

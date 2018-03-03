@@ -1,6 +1,6 @@
 ﻿using System;
 using Implementation.Decorators;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using Implementation.Query.Zoek;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -1,5 +1,5 @@
 ﻿using Contracts;
-using Contracts.Crosscutting;
+using Crosscutting.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 

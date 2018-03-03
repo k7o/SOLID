@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Contracts.Crosscutting
+namespace Crosscutting.Contracts
 {
-    public class CompositeQueryTracer : IQueryTracer
+    public class CompositeQueryTracer : ITrace
     {
-        readonly IEnumerable<IQueryTracer> _queryTracers;
+        readonly IEnumerable<ITrace> _queryTracers;
 
-        public CompositeQueryTracer(IEnumerable<IQueryTracer> queryTracers)
+        public CompositeQueryTracer(IEnumerable<ITrace> queryTracers)
         {
             Guard.IsNotNull(queryTracers, nameof(queryTracers));
 

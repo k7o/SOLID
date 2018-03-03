@@ -14,7 +14,8 @@ namespace Entities
         {
             Postcode = postcode;
         }
-
+        
+        // Default constructors are needed for certain ORM frameworks
         private Adres()
         {
         }
