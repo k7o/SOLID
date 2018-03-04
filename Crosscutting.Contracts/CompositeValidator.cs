@@ -23,7 +23,7 @@ namespace Crosscutting.Contracts
             foreach (var validator in this.validators)
             {
                 var result = validator.Validate(instance);
-                allResults = ValidationResults.Join(allResults, result);
+                 allResults = ValidationResults.Join(allResults, result);
             }
 
             return allResults;

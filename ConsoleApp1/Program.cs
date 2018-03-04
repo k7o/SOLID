@@ -51,25 +51,19 @@ namespace ConsoleApp1
                             new DbContextOptionsBuilder()
                                 .UseInMemoryDatabase("Whitelist")
                                 .Options), Lifestyle.Scoped);
+            // validation
+            container.Register(typeof(IValidator<>), typeof(CompositeValidator<>));
+            container.RegisterCollection(typeof(IValidator<>),
+                new[] {
+                    typeof(DataAnnotationValidator<>),
+                    typeof(NullValidator<>)
+            });
             // commands
             container.Register(typeof(ICommandStrategyHandler<>), new[] { typeof(AddAdresStrategyCommandHandler).Assembly });
             container.Register(typeof(IDataCommandHandler<>), new[] { typeof(AddAdresDataCommandHandler).Assembly });
             // queries
             container.Register(typeof(IQueryStrategyHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
             container.Register(typeof(IDataQueryHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
-            // validation
-            container.RegisterCollection(typeof(IValidator<>), new[]
-            {
-                typeof(DataAnnotationValidator<>).Assembly,
-                typeof(NullValidator<>).Assembly
-            });
-            container.Register(typeof(IValidator<>), new[]
-            {
-                typeof(DataAnnotationValidator<>).Assembly,
-                typeof(NullValidator<>).Assembly
-            });
-            container.RegisterConditional(typeof(IValidator<>), typeof(NullValidator<>),
-                c => !c.Handled);
             // decorators
             //context
             container.RegisterDecorator(
@@ -100,11 +94,18 @@ namespace ConsoleApp1
             // verify container
             container.Verify();
 
+
+
+
+
+
+
+
             // application logic
             var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
             var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
 
-            addAdresCommand.Handle(new AddAdresCommand("1212"));
+            addAdresCommand.Handle(new AddAdresCommand(""));
 
             addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("1", 2));
             addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("3", 4));

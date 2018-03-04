@@ -27,7 +27,7 @@ namespace Implementation.Decorators
         {
             if (_validator.Validate(command) != ValidationResults.Success)
             {
-                throw new Exception("Invalid");
+                throw new BrokenRulesException("Invalid");
             }
 
             _decoratee.Handle(command);
