@@ -1,7 +1,9 @@
-﻿namespace Crosscutting.Contracts
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Crosscutting.Contracts
 {
-    public interface IValidator<in T>
+    public interface IValidator<in TInstance>
     {
-        ValidationResults Validate(T instance);
+        ValidationResults Validate(TInstance instance);
     }
 }

@@ -15,6 +15,8 @@ using SimpleInjector.Lifestyles;
 using Crosscutting.Caches;
 using Crosscutting.Loggers;
 using Contracts.Proxies;
+using Entities;
+using Implementation.Validators;
 
 namespace ConsoleApp1
 {
@@ -55,11 +57,28 @@ namespace ConsoleApp1
             // queries
             container.Register(typeof(IQueryStrategyHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
             container.Register(typeof(IDataQueryHandler<,>), new[] { typeof(AdresDataHandler).Assembly });
+            // validation
+            container.RegisterCollection(typeof(IValidator<>), new[]
+            {
+                typeof(DataAnnotationValidator<>).Assembly,
+                typeof(NullValidator<>).Assembly
+            });
+            container.Register(typeof(IValidator<>), new[]
+            {
+                typeof(DataAnnotationValidator<>).Assembly,
+                typeof(NullValidator<>).Assembly
+            });
+            container.RegisterConditional(typeof(IValidator<>), typeof(NullValidator<>),
+                c => !c.Handled);
             // decorators
-            // commands
+            //context
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
                 typeof(Implementation.Decorators.CommandStrategyContextDecorator<>));
+            // validators
+            container.RegisterDecorator(
+                typeof(ICommandStrategyHandler<>),
+                typeof(Implementation.Decorators.CommandStrategyValidatorDecorator<>));
             // run every commandstrategy in own scope
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
