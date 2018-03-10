@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{C139D75A-9E57-48A2-BD57-435D445D2E84}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
+		sonarcloud.cmd = sonarcloud.cmd
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{591B486D-B469-49EE-9583-F6F820DAC5FA}"

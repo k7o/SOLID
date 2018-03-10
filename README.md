@@ -15,3 +15,17 @@ https://cuttingedge.it/blogs/steven/pivot/entry.php?id=91
 https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92
 
 https://simpleinjector.readthedocs.io/en/latest/
+
+
+
+
+
+To publish metrics to https://sonarcloud.io/dashboard?id=SOLID, execute:
+
+sonarcloud.cmd (check file for publish instructions)
+
+
+
+Issues (?):
+
+WARNING: WARN: Property missing: 'sonar.cs.analyzer.projectOutPaths'. No protobuf files will be loaded for this project.

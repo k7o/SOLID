@@ -105,7 +105,7 @@ namespace ConsoleApp1
             var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
             var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
 
-            addAdresCommand.Handle(new AddAdresCommand(""));
+            addAdresCommand.Handle(new AddAdresCommand("1234567890"));
 
             addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("1", 2));
             addBsnUzoviCommand.Handle(new AddBsnUzoviCommand("3", 4));

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="Build">
+    <CallTarget Targets="PreBuild"/>
+    <CallTarget Targets="SOLID"/>
+    <CallTarget Targets="PostBuild"/>
+  </Target>
+  <Target Name="PreBuild">
+    <Message Text="Pre Build" />
+    ...
+  </Target>
+  <Target Name="PostBuild">
+    <Message Text="Post Build" />
+    ...
+  </Target>
+  <Target Name="SOLID" Outputs="@(SOLIDOutput)">
+    <Message Text="Building SOLID" />
+    <MSBuild Targets="Rebuild"
+             Projects="SOLID.sln"
+             Properties="Configuration=Signed Release; Platform=Any CPU; BuildingSolutionFile=true;">
+      <Output TaskParameter="TargetOutputs" ItemName="SOLIDOutput" />
+    </MSBuild>
+    <Message Text="Done building SOLID" />
+  </Target>
+</Project>
