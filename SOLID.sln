@@ -31,6 +31,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts.Proxies", "Contra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Contracts.UnitTests", "Crosscutting.Contracts.UnitTests\Crosscutting.Contracts.UnitTests.csproj", "{88E4D535-DB84-47E6-8347-914881B4D9A6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{142D1B08-417D-4028-8CB3-99DE6C356FDC}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\SOLIDCSharp.ruleset = SonarQube\SOLIDCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

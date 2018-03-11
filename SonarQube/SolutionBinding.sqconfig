@@ -1,0 +1,14 @@
+{
+  "ServerUri": "https://sonarcloud.io/dashboard?id=SOLID/",
+  "Organization": {
+    "Key": "k7o-github",
+    "Name": "k7o"
+  },
+  "ProjectKey": "SOLID",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWAy8H-doETz9fUAFM49",
+      "ProfileTimestamp": "2018-03-10T20:24:12+01:00"
+    }
+  }
+}
