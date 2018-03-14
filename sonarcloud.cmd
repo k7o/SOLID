@@ -7,12 +7,18 @@ REM Change path to where SOLID.sln is located (eg. D:\Projects\SOLID)
 REM Set execution directory of scanner utility
 SET ScannerLocation=D:\SonarQube\Scanner
 
+REM Setup
+SET Host=https://sonarcloud.io
+SET Organisation=k7o-github
+SET Solution=SOLID
+SET LoginKey=36b8a72519d4a43f387d04d009ed212638d9b615
+
 REM Remove previous testresults and coverage
 rd /s /q "%CD%\TestResults"
 md "%CD%\TestResults"
 
 REM Start analyzer
-%ScannerLocation%\SonarQube.Scanner.MSBuild.exe begin /k:"SOLID" /d:sonar.organization="k7o-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="de76097ef248e051959c31eb08f27898c306f311" /d:sonar.cs.vstest.reportsPaths="%CD%\TestResults\*.trx" /d:sonar.cs.vscoveragexml.reportsPaths="%CD%\TestResults\*.coveragexml"
+%ScannerLocation%\SonarQube.Scanner.MSBuild.exe begin /k:"%Solution%" /d:sonar.organization="%Organisation%" /d:sonar.host.url="%Host%" /d:sonar.login="%LoginKey%" /d:sonar.cs.vstest.reportsPaths="%CD%\TestResults\*.trx" /d:sonar.cs.vscoveragexml.reportsPaths="%CD%\TestResults\*.coveragexml"
 
 REM (re)Build solution
 MsBuild.exe /t:Rebuild SOLID.sln
@@ -23,4 +29,4 @@ REM Save coverage as xml
 "%VSINSTALLDIR%\Team Tools\Dynamic Code Coverage Tools\CodeCoverage.exe" analyze /output:"%CD%\\TestResults\VisualStudio.coveragexml" "%CD%\TestResults\VisualStudio.coverage"
 
 REM Stop analyzing and generate/deploy report
-%ScannerLocation%\SonarQube.Scanner.MSBuild.exe end /d:sonar.login="de76097ef248e051959c31eb08f27898c306f311"
+%ScannerLocation%\SonarQube.Scanner.MSBuild.exe end /d:sonar.login="%LoginKey%"
