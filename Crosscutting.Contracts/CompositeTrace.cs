@@ -45,11 +45,11 @@ namespace Crosscutting.Contracts
             }
         }
 
-        public void Stop(string eventName, string stop)
+        public void Stop(string eventName, string stopped)
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Stop(eventName, stop);
+                queryTracer.Stop(eventName, stopped);
             }
         }
     }

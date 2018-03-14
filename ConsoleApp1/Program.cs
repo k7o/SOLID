@@ -20,7 +20,7 @@ using Implementation.Validators;
 
 namespace ConsoleApp1
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
@@ -113,8 +113,9 @@ namespace ConsoleApp1
 
             var zoekAdresQuery = container.GetInstance<IQueryStrategyHandler<AdresQuery, ZoekResult>>();
             if (!zoekAdresQuery.Handle(new AdresQuery("1212")).InWhitelist)
+            {
                 throw new Exception("Not found");
-
+            }
         }
     }
 }

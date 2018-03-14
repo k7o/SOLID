@@ -12,6 +12,6 @@ namespace Crosscutting.Contracts
         void Execute(string eventName);
         void Executed(string eventName, string executedWith);
         void Start(string eventName);
-        void Stop(string eventName, string stop);
+        void Stop(string eventName, string stopped);
     }
 }

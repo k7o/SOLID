@@ -69,28 +69,36 @@ namespace Crosscutting.Loggers
             public void Debug(string eventName, string message)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(1, eventName, message);
+                }
             }
 
             [Event(2, Message = "Exception: {0}")]
             public void Exception(string eventName, string message)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(2, eventName, message);
+                }
             }
 
             [Event(3, Message = "Informational: {0}")]
             public void Informational(string eventName, string message)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(3, eventName, message);
+                }
             }
 
             [Event(4, Message = "Warning: {0}")]
             public void Warning(string eventName, string message)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(4, eventName, message);
+                }
             }
         }
     }

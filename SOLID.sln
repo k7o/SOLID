@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{C139D75A-9E57-48A2-BD57-435D445D2E84}"
 	ProjectSection(SolutionItems) = preProject
+		default.runsettings = default.runsettings
 		README.md = README.md
 		sonarcloud.cmd = sonarcloud.cmd
 	EndProjectSection

@@ -8,14 +8,14 @@ namespace Crosscutting.Contracts
 {
     public interface IAmTraceable
     {
-        void Start(ITrace queryTracer);
+        void Start(ITrace trace);
 
-        void Stop(ITrace queryTracer);
+        void Stop(ITrace trace);
 
-        void Excute(ITrace queryTracer);
+        void Excute(ITrace trace);
 
-        void Excuted(ITrace queryTracer);
+        void Excuted(ITrace trace);
 
-        void Exception(ITrace queryTracer);
+        void Exception(ITrace trace);
     }
 }

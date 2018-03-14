@@ -20,6 +20,11 @@ namespace Implementation.Decorators
 
         public TResult Handle(TQuery query)
         {
+            if (Equals(query, default(TQuery)))
+            {
+                throw new ArgumentNullException(nameof(query));
+            }
+
             query.Start(_queryTracer);
 
             TResult result;

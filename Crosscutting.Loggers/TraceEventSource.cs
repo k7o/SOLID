@@ -25,9 +25,9 @@ namespace Crosscutting.Loggers
             InnerLog.TraceStart(eventName);
         }
 
-        public void Stop(string eventName, string stop)
+        public void Stop(string eventName, string stopped)
         {
-            InnerLog.TraceStop(eventName, stop);
+            InnerLog.TraceStop(eventName, stopped);
         }
 
         public void Exception(string eventName, string exceptionMessage)
@@ -55,35 +55,45 @@ namespace Crosscutting.Loggers
             public void TraceException(string eventName, string exceptionValue)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(1, eventName, exceptionValue);
+                }
             }
 
             [Event(2, Message = "Start {0}")]
             public void TraceStart(string eventName)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(2, eventName);
+                }
             }
 
             [Event(3, Message = "Stop {0}")]
             public void TraceStop(string eventName, string queryStopValue)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(3, eventName, queryStopValue);
+                }
             }
 
             [Event(4, Message = "Execute {0}")]
             public void TraceExecute(string eventName)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(4, eventName);
+                }
             }
 
             [Event(5, Message = "Executed {0}")]
             public void TraceExecuted(string eventName, string executedValue)
             {
                 if (this.IsEnabled())
+                {
                     this.WriteEvent(5, eventName, executedValue);
+                }
             }
         }
     }

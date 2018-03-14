@@ -12,14 +12,9 @@ namespace Implementation.Validators
 
             var validationResults = new List<ValidationResult>();
 
-            if (Validator.TryValidateObject(instance, context, validationResults))
-            {
-                return ValidationResults.Success;
-            }
-            else
-            {
-                return new ValidationResults(validationResults);
-            }
+            return Validator.TryValidateObject(instance, context, validationResults) ? 
+                ValidationResults.Success : 
+                new ValidationResults(validationResults);
         }
     }
 }

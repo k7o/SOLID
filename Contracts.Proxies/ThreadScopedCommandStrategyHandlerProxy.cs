@@ -27,7 +27,7 @@ namespace Contracts.Proxies
             {
                 var handler = this._decorateeFactory.Invoke();
                 handler.Handle(command);
-            };
+            }
         }
     }
 }

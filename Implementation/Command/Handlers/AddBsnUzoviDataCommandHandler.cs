@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
 using Entities;
+using System.Globalization;
 
 namespace Implementation.Command.Handlers
 {
@@ -19,7 +20,7 @@ namespace Implementation.Command.Handlers
         {
             _unitOfWork
                 .Repository<BsnUzovi>()
-                .Add(new BsnUzovi(int.Parse(command.Bsnnummer), command.Uzovi));
+                .Add(new BsnUzovi(int.Parse(command.Bsnnummer, CultureInfo.InvariantCulture), command.Uzovi));
         }
     }
 }

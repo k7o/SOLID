@@ -20,9 +20,9 @@ namespace Crosscutting.Loggers
             _logger.Error(ex, $"execute {eventName}");
         }
 
-        public void Exception(string eventName, string exception)
+        public void Exception(string eventName, string exceptionMessage)
         {
-            _logger.Error($"exception thrown on {eventName} ({exception})");
+            _logger.Error($"exception thrown on {eventName} ({exceptionMessage})");
         }
 
         public void Execute(string eventName)
@@ -30,9 +30,9 @@ namespace Crosscutting.Loggers
             _logger.Information($"execute {eventName}");
         }
 
-        public void Executed(string eventName, string executed)
+        public void Executed(string eventName, string executedWith)
         {
-            _logger.Information($"executed {eventName} with value {executed}");
+            _logger.Information($"executed {eventName} with value {executedWith}");
         }
 
         public void Start(string eventName)
@@ -40,9 +40,9 @@ namespace Crosscutting.Loggers
             _logger.Information($"start {eventName}");
         }
 
-        public void Stop(string eventName, string stop)
+        public void Stop(string eventName, string stopped)
         {
-            _logger.Information($"stop {eventName} with value {stop}");
+            _logger.Information($"stop {eventName} with value {stopped}");
         }
     }
 }

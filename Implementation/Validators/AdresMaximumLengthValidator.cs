@@ -7,14 +7,9 @@ namespace Implementation.Validators
     {
         public ValidationResults Validate(AddAdresCommand instance)
         {
-            if (instance.Postcode.Length <= 7)
-            {
-                return ValidationResults.Success;
-            }
-            else
-            {
-                return new ValidationResults("Postcode too long");
-            }
+            return instance.Postcode.Length <= 7 ? 
+                ValidationResults.Success : 
+                new ValidationResults("Postcode too long");
         }
     }
 }

@@ -2,6 +2,8 @@
 using Contracts;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Crosscutting.Contracts;
+using System;
 
 namespace Contexts
 {
@@ -28,6 +30,8 @@ namespace Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            Guard.IsNotNull(modelBuilder, nameof(modelBuilder));
+
             modelBuilder.Entity<Adres>(adres =>
             {
                 adres.HasKey(primaryKey => primaryKey.Postcode);

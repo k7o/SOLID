@@ -6,29 +6,39 @@ namespace Implementation.Query.Zoek
     {
         private const string EventName = "AdresQuery";
 
-        public void Start(ITrace queryTracer)
+        public void Start(ITrace trace)
         {
-            queryTracer.Start(EventName);
+            Guard.IsNotNull(trace, nameof(trace));
+
+            trace.Start(EventName);
         }
 
-        public void Stop(ITrace queryTracer)
+        public void Stop(ITrace trace)
         {
-            queryTracer.Stop(EventName, Postcode);
+            Guard.IsNotNull(trace, nameof(trace));
+
+            trace.Stop(EventName, Postcode);
         }
 
-        public void Excute(ITrace queryTracer)
+        public void Excute(ITrace trace)
         {
-            queryTracer.Execute(EventName);
+            Guard.IsNotNull(trace, nameof(trace));
+
+            trace.Execute(EventName);
         }
 
-        public void Excuted(ITrace queryTracer)
+        public void Excuted(ITrace trace)
         {
-            queryTracer.Executed(EventName, Postcode);
+            Guard.IsNotNull(trace, nameof(trace));
+
+            trace.Executed(EventName, Postcode);
         }
 
-        public void Exception(ITrace queryTracer)
+        public void Exception(ITrace trace)
         {
-            queryTracer.Exception(EventName, Postcode);
+            Guard.IsNotNull(trace, nameof(trace));
+
+            trace.Exception(EventName, Postcode);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Contracts.Proxies
                 // Create the decorateeFactory within the scope.
                 IQueryStrategyHandler<TQuery, TResult> handler = this._decorateeFactory.Invoke();
                 return handler.Handle(query);
-            };
+            }
         }
     }
 }
