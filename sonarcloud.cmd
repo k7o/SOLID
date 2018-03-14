@@ -11,7 +11,9 @@ REM Setup
 SET Host=https://sonarcloud.io
 SET Organisation=k7o-github
 SET Solution=SOLID
-SET LoginKey=36b8a72519d4a43f387d04d009ed212638d9b615
+SET LoginKey=244ca328ca22a6d02bf4fe62dd441df9eb3d9e5a
+REM Define a list of unittest projects (.dll) seperated by a space
+SET TestDlls="Implementation.UnitTests\bin\debug\Implementation.UnitTests.dll Crosscutting.Contracts.UnitTests\bin\debug\Crosscutting.Contracts.UnitTests.dll"
 
 REM Remove previous testresults and coverage
 rd /s /q "%CD%\TestResults"
@@ -24,7 +26,7 @@ REM (re)Build solution
 MsBuild.exe /t:Rebuild SOLID.sln
 
 REM Execute tests and collect coverage with "Dynamic Code Coverage Tools\CodeCoverage.exe" (hint: read statement from right to left)
-"%VSINSTALLDIR%\Team Tools\Dynamic Code Coverage Tools\CodeCoverage.exe" collect /output:"%CD%\\TestResults\VisualStudio.coverage" "%VSINSTALLDIR%\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" "%VSINSTALLDIR%\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" "/Logger:trx" "Implementation.UnitTests\bin\debug\Implementation.UnitTests.dll" "Crosscutting.Contracts.UnitTests\bin\debug\Crosscutting.Contracts.UnitTests.dll"
+"%VSINSTALLDIR%\Team Tools\Dynamic Code Coverage Tools\CodeCoverage.exe" collect /output:"%CD%\\TestResults\VisualStudio.coverage" "%VSINSTALLDIR%\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" "%VSINSTALLDIR%\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" "/Logger:trx" "%TestDlls%"
 REM Save coverage as xml
 "%VSINSTALLDIR%\Team Tools\Dynamic Code Coverage Tools\CodeCoverage.exe" analyze /output:"%CD%\\TestResults\VisualStudio.coveragexml" "%CD%\TestResults\VisualStudio.coverage"
 
