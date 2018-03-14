@@ -19,12 +19,10 @@ https://simpleinjector.readthedocs.io/en/latest/
 
 
 
-
 To publish metrics to https://sonarcloud.io/dashboard?id=SOLID, execute:
+![My image](https://sonarcloud.io/api/project_badges/measure?project=SOLID&metric=alert_status)
 
 sonarcloud.cmd (check file for publish instructions)
-
-
 
 Issues (?):
 
