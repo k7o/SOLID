@@ -9,6 +9,7 @@
     using Bootstrappers;
     using Crosscutting.Contracts;
     using Crosscutting.Loggers;
+    using Serilog;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
 
@@ -27,7 +28,12 @@
             BusinessBootstrapper.Bootstrap(container);
 
             container.RegisterSingleton<IPrincipal>(new HttpContextPrincipal());
-
+            container.RegisterSingleton<ILogger>(() => 
+                new LoggerConfiguration()
+                    .WriteTo
+                    .Console()
+                    .CreateLogger());
+            
             container.Register<ILog, CompositeLog>();
             container.RegisterCollection<ILog>(new[] { typeof(LogEventSource), typeof(LogSerilog) });
             container.Register<ITrace, CompositeTrace>();

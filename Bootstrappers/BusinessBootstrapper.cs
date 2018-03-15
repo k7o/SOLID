@@ -1,5 +1,8 @@
-﻿using Business.Implementation.Decorators;
+﻿using Business.Implementation.Command.Handlers;
+using Business.Implementation.Decorators;
+using Business.Implementation.Query.Zoek.Handlers;
 using Contracts;
+using Contracts.Proxies;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
 using SimpleInjector;
@@ -20,20 +23,44 @@ namespace Bootstrappers
         {
             Guard.IsNotNull(container, nameof(container));
 
+            // commands
+            container.Register(typeof(ICommandStrategyHandler<>), businessLayerAssemblies);
+            container.Register(typeof(IDataCommandHandler<>), businessLayerAssemblies);
+            // queries
+            container.Register(typeof(IQueryStrategyHandler<,>), businessLayerAssemblies);
+            container.Register(typeof(IDataQueryHandler<,>), businessLayerAssemblies);
+            // validators
             container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
             container.RegisterCollection(typeof(IValidator<,>),
                 new[] {
                     typeof(DataAnnotationValidator<>),
                     typeof(NullValidator<>)
                 });
-            //container.RegisterSingleton<IValidator>(new DataAnnotationValidator(container));
-            container.Register(typeof(ICommandHandler<>), businessLayerAssemblies);
-            container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandStrategyValidatorDecorator<>));
-            container.RegisterDecorator(typeof(ICommandHandler<>), typeof(CommandStrategyContextDecorator<>));
 
-            container.Register(typeof(IQueryHandler<,>), businessLayerAssemblies);
-            container.RegisterDecorator(typeof(IQueryHandler<,>), typeof(QueryTraceDecorator<,>));
-            container.RegisterDecorator(typeof(IQueryHandler<,>), typeof(QueryCacheDecorator<,>));
+            // decorators
+            //context
+            container.RegisterDecorator(
+                typeof(ICommandStrategyHandler<>),
+                typeof(Business.Implementation.Decorators.CommandStrategyContextDecorator<>));
+            // validators
+            container.RegisterDecorator(
+                typeof(ICommandStrategyHandler<>),
+                typeof(Business.Implementation.Decorators.CommandStrategyValidatorDecorator<>));
+            // run every commandstrategy in own scope
+            container.RegisterDecorator(
+                typeof(ICommandStrategyHandler<>),
+                typeof(ThreadScopedCommandStrategyHandlerProxy<>),
+                Lifestyle.Singleton);
+            // queries
+            container.RegisterDecorator(
+                typeof(IQueryHandler<,>),
+                typeof(Business.Implementation.Decorators.QueryTraceDecorator<,>));
+            // run every querystrategy in own scope
+            container.RegisterDecorator(
+                typeof(IQueryStrategyHandler<,>),
+                typeof(ThreadScopedQueryStrategyHandlerProxy<,>),
+                Lifestyle.Singleton);
+
         }
 
         public static IEnumerable<Type> GetCommandTypes() =>
