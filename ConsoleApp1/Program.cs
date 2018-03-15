@@ -3,19 +3,19 @@ using LazyCache;
 using Serilog;
 using System;
 using SimpleInjector;
-using Implementation.Query.Zoek;
 using Microsoft.Diagnostics.EventFlow;
-using Implementation.Command.Handlers;
 using Crosscutting.Contracts;
-using Implementation.Command;
 using Contexts;
 using Microsoft.EntityFrameworkCore;
-using Implementation.Query.Zoek.Handlers;
 using SimpleInjector.Lifestyles;
 using Crosscutting.Caches;
 using Crosscutting.Loggers;
 using Contracts.Proxies;
 using Crosscutting.Validators;
+using Business.Implementation.Command;
+using Business.Implementation.Query.Zoek;
+using Business.Implementation.Command.Handlers;
+using Business.Implementation.Query.Zoek.Handlers;
 
 namespace ConsoleApp1
 {
@@ -67,11 +67,11 @@ namespace ConsoleApp1
             //context
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
-                typeof(Implementation.Decorators.CommandStrategyContextDecorator<>));
+                typeof(Business.Implementation.Decorators.CommandStrategyContextDecorator<>));
             // validators
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
-                typeof(Implementation.Decorators.CommandStrategyValidatorDecorator<>));
+                typeof(Business.Implementation.Decorators.CommandStrategyValidatorDecorator<>));
             // run every commandstrategy in own scope
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
@@ -80,10 +80,7 @@ namespace ConsoleApp1
             // queries
             container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
-                typeof(Implementation.Decorators.QueryTraceDecorator<,>));
-            container.RegisterDecorator(
-                typeof(IQueryHandler<,>),
-                typeof(Implementation.Decorators.QueryArgumentNotNullDecorator<,>));
+                typeof(Business.Implementation.Decorators.QueryTraceDecorator<,>));
             // run every querystrategy in own scope
             container.RegisterDecorator(
                 typeof(IQueryStrategyHandler<,>),

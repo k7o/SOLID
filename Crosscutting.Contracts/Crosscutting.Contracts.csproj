@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Contracts.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Crosscutting.Contracts-1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Contracts.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Crosscutting.Contracts-1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,6 +61,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Crosscutting.Contracts-1.ruleset" />
     <None Include="Crosscutting.Contracts.ruleset" />
     <None Include="packages.config" />
   </ItemGroup>

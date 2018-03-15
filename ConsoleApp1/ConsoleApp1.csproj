@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ConsoleApp1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>ConsoleApp1-1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ConsoleApp1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>ConsoleApp1-1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LazyCache, Version=0.7.1.44, Culture=neutral, processorArchitecture=MSIL">
@@ -188,6 +188,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ConsoleApp1-1.ruleset" />
     <None Include="ConsoleApp1.ruleset" />
     <None Include="eventFlowConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -197,6 +198,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj">
+      <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
+      <Name>Business.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contexts\Contexts.csproj">
       <Project>{ef0a9fe9-299b-4845-840d-d7228fe69f45}</Project>
       <Name>Contexts</Name>
@@ -228,10 +233,6 @@
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
       <Name>Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Implementation\Implementation.csproj">
-      <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
-      <Name>Implementation</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

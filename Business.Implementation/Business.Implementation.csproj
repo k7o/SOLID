@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{39DBC122-54BA-4FCC-AE0F-1B864884714B}</ProjectGuid>
+    <ProjectGuid>{4F908E41-63CB-48AE-8CE3-FD689E0A56AD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crosscutting.Loggers</RootNamespace>
-    <AssemblyName>Crosscutting.Loggers</AssemblyName>
+    <RootNamespace>Business.Implementation</RootNamespace>
+    <AssemblyName>Business.Implementation</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Loggers-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Business.Implementation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,14 +30,14 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Loggers-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Business.Implementation.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
-      <HintPath>..\packages\Serilog.2.6.0\lib\net46\Serilog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,29 +46,55 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeLog.cs" />
-    <Compile Include="CompositeTrace.cs" />
-    <Compile Include="LogEventSource.cs" />
-    <Compile Include="LogSerilog.cs" />
+    <Compile Include="Command\AddAdresCommand.cs" />
+    <Compile Include="Command\AddBsnUzoviCommand.cs" />
+    <Compile Include="Command\Handlers\AddAdresDataCommandHandler.cs" />
+    <Compile Include="Command\Handlers\AddAdresStrategyCommandHandler.cs" />
+    <Compile Include="Command\Handlers\AddBsnUzoviDataCommandHandler.cs" />
+    <Compile Include="Command\Handlers\AddBsnUzoviStrategyCommandHandler.cs" />
+    <Compile Include="Decorators\CommandStrategyContextDecorator.cs" />
+    <Compile Include="Decorators\CommandStrategyValidatorDecorator.cs" />
+    <Compile Include="Decorators\QueryCacheDecorator.cs" />
+    <Compile Include="Decorators\QueryTraceDecorator.cs" />
+    <Compile Include="Query\Zoek\AdresQuery.Cacheable.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnUzoviStrategyHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnStrategyHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\AdresStrategyHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\AdresDataHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnDataHandler.cs" />
+    <Compile Include="Query\Zoek\Handlers\BsnUzoviDataHandler.cs" />
+    <Compile Include="Query\Zoek\AdresQuery.Traceable.cs" />
+    <Compile Include="Query\Zoek\ZoekResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TraceEventSource.cs" />
-    <Compile Include="TraceSerilog.cs" />
+    <Compile Include="Query\Zoek\BsnQuery.cs" />
+    <Compile Include="Query\Zoek\AdresQuery.cs" />
+    <Compile Include="Query\Zoek\BsnUzoviQuery.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Crosscutting.Loggers-1.ruleset" />
-    <None Include="Crosscutting.Loggers.ruleset" />
+    <None Include="Business.Implementation.ruleset" />
     <None Include="packages.config" />
-    <None Include="README.md" />
-    <None Include="_EventRegisterUsersGuide.docx" />
+    <None Include="Query\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj">
+      <Project>{51d95066-ecd8-4363-b472-c7acc1867735}</Project>
+      <Name>Crosscutting.Caches</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
-      <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
+      <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>
       <Name>Crosscutting.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj">
+      <Project>{67DDF000-F869-41BD-9A08-F07A7D2B8108}</Project>
+      <Name>Crosscutting.Validators</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entities\Entities.csproj">
+      <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
+      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -76,5 +102,6 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
