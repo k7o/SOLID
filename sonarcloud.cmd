@@ -11,7 +11,7 @@ REM Setup
 SET Host=https://sonarcloud.io
 SET Organisation=k7o-github
 SET Solution=SOLID
-SET LoginKey=b0e5a8eb22c05cc8709eefb88801b91b14a86e1f
+SET LoginKey=65f1d0ad38cb47bcd484a636014dbbbf7b191885
 REM Define a list of unittest projects (.dll) seperated by a space
 SET TestDlls="Business.Implementation.UnitTests\bin\debug\Business.Implementation.UnitTests.dll Crosscutting.Contracts.UnitTests\bin\debug\Crosscutting.Contracts.UnitTests.dll Crosscutting.Validators.UnitTests\bin\debug\Crosscutting.Validators.UnitTests.dll"
 

@@ -24,7 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ConsoleApp1-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>ConsoleApp1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ConsoleApp1-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>ConsoleApp1.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LazyCache, Version=0.7.1.44, Culture=neutral, processorArchitecture=MSIL">
@@ -188,7 +188,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="ConsoleApp1-1.ruleset" />
     <None Include="ConsoleApp1.ruleset" />
     <None Include="eventFlowConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

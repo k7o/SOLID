@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Loggers-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Crosscutting.Loggers.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Loggers-1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Crosscutting.Loggers.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
@@ -55,7 +55,6 @@
     <Compile Include="TraceSerilog.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Crosscutting.Loggers-1.ruleset" />
     <None Include="Crosscutting.Loggers.ruleset" />
     <None Include="packages.config" />
     <None Include="README.md" />
