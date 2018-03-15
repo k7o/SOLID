@@ -221,6 +221,10 @@
       <Project>{39DBC122-54BA-4FCC-AE0F-1B864884714B}</Project>
       <Name>Crosscutting.Loggers</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj">
+      <Project>{67ddf000-f869-41bd-9a08-f07a7d2b8108}</Project>
+      <Name>Crosscutting.Validators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
       <Name>Entities</Name>

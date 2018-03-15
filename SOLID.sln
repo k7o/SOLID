@@ -38,6 +38,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Validators", "Crosscutting.Validators\Crosscutting.Validators.csproj", "{67DDF000-F869-41BD-9A08-F07A7D2B8108}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Validators.UnitTests", "Crosscutting.Validators.UnitTests\Crosscutting.Validators.UnitTests.csproj", "{734145C7-9167-4B84-A684-CAD9B0404648}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +92,14 @@ Global
 		{88E4D535-DB84-47E6-8347-914881B4D9A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E4D535-DB84-47E6-8347-914881B4D9A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88E4D535-DB84-47E6-8347-914881B4D9A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67DDF000-F869-41BD-9A08-F07A7D2B8108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67DDF000-F869-41BD-9A08-F07A7D2B8108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67DDF000-F869-41BD-9A08-F07A7D2B8108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67DDF000-F869-41BD-9A08-F07A7D2B8108}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734145C7-9167-4B84-A684-CAD9B0404648}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734145C7-9167-4B84-A684-CAD9B0404648}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734145C7-9167-4B84-A684-CAD9B0404648}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734145C7-9167-4B84-A684-CAD9B0404648}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

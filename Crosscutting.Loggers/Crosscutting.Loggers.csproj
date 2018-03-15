@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeLog.cs" />
+    <Compile Include="CompositeTrace.cs" />
     <Compile Include="LogEventSource.cs" />
     <Compile Include="LogSerilog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

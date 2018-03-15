@@ -11,9 +11,9 @@ REM Setup
 SET Host=https://sonarcloud.io
 SET Organisation=k7o-github
 SET Solution=SOLID
-SET LoginKey=244ca328ca22a6d02bf4fe62dd441df9eb3d9e5a
+SET LoginKey=b0e5a8eb22c05cc8709eefb88801b91b14a86e1f
 REM Define a list of unittest projects (.dll) seperated by a space
-SET TestDlls="Implementation.UnitTests\bin\debug\Implementation.UnitTests.dll Crosscutting.Contracts.UnitTests\bin\debug\Crosscutting.Contracts.UnitTests.dll"
+SET TestDlls="Implementation.UnitTests\bin\debug\Implementation.UnitTests.dll Crosscutting.Contracts.UnitTests\bin\debug\Crosscutting.Contracts.UnitTests.dll Crosscutting.Validators.UnitTests\bin\debug\Crosscutting.Validators.UnitTests.dll"
 
 REM Remove previous testresults and coverage
 rd /s /q "%CD%\TestResults"

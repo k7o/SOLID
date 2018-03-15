@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Crosscutting.Contracts;
+using System;
 using System.Collections.Generic;
 
-namespace Crosscutting.Contracts
+namespace Crosscutting.Loggers
 {
     public class CompositeLog : ILog
     {

@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16911397-5F70-4A63-9142-4EFA60EFC20D}</ProjectGuid>
+    <ProjectGuid>{67DDF000-F869-41BD-9A08-F07A7D2B8108}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Crosscutting.Contracts</RootNamespace>
-    <AssemblyName>Crosscutting.Contracts</AssemblyName>
+    <RootNamespace>Crosscutting.Validators</RootNamespace>
+    <AssemblyName>Crosscutting.Validators</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Contracts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +28,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Crosscutting.Contracts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,30 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Guard.cs" />
-    <Compile Include="IAmCacheable.cs" />
-    <Compile Include="IAmTraceable.cs" />
-    <Compile Include="ICache.cs" />
-    <Compile Include="ICacheSettings.cs" />
-    <Compile Include="ILog.cs" />
-    <Compile Include="ITrace.cs" />
-    <Compile Include="IValidator.cs" />
+    <Compile Include="BrokenRulesException.cs" />
+    <Compile Include="CompositeValidator.cs" />
+    <Compile Include="DataAnnotationValidator.cs" />
+    <Compile Include="NullValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ValidationResults.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj">
-      <Project>{591B486D-B469-49EE-9583-F6F820DAC5FA}</Project>
-      <Name>Contracts</Name>
+    <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
+      <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>
+      <Name>Crosscutting.Contracts</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Crosscutting.Contracts.ruleset" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\Google.Protobuf.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.CSharp.dll" />
-    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

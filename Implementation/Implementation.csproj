@@ -70,8 +70,6 @@
     <Compile Include="Query\Zoek\BsnQuery.cs" />
     <Compile Include="Query\Zoek\AdresQuery.cs" />
     <Compile Include="Query\Zoek\BsnUzoviQuery.cs" />
-    <Compile Include="Validators\AdresMaximumLengthValidator.cs" />
-    <Compile Include="Validators\DataAnnotationValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Implementation.ruleset" />
@@ -91,6 +89,10 @@
       <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>
       <Name>Crosscutting.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj">
+      <Project>{67DDF000-F869-41BD-9A08-F07A7D2B8108}</Project>
+      <Name>Crosscutting.Validators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Entities\Entities.csproj">
       <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
       <Name>Entities</Name>
@@ -100,6 +102,9 @@
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\Google.Protobuf.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Validators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

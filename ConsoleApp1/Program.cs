@@ -15,8 +15,7 @@ using SimpleInjector.Lifestyles;
 using Crosscutting.Caches;
 using Crosscutting.Loggers;
 using Contracts.Proxies;
-using Entities;
-using Implementation.Validators;
+using Crosscutting.Validators;
 
 namespace ConsoleApp1
 {
@@ -52,8 +51,8 @@ namespace ConsoleApp1
                                 .UseInMemoryDatabase("Whitelist")
                                 .Options), Lifestyle.Scoped);
             // validation
-            container.Register(typeof(IValidator<>), typeof(CompositeValidator<>));
-            container.RegisterCollection(typeof(IValidator<>),
+            container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
+            container.RegisterCollection(typeof(IValidator<,>),
                 new[] {
                     typeof(DataAnnotationValidator<>),
                     typeof(NullValidator<>)

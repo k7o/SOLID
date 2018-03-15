@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Crosscutting.Contracts;
+using System.Collections.Generic;
 
-namespace Crosscutting.Contracts
+namespace Crosscutting.Loggers
 {
     public class CompositeTrace : ITrace
     {

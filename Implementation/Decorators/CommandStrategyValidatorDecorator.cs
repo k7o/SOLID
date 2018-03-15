@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
+using Crosscutting.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace Implementation.Decorators
         where TCommand : ICommand
     {
         readonly ICommandStrategyHandler<TCommand> _decoratee;
-        readonly IValidator<TCommand> _validator;
+        readonly IValidator<TCommand, ValidationResults> _validator;
 
-        public CommandStrategyValidatorDecorator(IValidator<TCommand> validator, ICommandStrategyHandler<TCommand> decoratee)
+        public CommandStrategyValidatorDecorator(IValidator<TCommand, ValidationResults> validator, ICommandStrategyHandler<TCommand> decoratee)
         {
             Guard.IsNotNull(validator, nameof(validator));
             Guard.IsNotNull(decoratee, nameof(decoratee));
@@ -25,9 +26,10 @@ namespace Implementation.Decorators
 
         public void Handle(TCommand command)
         {
-            if (_validator.Validate(command) != ValidationResults.Success)
+            var result = _validator.Validate(command);
+            if (!result.Succeeded)
             {
-                throw new BrokenRulesException("Invalid");
+                throw new BrokenRulesException(result.ErrorMessage);
             }
 
             _decoratee.Handle(command);

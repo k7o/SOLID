@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Implementation.Validators
+namespace Crosscutting.Validators
 {
-    public class DataAnnotationValidator<TInstance> : IValidator<TInstance>
+    public class DataAnnotationValidator<TInstance> : IValidator<TInstance, ValidationResults>
     {
         public ValidationResults Validate(TInstance instance)
         {
@@ -12,7 +12,7 @@ namespace Implementation.Validators
 
             var validationResults = new List<ValidationResult>();
 
-            return Validator.TryValidateObject(instance, context, validationResults) ? 
+            return Validator.TryValidateObject(instance, context, validationResults, true) ? 
                 ValidationResults.Success : 
                 new ValidationResults(validationResults);
         }

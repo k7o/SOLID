@@ -18,6 +18,8 @@ namespace Implementation.Command.Handlers
 
         public void Handle(AddBsnUzoviCommand command)
         {
+            Guard.IsNotNull(command, nameof(command));
+
             _unitOfWork
                 .Repository<BsnUzovi>()
                 .Add(new BsnUzovi(int.Parse(command.Bsnnummer, CultureInfo.InvariantCulture), command.Uzovi));
