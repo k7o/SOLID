@@ -15,6 +15,7 @@
     using Services.Wcf.CrossCuttingConcerns;
     using SimpleInjector;
     using SimpleInjector.Integration.Wcf;
+    using SimpleInjector.Lifestyles;
 
     public static class Bootstrapper
     {
@@ -41,7 +42,14 @@
         public static void Bootstrap()
         {
             container = new Container();
-            container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
+            
+            /*
+            ScopedLifestyle hybridLifestyle = Lifestyle.CreateHybrid(
+                Lifestyle.Scoped.GetCurrentScope(container),
+                new WcfOperationLifestyle(),
+                new ThreadScopedLifestyle());
+                */
+            container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
 
             CrosscuttingLoggersBootstrapper.Bootstrap(container);
             CrosscuttingCachesBootstrapper.Bootstrap(container);

@@ -52,6 +52,7 @@
     <Compile Include="IDataQueryHandler.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryHandler.cs" />
+    <Compile Include="IQueryProcessor.cs" />
     <Compile Include="IQueryStrategyHandler.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />

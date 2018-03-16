@@ -44,20 +44,24 @@ namespace Business.Implementation
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
                 typeof(Business.Implementation.Decorators.CommandStrategyValidatorDecorator<>));
+            /*
             // run every commandstrategy in own scope
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
                 typeof(ThreadScopedCommandStrategyHandlerProxy<>),
                 Lifestyle.Singleton);
+            */
             // queries
             container.RegisterDecorator(
                 typeof(IQueryHandler<,>),
                 typeof(Business.Implementation.Decorators.QueryTraceDecorator<,>));
+            /*
             // run every querystrategy in own scope
             container.RegisterDecorator(
                 typeof(IQueryStrategyHandler<,>),
                 typeof(ThreadScopedQueryStrategyHandlerProxy<,>),
                 Lifestyle.Singleton);
+                */
         }
 
         public static IEnumerable<Type> CommandTypes =>
