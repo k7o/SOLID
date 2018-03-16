@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ConsoleApp1.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Contexts\Business.Contexts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="LazyCache, Version=0.7.1.44, Culture=neutral, processorArchitecture=MSIL">
@@ -197,17 +197,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Contexts\Business.Contexts.csproj">
+      <Project>{ef0a9fe9-299b-4845-840d-d7228fe69f45}</Project>
+      <Name>Business.Contexts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
       <Name>Business.Implementation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Contexts\Contexts.csproj">
-      <Project>{ef0a9fe9-299b-4845-840d-d7228fe69f45}</Project>
-      <Name>Contexts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Contracts.Proxies\Contracts.Proxies.csproj">
-      <Project>{b5b8febe-1b48-4611-a7a9-3cf1e831a3c3}</Project>
-      <Name>Contracts.Proxies</Name>
     </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>

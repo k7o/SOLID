@@ -13,8 +13,7 @@ namespace Business.Implementation.Command
         [Required]
         [StringLength(9)]
         public string Bsnnummer { get; private set; }
-
-        [MaxLength(4)]
+        
         public short Uzovi { get; private set; }
 
         public AddBsnUzoviCommand(string bsnnummer, short uzovi)

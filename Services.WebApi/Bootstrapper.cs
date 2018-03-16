@@ -2,22 +2,21 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Security.Principal;
     using System.Threading;
     using System.Web;
-    using Bootstrappers;
-    using Crosscutting.Contracts;
+    using Business.Contexts;
+    using Business.Implementation;
+    using Crosscutting.Caches;
     using Crosscutting.Loggers;
-    using Serilog;
     using SimpleInjector;
     using SimpleInjector.Lifestyles;
 
     public static class Bootstrapper
     {
-        public static IEnumerable<Type> GetKnownCommandTypes() => BusinessBootstrapper.GetCommandTypes();
+        public static IEnumerable<Type> GetKnownCommandTypes() => BusinessImplementationBootstrapper.CommandTypes;
 
-        public static IEnumerable<QueryInfo> GetKnownQueryTypes() => BusinessBootstrapper.GetQueryTypes();
+        public static IEnumerable<QueryInfo> GetKnownQueryTypes() => BusinessImplementationBootstrapper.QueryTypes;
 
         public static Container Bootstrap()
         {
@@ -25,19 +24,14 @@
 
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            BusinessBootstrapper.Bootstrap(container);
+            CrosscuttingLoggersBootstrapper.Bootstrap(container);
+            CrosscuttingCachesBootstrapper.Bootstrap(container);
+
+            BusinessContextsBootstrapper.Bootstrap(container);
+            BusinessImplementationBootstrapper.Bootstrap(container);
 
             container.RegisterSingleton<IPrincipal>(new HttpContextPrincipal());
-            container.RegisterSingleton<ILogger>(() => 
-                new LoggerConfiguration()
-                    .WriteTo
-                    .Console()
-                    .CreateLogger());
-            
-            container.Register<ILog, CompositeLog>();
-            container.RegisterCollection<ILog>(new[] { typeof(LogEventSource), typeof(LogSerilog) });
-            container.Register<ITrace, CompositeTrace>();
-            container.RegisterCollection<ITrace>(new[] { typeof(TraceEventSource) });
+
 
             container.Verify();
 

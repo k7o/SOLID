@@ -3,7 +3,7 @@ using Crosscutting.Contracts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace Contexts
+namespace Business.Contexts
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {

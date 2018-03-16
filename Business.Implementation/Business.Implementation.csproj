@@ -30,9 +30,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>Business.Implementation.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\Contexts\Business.Contexts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SimpleInjector, Version=4.0.12.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.4.0.12\lib\net45\SimpleInjector.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -46,12 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessImplementationBootstrapper.cs" />
     <Compile Include="Command\AddAdresCommand.cs" />
     <Compile Include="Command\AddBsnUzoviCommand.cs" />
     <Compile Include="Command\Handlers\AddAdresDataCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddAdresStrategyCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddBsnUzoviDataCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddBsnUzoviStrategyCommandHandler.cs" />
+    <Compile Include="Command\Handlers\ThreadScopedCommandStrategyHandlerProxy.cs" />
+    <Compile Include="Command\Handlers\ThreadScopedQueryStrategyHandlerProxy.cs" />
     <Compile Include="Decorators\CommandStrategyContextDecorator.cs" />
     <Compile Include="Decorators\CommandStrategyValidatorDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
@@ -79,10 +85,6 @@
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj">
-      <Project>{51d95066-ecd8-4363-b472-c7acc1867735}</Project>
-      <Name>Crosscutting.Caches</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
       <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>

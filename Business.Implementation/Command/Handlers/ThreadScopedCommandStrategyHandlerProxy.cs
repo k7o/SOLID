@@ -4,7 +4,7 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
 
-namespace Contracts.Proxies
+namespace Business.Implementation.Command.Handlers
 {
     public class ThreadScopedCommandStrategyHandlerProxy<TCommand> : ICommandStrategyHandler<TCommand> where TCommand : ICommand
     {

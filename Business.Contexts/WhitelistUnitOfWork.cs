@@ -1,11 +1,9 @@
 ﻿using Entities;
 using Contracts;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Crosscutting.Contracts;
-using System;
 
-namespace Contexts
+namespace Business.Contexts
 {
     public class WhitelistUnitOfWork : DbContext, IUnitOfWork
     {

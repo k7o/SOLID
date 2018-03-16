@@ -46,7 +46,9 @@
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>
     </DocumentationFile>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>Services.WebApi.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -58,6 +60,7 @@
     <DocumentationFile>
     </DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <CodeAnalysisRuleSet>..\Contexts\Business.Contexts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoFixture, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
@@ -189,9 +192,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bootstrappers\Bootstrappers.csproj">
-      <Project>{47F1C4A4-4875-4BE9-91EE-5D2F1286B56D}</Project>
-      <Name>Bootstrappers</Name>
+    <ProjectReference Include="..\Business.Contexts\Business.Contexts.csproj">
+      <Project>{EF0A9FE9-299B-4845-840D-D7228FE69F45}</Project>
+      <Name>Business.Contexts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
@@ -200,6 +203,10 @@
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj">
+      <Project>{51D95066-ECD8-4363-B472-C7ACC1867735}</Project>
+      <Name>Crosscutting.Caches</Name>
     </ProjectReference>
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
       <Project>{16911397-5f70-4a63-9142-4efa60efc20d}</Project>
@@ -212,6 +219,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+    <Content Include="Services.WebApi.ruleset" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\packages\SonarAnalyzer.CSharp.7.0.0.4787\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -231,7 +244,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:2591/</IISUrl>
+          <IISUrl>http://localhost:50257/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

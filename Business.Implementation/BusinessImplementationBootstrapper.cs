@@ -1,8 +1,6 @@
-﻿using Business.Implementation.Command.Handlers;
-using Business.Implementation.Decorators;
-using Business.Implementation.Query.Zoek.Handlers;
+﻿using Business.Implementation.Command;
+using Business.Implementation.Command.Handlers;
 using Contracts;
-using Contracts.Proxies;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
 using SimpleInjector;
@@ -12,12 +10,12 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace Bootstrappers
+namespace Business.Implementation
 {
-    public static class BusinessBootstrapper
+    public static class BusinessImplementationBootstrapper
     {
         private static Assembly[] contractAssemblies = new[] { typeof(IQuery<>).Assembly };
-        private static Assembly[] businessLayerAssemblies = new[] { Assembly.GetExecutingAssembly() };
+        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommand).Assembly };
 
         public static void Bootstrap(Container container)
         {
@@ -60,16 +58,15 @@ namespace Bootstrappers
                 typeof(IQueryStrategyHandler<,>),
                 typeof(ThreadScopedQueryStrategyHandlerProxy<,>),
                 Lifestyle.Singleton);
-
         }
 
-        public static IEnumerable<Type> GetCommandTypes() =>
+        public static IEnumerable<Type> CommandTypes =>
             from assembly in contractAssemblies
             from type in assembly.GetExportedTypes()
-            where type.Name.EndsWith("Command")
+            where type.Name.EndsWith("Command", StringComparison.InvariantCulture)
             select type;
 
-        public static IEnumerable<QueryInfo> GetQueryTypes() =>
+        public static IEnumerable<QueryInfo> QueryTypes =>
             from assembly in contractAssemblies
             from type in assembly.GetExportedTypes()
             where QueryInfo.IsQuery(type)
@@ -79,13 +76,13 @@ namespace Bootstrappers
     [DebuggerDisplay("{QueryType.Name,nq}")]
     public sealed class QueryInfo
     {
-        public readonly Type QueryType;
-        public readonly Type ResultType;
+        public Type QueryType { get; private set; }
+        public Type ResultType { get; private set; }
 
         public QueryInfo(Type queryType)
         {
-            this.QueryType = queryType;
-            this.ResultType = DetermineResultTypes(queryType).Single();
+            QueryType = queryType;
+            ResultType = DetermineResultTypes(queryType).Single();
         }
 
         public static bool IsQuery(Type type) => DetermineResultTypes(type).Any();
