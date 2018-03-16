@@ -14,7 +14,7 @@ namespace Business.Implementation
 {
     public static class BusinessImplementationBootstrapper
     {
-        private static Assembly[] contractAssemblies = new[] { typeof(IQuery<>).Assembly };
+        private static Assembly[] contractAssemblies = new[] { typeof(AddAdresCommand).Assembly };
         private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommand).Assembly };
 
         public static void Bootstrap(Container container)

@@ -45,7 +45,7 @@ namespace Services.WebApi.Code
 
             QueryInfo info = this.queryTypes[queryName];
 
-            Type handlerType = typeof(IQueryHandler<,>).MakeGenericType(info.QueryType, info.ResultType);
+            Type handlerType = typeof(IQueryStrategyHandler<,>).MakeGenericType(info.QueryType, info.ResultType);
 
             // GetDependencyScope() calls IDependencyResolver.BeginScope internally.
             request.GetDependencyScope();

@@ -14,9 +14,9 @@
 
     public static class Bootstrapper
     {
-        public static IEnumerable<Type> GetKnownCommandTypes() => BusinessImplementationBootstrapper.CommandTypes;
+        public static IEnumerable<Type> KnownCommandTypes => BusinessImplementationBootstrapper.CommandTypes;
 
-        public static IEnumerable<QueryInfo> GetKnownQueryTypes() => BusinessImplementationBootstrapper.QueryTypes;
+        public static IEnumerable<QueryInfo> KnownQueryTypes => BusinessImplementationBootstrapper.QueryTypes;
 
         public static Container Bootstrap()
         {

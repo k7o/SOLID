@@ -45,7 +45,7 @@
 
             string commandData = await request.Content.ReadAsStringAsync();
 
-            Type handlerType = typeof(ICommandHandler<>).MakeGenericType(commandType);
+            Type handlerType = typeof(ICommandStrategyHandler<>).MakeGenericType(commandType);
 
             // GetDependencyScope() calls IDependencyResolver.BeginScope internally.
             request.GetDependencyScope();

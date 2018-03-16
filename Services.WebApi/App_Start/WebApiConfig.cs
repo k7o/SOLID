@@ -33,7 +33,7 @@
                 constraints: new { },
                 handler: new QueryDelegatingHandler(
                     handlerFactory: container.GetInstance,
-                    queryTypes: Bootstrapper.GetKnownQueryTypes()));
+                    queryTypes: Bootstrapper.KnownQueryTypes));
 
             config.Routes.MapHttpRoute(
                 name: "CommandApi",
@@ -42,7 +42,7 @@
                 constraints: new { },
                 handler: new CommandDelegatingHandler(
                     handlerFactory: container.GetInstance,
-                    commandTypes: Bootstrapper.GetKnownCommandTypes()));
+                    commandTypes: Bootstrapper.KnownCommandTypes));
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -53,7 +53,7 @@
         private static void UseControllerlessApiDocumentation(HttpConfiguration config)
         {
             var queryApiExplorer = new ControllerlessApiExplorer(
-                messageTypes: Bootstrapper.GetKnownQueryTypes().Select(t => t.QueryType),
+                messageTypes: Bootstrapper.KnownQueryTypes.Select(t => t.QueryType),
                 responseTypeSelector: type => new QueryInfo(type).ResultType)
             {
                 ControllerName = "queries",
@@ -63,7 +63,7 @@
             };
 
             var commandApiExplorer = new ControllerlessApiExplorer(
-                messageTypes: Bootstrapper.GetKnownCommandTypes(),
+                messageTypes: Bootstrapper.KnownCommandTypes,
                 responseTypeSelector: type => typeof(void))
             {
                 ControllerName = "commands",
