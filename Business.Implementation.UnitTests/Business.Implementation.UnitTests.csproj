@@ -73,6 +73,10 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Contracts\Business.Contracts.csproj">
+      <Project>{288cc7c4-b641-43a8-89b2-5fbf76d6b176}</Project>
+      <Name>Business.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
       <Name>Business.Implementation</Name>

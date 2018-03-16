@@ -1,37 +1,25 @@
 ﻿namespace Clients.Wcf.ConsoleApp.Controllers
 {
+    using Business.Contracts.Query.Zoek;
     using Contracts;
-    using System;
-    using System.Linq;
 
     public class QueryExampleController
     {
-        private readonly IQueryProcessor queryProcessor;
+        private readonly IQueryProcessor _queryProcessor;
 
         public QueryExampleController(IQueryProcessor queryProcessor)
         {
-            this.queryProcessor = queryProcessor;
+            _queryProcessor = queryProcessor;
         }
 
-        public void ShowAdressen(int pageIndex, int pageSize)
+        public bool IsAdresInWhitelist(string postcode)
         {
-            /*
-            var orders = this.queryProcessor.Execute(new GetUnshippedOrdersForCurrentCustomerQuery
-            {
-                Paging = new PageInfo { PageIndex = pageIndex, PageSize = pageSize }
-            });
+            return _queryProcessor.Execute(new AdresQuery(postcode)).InWhitelist;
+        }
 
-            Console.WriteLine();
-            Console.WriteLine("Query returned {0} orders: ", orders.Items.Length);
-
-            foreach (var order in orders.Items)
-            {
-                Console.WriteLine("OrderId: {0}, Amount: {1}, ShipDate: {2:d}",
-                    order.Id, order.TotalAmount, order.CreationDate);
-            }
-
-            Console.WriteLine("Total: " + orders.Items.Sum(order => order.TotalAmount));
-            */
+        public bool IsBsnUzoviInWhitelist(int bsnnummer, short uzovi)
+        {
+            return _queryProcessor.Execute(new BsnUzoviQuery(bsnnummer, uzovi)).InWhitelist;
         }
     }
 }

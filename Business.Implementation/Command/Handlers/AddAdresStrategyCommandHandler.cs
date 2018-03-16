@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using Business.Contracts.Command;
+using Contracts;
 using Crosscutting.Contracts;
 
 namespace Business.Implementation.Command.Handlers

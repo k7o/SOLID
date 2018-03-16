@@ -1,4 +1,5 @@
-﻿using Business.Implementation.Command;
+﻿using Business.Contracts.Command;
+using Business.Implementation.Command;
 using Business.Implementation.Command.Handlers;
 using Contracts;
 using Crosscutting.Contracts;
@@ -15,7 +16,7 @@ namespace Business.Implementation
     public static class BusinessImplementationBootstrapper
     {
         private static Assembly[] contractAssemblies = new[] { typeof(AddAdresCommand).Assembly };
-        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommand).Assembly };
+        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresDataCommandHandler).Assembly };
 
         public static void Bootstrap(Container container)
         {

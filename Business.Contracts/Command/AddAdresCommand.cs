@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Business.Implementation.Command
+namespace Business.Contracts.Command
 {
     [Serializable]
     public class AddAdresCommand : IDataCommand

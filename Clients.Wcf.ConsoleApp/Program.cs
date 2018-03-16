@@ -17,8 +17,8 @@
             whitelistController.AddBsnUzovi("121212", 32);
             whitelistController.AddBsnUzovi("44321212", 77);
 
-            var showUnshippedOrdersController = Bootstrapper.GetInstance<QueryExampleController>();
-
+            var whitelistQueryController = Bootstrapper.GetInstance<QueryExampleController>();
+            whitelistQueryController.IsAdresInWhitelist("111AA");
             
 
             Console.ReadLine();

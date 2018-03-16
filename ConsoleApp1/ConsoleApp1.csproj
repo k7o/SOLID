@@ -201,6 +201,10 @@
       <Project>{ef0a9fe9-299b-4845-840d-d7228fe69f45}</Project>
       <Name>Business.Contexts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Business.Contracts\Business.Contracts.csproj">
+      <Project>{288CC7C4-B641-43A8-89B2-5FBF76D6B176}</Project>
+      <Name>Business.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
       <Name>Business.Implementation</Name>

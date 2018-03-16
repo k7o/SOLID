@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class KnownQueryAndResultTypesAttribute : KnownTypesAttribute
+    public sealed class KnownQueryAndResultTypesAttribute : KnownTypesAttribute
     {
         public KnownQueryAndResultTypesAttribute()
             : base(new KnownTypesDataContractResolver(QueryTypes.Union(ResultTypes)))
@@ -15,7 +15,7 @@
         private static IEnumerable<Type> ResultTypes => QueryTypes.Select(GetResultType);
 
         private static IEnumerable<Type> QueryTypes =>
-            typeof(Business.Implementation.Query.Zoek.AdresQuery).Assembly.GetExportedTypes().Where(IsQueryType);
+            typeof(Business.Contracts.Query.Zoek.AdresQuery).Assembly.GetExportedTypes().Where(IsQueryType);
 
         private static bool IsQueryType(Type type) => GetResultType(type) != null;
 

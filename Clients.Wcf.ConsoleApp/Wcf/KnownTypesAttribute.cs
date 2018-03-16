@@ -10,7 +10,7 @@
     {
         private readonly KnownTypesDataContractResolver resolver;
 
-        public KnownTypesAttribute(KnownTypesDataContractResolver resolver)
+        protected KnownTypesAttribute(KnownTypesDataContractResolver resolver)
         {
             this.resolver = resolver;
         }

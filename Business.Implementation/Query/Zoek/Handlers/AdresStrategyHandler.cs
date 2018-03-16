@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using Business.Contracts.Query.Zoek;
+using Contracts;
 using Crosscutting.Contracts;
 
 namespace Business.Implementation.Query.Zoek.Handlers

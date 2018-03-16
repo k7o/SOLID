@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Crosscutting.Contracts;
 using Business.Implementation.Query.Zoek;
 using Business.Implementation.Decorators;
+using Business.Contracts.Query.Zoek;
 
 namespace Business.Implementation.UnitTests.Decorators
 {

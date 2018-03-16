@@ -1,6 +1,6 @@
 ﻿namespace Clients.Wcf.ConsoleApp.Controllers
 {
-    using Business.Implementation.Command;
+    using Business.Contracts.Command;
     using Contracts;
     using System;
 

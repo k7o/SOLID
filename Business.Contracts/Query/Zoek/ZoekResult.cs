@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Business.Implementation.Query.Zoek
+namespace Business.Contracts.Query.Zoek
 {
     [Serializable]
     public class ZoekResult

@@ -50,8 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessImplementationBootstrapper.cs" />
-    <Compile Include="Command\AddAdresCommand.cs" />
-    <Compile Include="Command\AddBsnUzoviCommand.cs" />
     <Compile Include="Command\Handlers\AddAdresDataCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddAdresStrategyCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddBsnUzoviDataCommandHandler.cs" />
@@ -62,19 +60,13 @@
     <Compile Include="Decorators\CommandStrategyValidatorDecorator.cs" />
     <Compile Include="Decorators\QueryCacheDecorator.cs" />
     <Compile Include="Decorators\QueryTraceDecorator.cs" />
-    <Compile Include="Query\Zoek\AdresQuery.Cacheable.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviStrategyHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnStrategyHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\AdresStrategyHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\AdresDataHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnDataHandler.cs" />
     <Compile Include="Query\Zoek\Handlers\BsnUzoviDataHandler.cs" />
-    <Compile Include="Query\Zoek\AdresQuery.Traceable.cs" />
-    <Compile Include="Query\Zoek\ZoekResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Query\Zoek\BsnQuery.cs" />
-    <Compile Include="Query\Zoek\AdresQuery.cs" />
-    <Compile Include="Query\Zoek\BsnUzoviQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Business.Implementation.ruleset" />
@@ -82,6 +74,10 @@
     <None Include="Query\README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Contracts\Business.Contracts.csproj">
+      <Project>{288CC7C4-B641-43A8-89B2-5FBF76D6B176}</Project>
+      <Name>Business.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>

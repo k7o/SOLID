@@ -16,7 +16,7 @@
         [DebuggerStepThrough]
         public TResult Execute<TResult>(IQuery<TResult> query)
         {
-            var handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TResult));
+            var handlerType = typeof(IQueryStrategyHandler<,>).MakeGenericType(query.GetType(), typeof(TResult));
 
             dynamic handler = this.container.GetInstance(handlerType);
 

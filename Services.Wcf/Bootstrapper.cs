@@ -78,6 +78,6 @@
         }
 
         private static Type CreateQueryHandlerType(Type queryType) =>
-            typeof(IQueryHandler<,>).MakeGenericType(queryType, new QueryInfo(queryType).ResultType);
+            typeof(IQueryStrategyHandler<,>).MakeGenericType(queryType, new QueryInfo(queryType).ResultType);
     }
 }

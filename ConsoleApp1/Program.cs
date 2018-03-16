@@ -8,6 +8,8 @@ using Business.Implementation.Command;
 using Business.Implementation.Query.Zoek;
 using Business.Contexts;
 using Business.Implementation;
+using Business.Contracts.Query.Zoek;
+using Business.Contracts.Command;
 
 namespace ConsoleApp1
 {

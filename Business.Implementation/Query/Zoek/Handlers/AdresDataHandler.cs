@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Business.Contracts.Query.Zoek;
 using Contracts;
 using Crosscutting.Contracts;
 using Entities;
