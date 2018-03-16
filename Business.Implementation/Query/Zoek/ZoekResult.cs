@@ -1,5 +1,8 @@
-﻿namespace Business.Implementation.Query.Zoek
+﻿using System;
+
+namespace Business.Implementation.Query.Zoek
 {
+    [Serializable]
     public class ZoekResult
     {
         public ZoekResult(bool inWhitelist) 

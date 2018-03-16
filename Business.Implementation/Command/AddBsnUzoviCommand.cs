@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Command
 {
+    [Serializable]
     public class AddBsnUzoviCommand : IDataCommand
     {
         [Required]

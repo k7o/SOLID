@@ -1,8 +1,10 @@
 ﻿using Contracts;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Business.Implementation.Command
 {
+    [Serializable]
     public class AddAdresCommand : IDataCommand
     {
         [StringLength(6)]
