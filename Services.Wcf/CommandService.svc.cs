@@ -6,12 +6,12 @@
     using System.ServiceModel;
     using Code;
 
-    [ServiceContract(Namespace = Namespaces.CommandService)]
+    [ServiceContract(Namespace = "https://github.com/k7o/SOLID/commandservice/v1.0")]
     [ServiceKnownType(nameof(GetKnownTypes))]
     public class CommandService
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider) =>
-            Bootstrapper.GetCommandTypes();
+            Bootstrapper.CommandTypes;
 
         [OperationContract]
         [FaultContract(typeof(ValidationError))]

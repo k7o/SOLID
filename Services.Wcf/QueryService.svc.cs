@@ -6,12 +6,12 @@
     using System.ServiceModel;
     using Code;
 
-    [ServiceContract(Namespace = Namespaces.QueryService)]
+    [ServiceContract(Namespace = "https://github.com/k7o/SOLID/queryservice/v1.0")]
     [ServiceKnownType(nameof(GetKnownTypes))]
     public class QueryService
     {
         public static IEnumerable<Type> GetKnownTypes(ICustomAttributeProvider provider) =>
-            Bootstrapper.GetQueryAndResultTypes();
+            Bootstrapper.QueryAndResultTypes;
 
         [OperationContract]
         [FaultContract(typeof(ValidationError))]

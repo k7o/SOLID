@@ -26,13 +26,16 @@
         public static object GetQueryHandler(Type queryType) =>
             container.GetInstance(CreateQueryHandlerType(queryType));
 
-        public static IEnumerable<Type> GetCommandTypes() => BusinessImplementationBootstrapper.CommandTypes;
+        public static IEnumerable<Type> CommandTypes => BusinessImplementationBootstrapper.CommandTypes;
 
-        public static IEnumerable<Type> GetQueryAndResultTypes()
+        public static IEnumerable<Type> QueryAndResultTypes
         {
-            var queryTypes = BusinessImplementationBootstrapper.QueryTypes.Select(q => q.QueryType);
-            var resultTypes = BusinessImplementationBootstrapper.QueryTypes.Select(q => q.ResultType).Distinct();
-            return queryTypes.Concat(resultTypes);
+            get
+            {
+                var queryTypes = BusinessImplementationBootstrapper.QueryTypes.Select(q => q.QueryType);
+                var resultTypes = BusinessImplementationBootstrapper.QueryTypes.Select(q => q.ResultType).Distinct();
+                return queryTypes.Concat(resultTypes);
+            }
         }
 
         public static void Bootstrap()

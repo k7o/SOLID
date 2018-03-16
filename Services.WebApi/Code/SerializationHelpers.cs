@@ -1,6 +1,7 @@
 ﻿namespace Services.WebApi.Code
 {
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Web;
 
@@ -35,7 +36,7 @@
         {
             string prefix = propertyName + ".";
             return dictionary.Keys
-                .Where(key => key.StartsWith(prefix))
+                .Where(key => key.StartsWith(prefix, true, CultureInfo.InvariantCulture))
                 .ToDictionary(key => key.Substring(prefix.Length), key => dictionary[key]);
         }
     }
