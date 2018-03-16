@@ -19,7 +19,7 @@ namespace Business.Contexts
                     new WhitelistUnitOfWork(
                             new DbContextOptionsBuilder()
                                 .UseInMemoryDatabase("Whitelist")
-                                .Options), Lifestyle.Scoped);
+                                .Options));
         }
     }
 }
