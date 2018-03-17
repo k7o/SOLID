@@ -3,7 +3,7 @@
     using Clients.Wcf.ConsoleApp.Controllers;
     using System;
 
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -11,7 +11,7 @@
 
             var whitelistController = Bootstrapper.GetInstance<CommandExampleController>();
 
-            whitelistController.AddAdres("1111AA");
+            whitelistController.AddAdres("1111AaaaaaaaaaaaaaaA");
             whitelistController.AddAdres("2000AA");
 
             whitelistController.AddBsnUzovi("121212", 32);

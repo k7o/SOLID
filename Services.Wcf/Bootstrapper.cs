@@ -42,14 +42,7 @@
         public static void Bootstrap()
         {
             container = new Container();
-            
-            /*
-            ScopedLifestyle hybridLifestyle = Lifestyle.CreateHybrid(
-                Lifestyle.Scoped.GetCurrentScope(container),
-                new WcfOperationLifestyle(),
-                new ThreadScopedLifestyle());
-                */
-            container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
+            container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
 
             CrosscuttingLoggersBootstrapper.Bootstrap(container);
             CrosscuttingCachesBootstrapper.Bootstrap(container);

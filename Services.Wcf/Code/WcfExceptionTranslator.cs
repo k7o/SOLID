@@ -1,5 +1,6 @@
 ﻿namespace Services.Wcf.Code
 {
+    using Crosscutting.Validators;
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.ServiceModel;
@@ -8,7 +9,7 @@
     {
         public static FaultException CreateFaultExceptionOrNull(Exception exception)
         {
-            if (exception is ValidationException)
+            if (exception is BrokenRulesException)
             {
                 return new FaultException<ValidationError>(
                     new ValidationError { ErrorMessage = exception.Message }, exception.Message);

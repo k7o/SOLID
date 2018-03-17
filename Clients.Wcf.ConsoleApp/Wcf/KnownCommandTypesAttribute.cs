@@ -5,6 +5,7 @@
     using System.Globalization;
     using System.Linq;
 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = false)]
     public sealed class KnownCommandTypesAttribute : KnownTypesAttribute
     {
         public KnownCommandTypesAttribute() : base(new KnownTypesDataContractResolver(CommandTypes))

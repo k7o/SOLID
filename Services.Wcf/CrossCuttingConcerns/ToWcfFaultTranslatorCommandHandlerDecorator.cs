@@ -26,7 +26,7 @@
             {
                 // This ensures that validation errors are communicated to the client,
                 // while other exceptions are filtered by WCF (if configured correctly).
-                throw new FaultException(ex.Message, new FaultCode("ValidationError"));
+                throw new FaultException(ex.Message, new FaultCode("BrokenRulesException"));
             }
         }
     }

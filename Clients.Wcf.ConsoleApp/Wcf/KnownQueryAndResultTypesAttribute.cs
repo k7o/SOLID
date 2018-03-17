@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = false)]
     public sealed class KnownQueryAndResultTypesAttribute : KnownTypesAttribute
     {
         public KnownQueryAndResultTypesAttribute()

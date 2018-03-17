@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
+using System.ComponentModel.DataAnnotations;
 
 namespace Business.Implementation.Decorators
 {

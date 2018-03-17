@@ -4,8 +4,6 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using Crosscutting.Caches;
 using Crosscutting.Loggers;
-using Business.Implementation.Command;
-using Business.Implementation.Query.Zoek;
 using Business.Contexts;
 using Business.Implementation;
 using Business.Contracts.Query.Zoek;

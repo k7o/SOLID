@@ -19,7 +19,7 @@
             {
                 this.decoratee.Handle(command);
             }
-            catch (FaultException ex) when (ex.Code?.Name == "ValidationError")
+            catch (FaultException ex) when (ex.Code?.Name == "BrokenRulesException")
             {
                 // The WCF service communicates this specific error back to us in case of a validation
                 // error. We translate it back to an exception that the client can handle..
