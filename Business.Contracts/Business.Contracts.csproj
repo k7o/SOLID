@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\AddBsnCommand.cs" />
     <Compile Include="Command\AddAdresCommand.cs" />
     <Compile Include="Command\AddBsnUzoviCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

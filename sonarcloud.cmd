@@ -5,7 +5,7 @@ REM Open a visual studio developer command prompt!
 REM Change path to where SOLID.sln is located (eg. D:\Projects\SOLID)
 
 REM Set execution directory of scanner utility
-SET ScannerLocation=D:\SonarQube\Scanner
+SET ScannerLocation=C:\SonarQube\Scanner
 
 REM Setup
 SET Host=https://sonarcloud.io

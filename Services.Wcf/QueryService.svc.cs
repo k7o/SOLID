@@ -21,11 +21,13 @@
         {
             Type queryType = query.GetType();
 
-            dynamic queryHandler = Bootstrapper.GetQueryHandler(query.GetType());
-
             try
             {
-                return queryHandler.Handle(query);
+                using (Bootstrapper.BeginLifetimeScope())
+                {
+                    dynamic queryHandler = Bootstrapper.GetQueryHandler(query.GetType());
+                    return queryHandler.Handle(query);
+                }
             }
             catch (Exception ex)
             {

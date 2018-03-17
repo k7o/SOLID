@@ -1,1 +1,4 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Services.Wcf.QueryService" CodeBehind="QueryService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" 
+    Service="Services.Wcf.QueryService" 
+    CodeBehind="QueryService.svc.cs"
+   %>

@@ -24,7 +24,7 @@
             _addAdresCommandHandler.Handle(addAdresCommand);
         }
 
-        public void AddBsnUzovi(string bsnnummer, short uzovi)
+        public void AddBsnUzovi(int bsnnummer, short uzovi)
         {
             var addBsnUzoviCommand = new AddBsnUzoviCommand(bsnnummer, uzovi);
 

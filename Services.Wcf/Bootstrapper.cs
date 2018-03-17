@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Reflection;
     using System.Security.Principal;
     using System.Threading;
     using Business.Contexts;
@@ -14,7 +13,6 @@
     using Crosscutting.Loggers;
     using Services.Wcf.CrossCuttingConcerns;
     using SimpleInjector;
-    using SimpleInjector.Integration.Wcf;
     using SimpleInjector.Lifestyles;
 
     public static class Bootstrapper
@@ -42,7 +40,7 @@
         public static void Bootstrap()
         {
             container = new Container();
-            container.Options.DefaultScopedLifestyle = new WcfOperationLifestyle();
+            container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
 
             CrosscuttingLoggersBootstrapper.Bootstrap(container);
             CrosscuttingCachesBootstrapper.Bootstrap(container);
@@ -53,11 +51,16 @@
             container.RegisterDecorator(typeof(ICommandStrategyHandler<>),
                 typeof(ToWcfFaultTranslatorCommandHandlerDecorator<>));
 
-            container.RegisterWcfServices(Assembly.GetExecutingAssembly());
+            container.RegisterWcfServices(typeof(CommandService).Assembly);
 
             RegisterWcfSpecificDependencies();
 
             container.Verify();
+        }
+
+        public static Scope BeginLifetimeScope()
+        {
+            return ThreadScopedLifestyle.BeginScope(container);
         }
 
         public static void Log(Exception ex)

@@ -50,7 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessImplementationBootstrapper.cs" />
+    <Compile Include="Command\Handlers\AddBsnDataCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddAdresDataCommandHandler.cs" />
+    <Compile Include="Command\Handlers\AddBsnStrategyCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddAdresStrategyCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddBsnUzoviDataCommandHandler.cs" />
     <Compile Include="Command\Handlers\AddBsnUzoviStrategyCommandHandler.cs" />

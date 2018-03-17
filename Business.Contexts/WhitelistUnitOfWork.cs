@@ -11,7 +11,6 @@ namespace Business.Contexts
             : base(options)
         {
         }
-
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
             return new Repository<TEntity>(Set<TEntity>());
@@ -25,6 +24,7 @@ namespace Business.Contexts
         // usefull for debugging
         public DbSet<Adres> Adressen { get; set; }
         public DbSet<BsnUzovi> BsnUzovis { get; set; }
+        public DbSet<Bsn> Bsns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,6 +38,11 @@ namespace Business.Contexts
             modelBuilder.Entity<BsnUzovi>(bsnUzovi =>
             {
                 bsnUzovi.HasKey(primaryKey => new { primaryKey.Bsnnummer, primaryKey.Uzovi });
+            });
+
+            modelBuilder.Entity<Bsn>(bsn =>
+            {
+                bsn.HasKey(primaryKey => primaryKey.Bsnnummer);
             });
         }
     }

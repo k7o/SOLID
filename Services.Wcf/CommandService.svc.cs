@@ -19,9 +19,11 @@
         {
             try
             {
-                dynamic commandHandler = Bootstrapper.GetCommandHandler(command.GetType());
-
-                commandHandler.Handle(command);
+                using (Bootstrapper.BeginLifetimeScope())
+                {
+                    dynamic commandHandler = Bootstrapper.GetCommandHandler(command.GetType());
+                    commandHandler.Handle(command);
+                }
             }
             catch (Exception ex)
             {

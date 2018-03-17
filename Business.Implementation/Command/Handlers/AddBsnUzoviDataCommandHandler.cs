@@ -23,7 +23,7 @@ namespace Business.Implementation.Command.Handlers
 
             _unitOfWork
                 .Repository<BsnUzovi>()
-                .Add(new BsnUzovi(int.Parse(command.Bsnnummer, CultureInfo.InvariantCulture), command.Uzovi));
+                .Add(new BsnUzovi(command.Bsnnummer, command.Uzovi));
         }
     }
 }
