@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj" />
+    <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj" />
+    <ProjectReference Include="..\Crosscutting.Loggers\Crosscutting.Loggers.csproj" />
+  </ItemGroup>
+
+</Project>
