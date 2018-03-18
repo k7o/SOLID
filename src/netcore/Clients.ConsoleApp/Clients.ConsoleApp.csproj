@@ -5,6 +5,18 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <CodeAnalysisRuleSet>Clients.ConsoleApp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <CodeAnalysisRuleSet>Clients.ConsoleApp.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.0.0.4787" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj" />
     <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj" />
