@@ -6,7 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{C139D75A-9E57-48A2-BD57-435D445D2E84}"
 	ProjectSection(SolutionItems) = preProject
 		default.runsettings = default.runsettings
-		README.md = README.md
+		..\..\README.md = ..\..\README.md
 		sonarcloud.cmd = sonarcloud.cmd
 	EndProjectSection
 EndProject
@@ -16,33 +16,33 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Contexts", "Business.Contexts\Business.Contexts.csproj", "{629634F8-0EBA-4468-89B6-29196EE037A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Contexts", "Business.Contexts\Business.Contexts.csproj", "{629634F8-0EBA-4468-89B6-29196EE037A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{8E33F881-21C0-4C28-95F1-3F4DAB22EBA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{8E33F881-21C0-4C28-95F1-3F4DAB22EBA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Contracts", "Crosscutting.Contracts\Crosscutting.Contracts.csproj", "{B04C572F-81A1-45B8-A45D-5EBCFF92D315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Contracts", "Crosscutting.Contracts\Crosscutting.Contracts.csproj", "{B04C572F-81A1-45B8-A45D-5EBCFF92D315}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Contracts.UnitTests", "Crosscutting.Contracts.UnitTests\Crosscutting.Contracts.UnitTests.csproj", "{66DC8D4D-01C9-46AB-9C84-033D40606DF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Contracts.UnitTests", "Crosscutting.Contracts.UnitTests\Crosscutting.Contracts.UnitTests.csproj", "{66DC8D4D-01C9-46AB-9C84-033D40606DF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Entities", "Business.Entities\Business.Entities.csproj", "{A07CB035-7181-4907-A571-319263DA9BE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Entities", "Business.Entities\Business.Entities.csproj", "{A07CB035-7181-4907-A571-319263DA9BE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Contracts", "Business.Contracts\Business.Contracts.csproj", "{AAA89A63-15EE-4729-91E5-D005AAF32B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Contracts", "Business.Contracts\Business.Contracts.csproj", "{AAA89A63-15EE-4729-91E5-D005AAF32B9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Validators", "Crosscutting.Validators\Crosscutting.Validators.csproj", "{51726A14-6C40-4E3F-B995-0A3EACB29BA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Validators", "Crosscutting.Validators\Crosscutting.Validators.csproj", "{51726A14-6C40-4E3F-B995-0A3EACB29BA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Validators.UnitTests", "Crosscutting.Validators.UnitTests\Crosscutting.Validators.UnitTests.csproj", "{9C3C9480-F469-4CEA-A949-B66F987E1571}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Validators.UnitTests", "Crosscutting.Validators.UnitTests\Crosscutting.Validators.UnitTests.csproj", "{9C3C9480-F469-4CEA-A949-B66F987E1571}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Caches", "Crosscutting.Caches\Crosscutting.Caches.csproj", "{F14C3C8A-4D54-4692-98DC-4FD7CD27F169}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Caches", "Crosscutting.Caches\Crosscutting.Caches.csproj", "{F14C3C8A-4D54-4692-98DC-4FD7CD27F169}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crosscutting.Loggers", "Crosscutting.Loggers\Crosscutting.Loggers.csproj", "{F700380C-8301-4B59-B75B-3A6DB2ACDA40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Loggers", "Crosscutting.Loggers\Crosscutting.Loggers.csproj", "{F700380C-8301-4B59-B75B-3A6DB2ACDA40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Implementation", "Business.Implementation\Business.Implementation.csproj", "{0547DF85-81C0-4E0A-B210-64209E303A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Implementation", "Business.Implementation\Business.Implementation.csproj", "{0547DF85-81C0-4E0A-B210-64209E303A2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Implementation.UnitTests", "Business.Implementation.UnitTests\Business.Implementation.UnitTests.csproj", "{450A3A7B-A3EC-440B-8D4C-06A140D1ED6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Implementation.UnitTests", "Business.Implementation.UnitTests\Business.Implementation.UnitTests.csproj", "{450A3A7B-A3EC-440B-8D4C-06A140D1ED6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clients.ConsoleApp", "Clients.ConsoleApp\Clients.ConsoleApp.csproj", "{5D8FFD26-EE93-464A-BFE8-723173C2D0B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.ConsoleApp", "Clients.ConsoleApp\Clients.ConsoleApp.csproj", "{5D8FFD26-EE93-464A-BFE8-723173C2D0B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.WebApi", "Services.WebApi\Services.WebApi.csproj", "{506448BB-CC9A-4617-83CC-3CD2B1643A26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.WebApi", "Services.WebApi\Services.WebApi.csproj", "{506448BB-CC9A-4617-83CC-3CD2B1643A26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
