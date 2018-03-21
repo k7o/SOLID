@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Business.Entities;
 using Contracts;
 using Microsoft.EntityFrameworkCore;
 using Crosscutting.Contracts;

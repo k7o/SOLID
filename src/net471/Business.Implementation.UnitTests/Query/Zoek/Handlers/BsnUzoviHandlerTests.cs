@@ -1,11 +1,10 @@
 ﻿using Contracts;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Entities;
 using System.Collections.Generic;
-using Business.Implementation.Query.Zoek;
 using Business.Implementation.Query.Zoek.Handlers;
 using Business.Contracts.Query.Zoek;
+using Business.Entities;
 
 namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
 {

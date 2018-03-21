@@ -102,6 +102,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Business.Entities\Business.Entities.csproj">
+      <Project>{6c62acd0-8bcb-46c9-86ec-846154cc0a0d}</Project>
+      <Name>Business.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
@@ -109,10 +113,6 @@
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
       <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
       <Name>Crosscutting.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
-      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

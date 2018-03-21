@@ -1,4 +1,4 @@
-﻿using Entities;
+﻿using Business.Entities;
 using Contracts;
 using Crosscutting.Contracts;
 using Business.Contracts.Command;

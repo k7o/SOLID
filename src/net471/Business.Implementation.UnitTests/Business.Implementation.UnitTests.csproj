@@ -77,6 +77,10 @@
       <Project>{288cc7c4-b641-43a8-89b2-5fbf76d6b176}</Project>
       <Name>Business.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Business.Entities\Business.Entities.csproj">
+      <Project>{6C62ACD0-8BCB-46C9-86EC-846154CC0A0D}</Project>
+      <Name>Business.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj">
       <Project>{4f908e41-63cb-48ae-8ce3-fd689e0a56ad}</Project>
       <Name>Business.Implementation</Name>
@@ -88,10 +92,6 @@
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj">
       <Project>{16911397-5F70-4A63-9142-4EFA60EFC20D}</Project>
       <Name>Crosscutting.Contracts</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{0FA02685-B7C3-42FC-BE76-C0F05370DCA4}</Project>
-      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

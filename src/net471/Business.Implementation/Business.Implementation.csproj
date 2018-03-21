@@ -80,6 +80,10 @@
       <Project>{288CC7C4-B641-43A8-89B2-5FBF76D6B176}</Project>
       <Name>Business.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Business.Entities\Business.Entities.csproj">
+      <Project>{6C62ACD0-8BCB-46C9-86EC-846154CC0A0D}</Project>
+      <Name>Business.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{591b486d-b469-49ee-9583-f6f820dac5fa}</Project>
       <Name>Contracts</Name>
@@ -91,10 +95,6 @@
     <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj">
       <Project>{67DDF000-F869-41BD-9A08-F07A7D2B8108}</Project>
       <Name>Crosscutting.Validators</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Entities\Entities.csproj">
-      <Project>{0fa02685-b7c3-42fc-be76-c0f05370dca4}</Project>
-      <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

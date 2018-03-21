@@ -1,7 +1,7 @@
-﻿using Entities;
-using Contracts;
+﻿using Contracts;
 using Crosscutting.Contracts;
 using Business.Contracts.Command;
+using Business.Entities;
 
 namespace Business.Implementation.Command.Handlers
 {
