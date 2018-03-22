@@ -12,9 +12,9 @@ namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
     {
         BsnQuery _zoekBsn;
 
-        List<Bsn> _bsns;
-        IRepository<Bsn> _bsnRepository;
-        IUnitOfWork _unitOfWork;
+        readonly List<Bsn> _bsns;
+        readonly IRepository<Bsn> _bsnRepository;
+        readonly IUnitOfWork _unitOfWork;
 
         BsnDataHandler _sut;
 

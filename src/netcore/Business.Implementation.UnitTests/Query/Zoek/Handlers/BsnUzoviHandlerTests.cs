@@ -10,9 +10,9 @@ namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
 {
     public class BsnUzoviHandlerTests
     {
-        List<BsnUzovi> _bsnUzovis;
-        IUnitOfWork _unitOfWork;
-        IRepository<BsnUzovi> _bsnUzoviRepository;
+        readonly List<BsnUzovi> _bsnUzovis;
+        readonly IUnitOfWork _unitOfWork;
+        readonly IRepository<BsnUzovi> _bsnUzoviRepository;
 
         BsnUzoviQuery _zoekBsnUzovi;
         BsnUzoviDataHandler _sut;
