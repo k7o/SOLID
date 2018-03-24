@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -9,6 +11,7 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Services.WebApi
@@ -35,7 +38,22 @@ namespace Services.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services
+                .AddMvc()
+                .AddApplicationPart(typeof(CommandController<>).Assembly)
+                .ConfigureApplicationPartManager(p =>
+                {
+                    var dependentLibrary = p.ApplicationParts
+                                    .FirstOrDefault(part => part.Name == "DependentLibrary");
+                    if (dependentLibrary != null)
+                    {
+                        p.ApplicationParts.Remove(dependentLibrary);
+                    }
+                })
+                .ConfigureApplicationPartManager(p =>
+                {
+                    p.FeatureProviders.Add(new CommandControllerFeatureProvider());
+                });
 
             services.AddSwaggerGen(c =>
             {
@@ -67,15 +85,19 @@ namespace Services.WebApi
                 app.UseDeveloperExceptionPage();
             }
 
-            app.Run(async (context) =>
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
+
+            app.UseMvcWithDefaultRoute();
         }
 
         private void RegisterApplicationComponents(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
-            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+            Bootstrapper.Bootstrap(container);
+            
             container.RegisterSingleton(loggerFactory);
 
             container.Verify();

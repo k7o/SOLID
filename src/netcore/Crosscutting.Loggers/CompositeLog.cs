@@ -6,7 +6,7 @@ namespace Crosscutting.Loggers
 {
     public class CompositeLog : ILog
     {
-        readonly IEnumerable<ILog> _logs;
+        IEnumerable<ILog> _logs;
 
         public CompositeLog(IEnumerable<ILog> logs)
         {
