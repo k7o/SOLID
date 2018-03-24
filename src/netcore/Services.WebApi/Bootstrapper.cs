@@ -17,7 +17,6 @@ namespace Services.WebApi
 
         public static Container Bootstrap(Container container)
         {
-            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             BusinessContextsBootstrapper.Bootstrap(container);
             BusinessImplementationBootstrapper.Bootstrap(container);

@@ -2,17 +2,15 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Services.WebApi.MissingDIExtensions;
 using SimpleInjector;
+using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
 using Swashbuckle.AspNetCore.Swagger;
-using System;
 using System.Linq;
-using System.Reflection;
 
 namespace Services.WebApi
 {
@@ -58,6 +56,7 @@ namespace Services.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
+
             });
 
             IntegrateSimpleInjector(services);
@@ -65,20 +64,21 @@ namespace Services.WebApi
 
         private void IntegrateSimpleInjector(IServiceCollection services)
         {
-            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddRequestScopingMiddleware(() => AsyncScopedLifestyle.BeginScope(container));
-            services.AddCustomControllerActivation(container.GetInstance);
-            services.AddCustomViewComponentActivation(container.GetInstance);
-            services.AddCustomTagHelperActivation(container.GetInstance, IsApplicationType);
+            services.AddSingleton<IControllerActivator>(
+                new SimpleInjectorControllerActivator(container));
+            services.AddSingleton<IViewComponentActivator>(
+                new SimpleInjectorViewComponentActivator(container));
+
+            services.EnableSimpleInjectorCrossWiring(container);
+            services.UseSimpleInjectorAspNetRequestScoping(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            RegisterApplicationComponents(app, loggerFactory);
+            InitializeContainer(app, loggerFactory);
 
             if (env.IsDevelopment())
             {
@@ -91,18 +91,24 @@ namespace Services.WebApi
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
+            container.Verify();
+
             app.UseMvcWithDefaultRoute();
         }
 
-        private void RegisterApplicationComponents(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        private void InitializeContainer(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
+            container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
+            // Add application presentation components:
+            container.RegisterMvcControllers(app);
+            container.RegisterMvcViewComponents(app);
+
             Bootstrapper.Bootstrap(container);
             
-            container.RegisterSingleton(loggerFactory);
+            container.RegisterInstance(loggerFactory);
 
-            container.Verify();
+            container.AutoCrossWireAspNetComponents(app);
         }
-
-        private static bool IsApplicationType(Type type) => type.GetTypeInfo().Namespace.StartsWith("Services.WebApi");
     }
 }
