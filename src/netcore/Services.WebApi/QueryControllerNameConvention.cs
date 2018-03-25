@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Crosscutting.Contracts;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,19 @@ namespace Services.WebApi
 {
     public class QueryControllerNameConvention : Attribute, IControllerModelConvention
     {
-        public void Apply(ControllerModel controller)
+        public void Apply(ControllerModel controllerModel)
         {
-            if (controller.ControllerType.GetGenericTypeDefinition() !=
+            Guard.IsNotNull(controllerModel, nameof(controllerModel));
+
+            if (controllerModel.ControllerType.GetGenericTypeDefinition() !=
                 typeof(QueryController<,>))
             {
                 // Not a QueryController, ignore.
                 return;
             }
 
-            var dtoType = controller.ControllerType.GenericTypeArguments[0];
-            controller.ControllerName = dtoType.Name.RemoveFromEnd("Query");
+            var dtoType = controllerModel.ControllerType.GenericTypeArguments[0];
+            controllerModel.ControllerName = dtoType.Name.RemoveFromEnd("Query");
         }
     }
 }
