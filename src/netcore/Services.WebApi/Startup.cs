@@ -1,5 +1,4 @@
-﻿using Business.Contracts.Query.Zoek;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -42,6 +41,7 @@ namespace Services.WebApi
                 .AddMvc(options =>
                 {
                     options.ModelBinderProviders.Insert(0, new QueryModelBinderProvider());
+                    options.Conventions.Add(new FromBodyRequiredConvention());
                 })
                 .AddJsonOptions(json =>
                 {
@@ -51,7 +51,8 @@ namespace Services.WebApi
                 .ConfigureApplicationPartManager(p =>
                 {
                     var dependentLibrary = p.ApplicationParts
-                                    .FirstOrDefault(part => part.Name == "DependentLibrary");
+                                            .FirstOrDefault(part => part.Name == "DependentLibrary");
+
                     if (dependentLibrary != null)
                     {
                         p.ApplicationParts.Remove(dependentLibrary);
@@ -66,7 +67,7 @@ namespace Services.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
-
+                c.OperationFilter<BodyRequiredOperationFilter>();
             });
 
             IntegrateSimpleInjector(services);

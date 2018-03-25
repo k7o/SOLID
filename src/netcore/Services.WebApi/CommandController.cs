@@ -1,6 +1,7 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Services.WebApi
 {
@@ -20,7 +21,7 @@ namespace Services.WebApi
         [HttpPost]
         public IActionResult Handle([FromBody] TCommand command)
         {
-            Guard.IsNotNull(command, "command");
+            Guard.IsNotNull(command, nameof(command));
 
             _handler.Handle(command);
 
