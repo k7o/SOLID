@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Business.Contracts.Query.Zoek;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -51,6 +52,7 @@ namespace Services.WebApi
                 .ConfigureApplicationPartManager(p =>
                 {
                     p.FeatureProviders.Add(new CommandControllerFeatureProvider());
+                    p.FeatureProviders.Add(new QueryControllerFeatureProvider<ZoekResult>());
                 });
 
             services.AddSwaggerGen(c =>
