@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
@@ -40,11 +41,12 @@ namespace Services.WebApi
             services
                 .AddMvc(options =>
                 {
-                    options.ModelBinderProviders.Insert(0, new QueryModelBinderProvider());
                     options.Conventions.Add(new FromBodyRequiredConvention());
+                    options.ModelBinderProviders.Insert(0, new QueryModelBinderProvider());
                 })
                 .AddJsonOptions(json =>
                 {
+                    json.SerializerSettings.Formatting = Formatting.Indented;
                     json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 })
                 .AddApplicationPart(typeof(CommandController<>).Assembly)
@@ -103,7 +105,6 @@ namespace Services.WebApi
             container.Verify();
 
             app.UseMvcWithDefaultRoute();
-            
         }
 
         private void InitializeContainer(IApplicationBuilder app, ILoggerFactory loggerFactory)

@@ -7,9 +7,11 @@ namespace Business.Contracts.Command
     [Serializable]
     public class AddBsnUzoviCommand : IDataCommand
     {
+        [Required]
         [Range(1, 999999999)]
         public int Bsnnummer { get; private set; }
 
+        [Required]
         [Range(0, 9999)]
         public short Uzovi { get; private set; }
 
