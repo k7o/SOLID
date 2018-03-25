@@ -14,10 +14,11 @@ namespace Services.WebApi
         public IModelBinder GetBinder(ModelBinderProviderContext context)
         {
             Guard.IsNotNull(context, nameof(context));
-
+            
             if (context.Metadata.ModelType.GetInterface("IQuery`1") != null)
             {
-                return new BinderTypeModelBinder(typeof(QueryModelBinder));
+                var fallbackBinder = new BinderTypeModelBinder(typeof(ComplexTypeModelBinder));
+                return new QueryModelBinder(fallbackBinder);
             }
 
             return null;

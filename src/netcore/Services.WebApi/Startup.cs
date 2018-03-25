@@ -102,6 +102,7 @@ namespace Services.WebApi
             container.Verify();
 
             app.UseMvcWithDefaultRoute();
+            
         }
 
         private void InitializeContainer(IApplicationBuilder app, ILoggerFactory loggerFactory)
