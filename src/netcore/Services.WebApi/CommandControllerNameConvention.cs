@@ -19,7 +19,7 @@ namespace Services.WebApi
             }
 
             var dtoType = controller.ControllerType.GenericTypeArguments[0];
-            controller.ControllerName = dtoType.Name.Replace("Command", string.Empty, StringComparison.InvariantCulture); // TODO: do this with a regex to make sure to remove "Command" at the end
+            controller.ControllerName = dtoType.Name.RemoveFromEnd("Command");
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.AspNetCore.Mvc;
 using SimpleInjector.Lifestyles;
@@ -38,7 +39,14 @@ namespace Services.WebApi
         {
             // Add framework services.
             services
-                .AddMvc()
+                .AddMvc(options =>
+                {
+                    options.ModelBinderProviders.Insert(0, new QueryModelBinderProvider());
+                })
+                .AddJsonOptions(json =>
+                {
+                    json.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                })
                 .AddApplicationPart(typeof(CommandController<>).Assembly)
                 .ConfigureApplicationPartManager(p =>
                 {
@@ -52,7 +60,7 @@ namespace Services.WebApi
                 .ConfigureApplicationPartManager(p =>
                 {
                     p.FeatureProviders.Add(new CommandControllerFeatureProvider());
-                    p.FeatureProviders.Add(new QueryControllerFeatureProvider<ZoekResult>());
+                    p.FeatureProviders.Add(new QueryControllerFeatureProvider());
                 });
 
             services.AddSwaggerGen(c =>
@@ -67,12 +75,10 @@ namespace Services.WebApi
         private void IntegrateSimpleInjector(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddSingleton<IControllerActivator>(
                 new SimpleInjectorControllerActivator(container));
             services.AddSingleton<IViewComponentActivator>(
                 new SimpleInjectorViewComponentActivator(container));
-
             services.EnableSimpleInjectorCrossWiring(container);
             services.UseSimpleInjectorAspNetRequestScoping(container);
         }

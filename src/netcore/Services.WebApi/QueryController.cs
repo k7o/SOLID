@@ -18,7 +18,7 @@ namespace Services.WebApi
         }
 
         [HttpGet]
-        public IActionResult Handle([FromBody] TQuery query)
+        public IActionResult Handle([FromQuery] TQuery query)
         {
             Guard.IsNotNull(query, nameof(query));
 

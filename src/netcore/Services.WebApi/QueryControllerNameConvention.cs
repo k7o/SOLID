@@ -18,7 +18,7 @@ namespace Services.WebApi
             }
 
             var dtoType = controller.ControllerType.GenericTypeArguments[0];
-            controller.ControllerName = dtoType.Name;
+            controller.ControllerName = dtoType.Name.RemoveFromEnd("Query");
         }
     }
 }
