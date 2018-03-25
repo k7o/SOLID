@@ -1,14 +1,10 @@
-﻿using Contracts;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
-using System.Threading.Tasks;
-using Business.Contracts.Query.Zoek;
+using Services.WebApi.Controllers;
 
-namespace Services.WebApi
+namespace Services.WebApi.FeatureProviders
 {
     public class QueryControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
     {

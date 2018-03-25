@@ -1,13 +1,10 @@
-﻿using Contracts;
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Linq;
-using System.Threading.Tasks;
+using Services.WebApi.Controllers;
 
-namespace Services.WebApi
+namespace Services.WebApi.FeatureProviders
 {
     public class CommandControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
     {

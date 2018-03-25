@@ -5,7 +5,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace Services.WebApi
+namespace Services.WebApi.Swagger.Filters
 {
     public class CommandSchemaDefaultExampleFilter : ISchemaFilter
     {

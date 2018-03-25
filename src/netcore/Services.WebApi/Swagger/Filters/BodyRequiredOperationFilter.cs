@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Services.WebApi
+namespace Services.WebApi.Swagger.Filters
 {
     public class BodyRequiredOperationFilter : IOperationFilter
     {

@@ -1,8 +1,9 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using Services.WebApi.Controllers.Conventions;
 
-namespace Services.WebApi
+namespace Services.WebApi.Controllers
 {
     [Route("api/query/[controller]")]
     [QueryControllerNameConvention]

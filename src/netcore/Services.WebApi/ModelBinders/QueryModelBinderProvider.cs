@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Services.WebApi
+namespace Services.WebApi.ModelBinders
 {
     public class QueryModelBinderProvider : IModelBinderProvider
     {
