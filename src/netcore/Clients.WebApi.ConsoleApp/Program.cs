@@ -8,14 +8,19 @@ namespace Clients.WebApi.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var client = new QueryClient<AdresQuery, ZoekResult>();
+            var cancellationToken = new System.Threading.CancellationToken();
 
-            var handleTask = client.HandleAsync(new AdresQuery("1111AA"), new System.Threading.CancellationToken());
+            var commandClient = new CommandClient<Business.Contracts.Command.AddAdresCommand>();
+
+            var queryClient = new QueryClient<AdresQuery, ZoekResult>();
+
+            var commandTask = commandClient.HandleAsync(new Business.Contracts.Command.AddAdresCommand("1111AA"), cancellationToken);
+
+            var queryTask = queryClient.HandleAsync(new AdresQuery("1111AA"), cancellationToken);
             
-            var result = handleTask.Result;
-
-
-            handleTask.Wait();
+            var result = queryTask.Result;
+            
+            commandTask.Wait();
         }
     }
 }
