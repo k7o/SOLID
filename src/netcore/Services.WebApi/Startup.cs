@@ -122,8 +122,10 @@ namespace Services.WebApi
             container.RegisterMvcViewComponents(app);
 
             Bootstrapper.Bootstrap(container);
-            
+
+            container.Register<ILogger>(() => loggerFactory.CreateLogger("test"));
             container.RegisterInstance(loggerFactory);
+            
 
             container.AutoCrossWireAspNetComponents(app);
         }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business.Contracts.Query.Zoek;
+using System;
+using System.Threading.Tasks;
 
 namespace Clients.WebApi.ConsoleApp
 {
@@ -6,11 +8,14 @@ namespace Clients.WebApi.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var client = new Client("http://localhost:51964/");
-            client.ApiCommandAddAdresPostAsync(new AddAdresCommand { Postcode = "2323" });
-            var result = client.ApiQueryAdresGetAsync("1", "2323");
+            var client = new QueryClient<AdresQuery, ZoekResult>();
 
-            Console.WriteLine("Hello World!");
+            var handleTask = client.HandleAsync(new AdresQuery("1111AA"), new System.Threading.CancellationToken());
+            
+            var result = handleTask.Result;
+
+
+            handleTask.Wait();
         }
     }
 }
