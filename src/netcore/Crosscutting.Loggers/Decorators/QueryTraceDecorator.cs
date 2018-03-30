@@ -2,7 +2,7 @@
 using Crosscutting.Contracts;
 using System;
 
-namespace Business.Implementation.Decorators
+namespace Crosscutting.Loggers.Decorators
 {
     public class QueryTraceDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
     {

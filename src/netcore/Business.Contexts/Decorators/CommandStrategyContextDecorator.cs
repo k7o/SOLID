@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Implementation.Decorators
+namespace Business.Contexts.Decorators
 { 
     public class CommandStrategyContextDecorator<TCommand> : ICommandStrategyHandler<TCommand> 
         where TCommand : IDataCommand 

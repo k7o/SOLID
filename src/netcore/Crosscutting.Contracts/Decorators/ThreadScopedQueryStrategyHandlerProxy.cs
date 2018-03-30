@@ -4,7 +4,7 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
 
-namespace Business.Contracts.Decorators
+namespace Crosscutting.Contracts.Decorators
 {
     public class ThreadScopedQueryStrategyHandlerProxy<TQuery, TResult> : IQueryStrategyHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {

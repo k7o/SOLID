@@ -40,29 +40,12 @@ namespace Business.Implementation
             //context
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
-                typeof(Business.Implementation.Decorators.CommandStrategyContextDecorator<>));
+                typeof(Business.Contexts.Decorators.CommandStrategyContextDecorator<>));
             // validators
             container.RegisterDecorator(
                 typeof(ICommandStrategyHandler<>),
-                typeof(Business.Implementation.Decorators.CommandStrategyValidatorDecorator<>));
-            /*
-            // run every commandstrategy in own scope
-            container.RegisterDecorator(
-                typeof(ICommandStrategyHandler<>),
-                typeof(ThreadScopedCommandStrategyHandlerProxy<>),
-                Lifestyle.Singleton);
-            */
-            // queries
-            container.RegisterDecorator(
-                typeof(IQueryHandler<,>),
-                typeof(Business.Implementation.Decorators.QueryTraceDecorator<,>));
-            /*
-            // run every querystrategy in own scope
-            container.RegisterDecorator(
-                typeof(IQueryStrategyHandler<,>),
-                typeof(ThreadScopedQueryStrategyHandlerProxy<,>),
-                Lifestyle.Singleton);
-                */
+                typeof(Crosscutting.Validators.Decorators.CommandStrategyValidatorDecorator<>));
+            
         }
 
         public static IEnumerable<Type> CommandTypes =>

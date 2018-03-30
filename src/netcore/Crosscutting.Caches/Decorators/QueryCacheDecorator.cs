@@ -1,7 +1,7 @@
-﻿using Crosscutting.Contracts;
-using Contracts;
+﻿using Contracts;
+using Crosscutting.Contracts;
 
-namespace Business.Implementation.Decorators
+namespace Crosscutting.Caches.Decorators
 {
     public class QueryCacheDecorator<TQuery, TResult> : IDataQueryHandler<TQuery, TResult> where TQuery : IAmCacheable, IDataQuery<TResult>
     {

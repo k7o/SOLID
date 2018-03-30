@@ -1,5 +1,8 @@
 ﻿using Business.Contexts;
 using Business.Implementation;
+using Contracts;
+using Crosscutting.Contracts;
+using Crosscutting.Loggers;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
@@ -17,6 +20,13 @@ namespace Services.WebApi
 
         public static Container Bootstrap(Container container)
         {
+            container.Register<ILog, LogAspNetCore>();
+            container.Register<ITrace, TraceAspNetCore>();
+
+            // decorators
+            container.RegisterDecorator(
+                typeof(IQueryHandler<,>),
+                typeof(Crosscutting.Loggers.Decorators.QueryTraceDecorator<,>));
 
             BusinessContextsBootstrapper.Bootstrap(container);
             BusinessImplementationBootstrapper.Bootstrap(container);

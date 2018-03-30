@@ -2,9 +2,9 @@
 using Contracts;
 using FakeItEasy;
 using Crosscutting.Contracts;
-using Business.Implementation.Decorators;
 using Business.Contracts.Query.Zoek;
 using Xunit;
+using Crosscutting.Caches.Decorators;
 
 namespace Business.Implementation.UnitTests.Decorators
 {

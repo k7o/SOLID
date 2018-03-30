@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.AspNetCore;
 
 namespace Services.WebApi
 {
@@ -22,6 +24,7 @@ namespace Services.WebApi
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
+                
                 .UseStartup<Startup>()
                 .Build();
     }

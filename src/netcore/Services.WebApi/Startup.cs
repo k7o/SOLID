@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 using Services.WebApi.Controllers;
 using Services.WebApi.Conventions;
 using Services.WebApi.FeatureProviders;
@@ -34,6 +35,12 @@ namespace Services.WebApi
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .Enrich.FromLogContext()
+                .WriteTo.Seq("http://localhost:5341")
+                .CreateLogger();
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -95,6 +102,12 @@ namespace Services.WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
+            // Add Serilog to the logging pipeline
+            loggerFactory.AddSerilog();
+
             InitializeContainer(app, loggerFactory);
 
             if (env.IsDevelopment())
@@ -121,11 +134,10 @@ namespace Services.WebApi
             container.RegisterMvcControllers(app);
             container.RegisterMvcViewComponents(app);
 
-            Bootstrapper.Bootstrap(container);
-
-            container.Register<ILogger>(() => loggerFactory.CreateLogger("test"));
             container.RegisterInstance(loggerFactory);
-            
+            container.RegisterInstance(loggerFactory.CreateLogger("test"));
+
+            Bootstrapper.Bootstrap(container);
 
             container.AutoCrossWireAspNetComponents(app);
         }

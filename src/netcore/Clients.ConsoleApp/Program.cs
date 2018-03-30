@@ -8,19 +8,24 @@ using Business.Contexts;
 using Business.Implementation;
 using Business.Contracts.Query.Zoek;
 using Business.Contracts.Command;
-using Business.Contracts.Decorators;
+using Crosscutting.Contracts.Decorators;
+using Crosscutting.Contracts;
+using System.Reflection;
+using Serilog;
 
 namespace Clients.ConsoleApp1
 {
     static class Program
     {
+        private static Assembly[] loggersAssemblies = new[] { typeof(CompositeLog).Assembly };
+
         static void Main(string[] args)
         {
             // Compose DI container (https://simpleinjector.readthedocs.io/en/latest/)
             var container = new Container();
             container.Options.DefaultScopedLifestyle = new ThreadScopedLifestyle();
             // bootstrap
-            
+
             /*
             // diagnostics pipeline
             var diagnosticPipeline = DiagnosticPipelineFactory.CreatePipeline("eventFlowConfig.json");
@@ -31,9 +36,31 @@ namespace Clients.ConsoleApp1
                     .EventFlow(diagnosticPipeline)
                     .CreateLogger());
             container.RegisterSingleton(diagnosticPipeline);
+            
+            container.RegisterSingleton<ILogger>(() =>
+             new LoggerConfiguration()
+                 .WriteTo
+                 .Console()
+                 .CreateLogger());
+
+            container.Register<ILog, CompositeLog>();
+            container.RegisterCollection<ILog>(loggersAssemblies);
+            container.Register<ITrace, CompositeTrace>();
+            container.RegisterCollection<ITrace>(loggersAssemblies);
             */
 
-            CrosscuttingLoggersBootstrapper.Bootstrap(container);
+            container.RegisterSingleton<ILogger>(() =>
+                 new LoggerConfiguration()
+                    .MinimumLevel.Information()
+                    .Enrich.FromLogContext()
+                    .WriteTo.Seq("http://localhost:5341")
+                    .CreateLogger());
+            container.Register<ILog, LogSerilog>();
+            container.Register<ITrace, TraceSerilog>();
+            container.RegisterDecorator(
+                typeof(IQueryHandler<,>),
+                typeof(Crosscutting.Loggers.Decorators.QueryTraceDecorator<,>));
+
             CrosscuttingCachesBootstrapper.Bootstrap(container);
 
             BusinessContextsBootstrapper.Bootstrap(container);
