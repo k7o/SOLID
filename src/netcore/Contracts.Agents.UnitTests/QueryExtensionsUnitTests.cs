@@ -1,7 +1,7 @@
 using Business.Contracts.Query.Zoek;
 using Xunit;
 
-namespace Clients.WebApi.ConsoleApp.UnitTests
+namespace Contracts.Agents.UnitTests
 {
     public class QueryExtensionsUnitTests
     {

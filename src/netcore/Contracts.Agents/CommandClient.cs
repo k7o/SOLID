@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clients.WebApi.ConsoleApp
+namespace Contracts.Agents
 {
-    class CommandClient<TCommand> : IAsyncCommandHandler<TCommand> where TCommand : ICommand
+    public class CommandClient<TCommand> : IAsyncCommandHandler<TCommand> where TCommand : ICommand
     {
         public async Task HandleAsync(TCommand command, CancellationToken cancellationToken)
         {

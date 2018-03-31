@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clients.WebApi.ConsoleApp
+namespace Contracts.Agents
 {
-    class QueryClient<TQuery, TResult> : IAsyncQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
+    public class QueryClient<TQuery, TResult> : IAsyncQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
         public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken)
         {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Clients.WebApi.ConsoleApp
+namespace Contracts.Agents
 {
     public static class QueryExtensions
     {

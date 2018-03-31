@@ -1,5 +1,6 @@
 ﻿using Business.Contracts.Command;
 using Business.Contracts.Query.Zoek;
+using Contracts.Agents;
 using System.Threading;
 
 namespace Clients.WebApi.ConsoleApp

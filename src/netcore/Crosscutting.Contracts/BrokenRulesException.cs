@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Crosscutting.Validators
+namespace Crosscutting.Contracts
 {
     [Serializable]
     public class BrokenRulesException : Exception
