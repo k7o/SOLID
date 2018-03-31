@@ -14,43 +14,43 @@ namespace Crosscutting.Loggers
             _queryTracers = queryTracers;
         }
 
-        public void Exception(string eventName, string exceptionMessage)
+        public void Exception(string exceptionMessage)
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Exception(eventName, exceptionMessage);
+                queryTracer.Exception(exceptionMessage);
             }
         }
 
-        public void Execute(string eventName)
+        public void Execute()
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Execute(eventName);
+                queryTracer.Execute();
             }
         }
 
-        public void Executed(string eventName, string executedWith)
+        public void Executed(string executedWith)
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Executed(eventName, executedWith);
+                queryTracer.Executed(executedWith);
             }
         }
 
-        public void Start(string eventName)
+        public void Start()
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Start(eventName);
+                queryTracer.Start();
             }
         }
 
-        public void Stop(string eventName, string stopped)
+        public void Stop(string stopped)
         {
             foreach (var queryTracer in _queryTracers)
             {
-                queryTracer.Stop(eventName, stopped);
+                queryTracer.Stop(stopped);
             }
         }
     }

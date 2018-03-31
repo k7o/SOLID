@@ -28,6 +28,7 @@ namespace Business.Implementation
             // queries
             container.Register(typeof(IQueryStrategyHandler<,>), businessLayerAssemblies);
             container.Register(typeof(IDataQueryHandler<,>), businessLayerAssemblies);
+
             // validators
             container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
             container.RegisterCollection(typeof(IValidator<,>),

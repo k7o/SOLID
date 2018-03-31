@@ -10,29 +10,29 @@ namespace Crosscutting.Loggers
               new Lazy<NestedTraceEventSource>(() => new NestedTraceEventSource());
         private static NestedTraceEventSource InnerLog { get { return Instance.Value; } }
 
-        public void Execute(string eventName)
+        public void Execute()
         {
-            InnerLog.TraceExecute(eventName);
+            InnerLog.TraceExecute("Execute");
         }
 
-        public void Executed(string eventName, string executedWith)
+        public void Executed(string executedWith)
         {
-            InnerLog.TraceExecuted(eventName, executedWith);
+            InnerLog.TraceExecuted("Executed", executedWith);
         }
 
-        public void Start(string eventName)
+        public void Start()
         {
-            InnerLog.TraceStart(eventName);
+            InnerLog.TraceStart("Start");
         }
 
-        public void Stop(string eventName, string stopped)
+        public void Stop(string stopped)
         {
-            InnerLog.TraceStop(eventName, stopped);
+            InnerLog.TraceStop("Stop", stopped);
         }
 
-        public void Exception(string eventName, string exceptionMessage)
+        public void Exception(string exceptionMessage)
         {
-            InnerLog.TraceException(eventName, exceptionMessage);
+            InnerLog.TraceException("Exception", exceptionMessage);
         }
 
         // eventsource name should be unique
@@ -60,7 +60,7 @@ namespace Crosscutting.Loggers
                 }
             }
 
-            [Event(2, Message = "Start {0}")]
+            [Event(2, Message = "{0}")]
             public void TraceStart(string eventName)
             {
                 if (IsEnabled())
@@ -69,7 +69,7 @@ namespace Crosscutting.Loggers
                 }
             }
 
-            [Event(3, Message = "Stop {0}")]
+            [Event(3, Message = "{0}")]
             public void TraceStop(string eventName, string queryStopValue)
             {
                 if (IsEnabled())
@@ -78,7 +78,7 @@ namespace Crosscutting.Loggers
                 }
             }
 
-            [Event(4, Message = "Execute {0}")]
+            [Event(4, Message = "{0}")]
             public void TraceExecute(string eventName)
             {
                 if (IsEnabled())
@@ -87,7 +87,7 @@ namespace Crosscutting.Loggers
                 }
             }
 
-            [Event(5, Message = "Executed {0}")]
+            [Event(5, Message = "{0}")]
             public void TraceExecuted(string eventName, string executedValue)
             {
                 if (IsEnabled())

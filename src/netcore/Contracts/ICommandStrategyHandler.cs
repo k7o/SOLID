@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    public interface ICommandStrategyHandler<in TCommand> : ICommandHandler<TCommand> where TCommand : ICommand
+    public interface ICommandStrategyHandler<TCommand> : ICommandHandler<TCommand> where TCommand : ICommand
     {
     }
 }

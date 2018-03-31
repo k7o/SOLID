@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    public interface IQueryStrategyHandler<in TQuery, out TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
+    public interface IQueryStrategyHandler<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
     }
 }

@@ -10,7 +10,7 @@ namespace Business.Implementation.Query.Zoek.Handlers
 
         public BsnStrategyHandler(IDataQueryHandler<BsnQuery, ZoekResult> queryHandler)
         {
-            Guard.IsNotNull(queryHandler, "queryHandler");
+            Guard.IsNotNull(queryHandler, nameof(queryHandler));
 
             _queryHandler = queryHandler;
         }

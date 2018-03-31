@@ -4,41 +4,39 @@ namespace Business.Contracts.Query.Zoek
 {
     public partial class AdresQuery : IAmTraceable
     {
-        private const string EventName = "AdresQuery";
-
         public void Start(ITrace trace)
         {
             Guard.IsNotNull(trace, nameof(trace));
 
-            trace.Start(EventName);
+            trace.Start();
         }
 
         public void Stop(ITrace trace)
         {
             Guard.IsNotNull(trace, nameof(trace));
 
-            trace.Stop(EventName, Postcode);
+            trace.Stop(Postcode);
         }
 
         public void Excute(ITrace trace)
         {
             Guard.IsNotNull(trace, nameof(trace));
 
-            trace.Execute(EventName);
+            trace.Execute();
         }
 
         public void Excuted(ITrace trace)
         {
             Guard.IsNotNull(trace, nameof(trace));
 
-            trace.Executed(EventName, Postcode);
+            trace.Executed(Postcode);
         }
 
         public void Exception(ITrace trace)
         {
             Guard.IsNotNull(trace, nameof(trace));
 
-            trace.Exception(EventName, Postcode);
+            trace.Exception(Postcode);
         }
     }
 }

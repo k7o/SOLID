@@ -17,29 +17,29 @@ namespace Crosscutting.Loggers
             _logger = logger;
         }
 
-        public void Exception(string eventName, string exceptionMessage)
+        public void Exception(string exceptionMessage)
         {
-            _logger.LogTrace(new EventId(1, "Exception"), $"{eventName} {exceptionMessage}");
+            _logger.LogTrace(new EventId(1, "Exception"), exceptionMessage);
         }
 
-        public void Execute(string eventName)
+        public void Execute()
         {
-            _logger.LogTrace(new EventId(2, "Execute"), eventName);
+            _logger.LogTrace(new EventId(2, "Execute"), string.Empty);
         }
 
-        public void Executed(string eventName, string executedWith)
+        public void Executed(string executedWith)
         {
-            _logger.LogTrace(new EventId(3, "Executed"), $"{eventName} {executedWith}");
+            _logger.LogTrace(new EventId(3, "Executed"), executedWith);
         }
 
-        public void Start(string eventName)
+        public void Start()
         {
-            _logger.LogTrace(new EventId(4, "Start"), eventName);
+            _logger.LogTrace(new EventId(4, "Start"), string.Empty);
         }
 
-        public void Stop(string eventName, string stopped)
+        public void Stop(string stopped)
         {
-            _logger.LogTrace(new EventId(5, "Stop"), $"{eventName} {stopped}");
+            _logger.LogTrace(new EventId(5, "Stop"), stopped);
         }
     }
 }

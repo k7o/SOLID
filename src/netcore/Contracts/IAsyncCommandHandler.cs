@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    public interface IAsyncCommandHandler<in TCommand> where TCommand : ICommand
+    public interface IAsyncCommandHandler<TCommand> where TCommand : ICommand
     {
         Task HandleAsync(TCommand command, CancellationToken cancellationToken);
     }

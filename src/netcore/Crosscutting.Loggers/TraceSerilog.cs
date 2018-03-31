@@ -15,34 +15,29 @@ namespace Crosscutting.Loggers
             _logger = logger;
         }
 
-        public void Exception(string eventName, Exception ex)
+        public void Exception(string exceptionMessage)
         {
-            _logger.Error(ex, $"execute {eventName}");
+            _logger.Error($"exception thrown ({exceptionMessage})");
         }
 
-        public void Exception(string eventName, string exceptionMessage)
+        public void Execute()
         {
-            _logger.Error($"exception thrown on {eventName} ({exceptionMessage})");
+            _logger.Information($"Execute {GetType().Name}");
         }
 
-        public void Execute(string eventName)
+        public void Executed(string executedWith)
         {
-            _logger.Information($"execute {eventName}");
+            _logger.Information($"Executed");
         }
 
-        public void Executed(string eventName, string executedWith)
+        public void Start()
         {
-            _logger.Information($"executed {eventName} with value {executedWith}");
+            _logger.Information($"Start");
         }
 
-        public void Start(string eventName)
+        public void Stop(string stopped)
         {
-            _logger.Information($"start {eventName}");
-        }
-
-        public void Stop(string eventName, string stopped)
-        {
-            _logger.Information($"stop {eventName} with value {stopped}");
+            _logger.Information($"Stop with value {stopped}");
         }
     }
 }

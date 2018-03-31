@@ -17,8 +17,6 @@ namespace Clients.ConsoleApp1
 {
     static class Program
     {
-        private static Assembly[] loggersAssemblies = new[] { typeof(CompositeLog).Assembly };
-
         static void Main(string[] args)
         {
             // Compose DI container (https://simpleinjector.readthedocs.io/en/latest/)
@@ -58,8 +56,8 @@ namespace Clients.ConsoleApp1
             container.Register<ILog, LogSerilog>();
             container.Register<ITrace, TraceSerilog>();
             container.RegisterDecorator(
-                typeof(IQueryHandler<,>),
-                typeof(Crosscutting.Loggers.Decorators.QueryTraceDecorator<,>));
+                typeof(IQueryStrategyHandler<,>),
+                typeof(Crosscutting.Loggers.Decorators.QueryStrategyHandlerTraceDecorator<,>));
 
             CrosscuttingCachesBootstrapper.Bootstrap(container);
 
@@ -81,8 +79,7 @@ namespace Clients.ConsoleApp1
 
             // verify container
             container.Verify();
-
-
+            
             // application logic
             var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
             var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();

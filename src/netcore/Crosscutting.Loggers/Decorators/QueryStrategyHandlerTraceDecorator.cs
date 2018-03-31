@@ -4,12 +4,12 @@ using System;
 
 namespace Crosscutting.Loggers.Decorators
 {
-    public class QueryTraceDecorator<TQuery, TResult> : IQueryHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult> 
+    public class QueryStrategyHandlerTraceDecorator<TQuery, TResult> : IQueryStrategyHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult>
     {
-        readonly IQueryHandler<TQuery, TResult> _decoratee;
+        readonly IQueryStrategyHandler<TQuery, TResult> _decoratee;
         readonly ITrace _queryTracer;
 
-        public QueryTraceDecorator(ITrace queryTracer, IQueryHandler<TQuery, TResult> decoratee)
+        public QueryStrategyHandlerTraceDecorator(ITrace queryTracer, IQueryStrategyHandler<TQuery, TResult> decoratee)
         {
             Guard.IsNotNull(decoratee, nameof(decoratee));
             Guard.IsNotNull(queryTracer, nameof(queryTracer));

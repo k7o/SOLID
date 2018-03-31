@@ -8,10 +8,10 @@ namespace Crosscutting.Contracts
 {
     public interface ITrace
     {
-        void Exception(string eventName, string exceptionMessage);
-        void Execute(string eventName);
-        void Executed(string eventName, string executedWith);
-        void Start(string eventName);
-        void Stop(string eventName, string stopped);
+        void Exception(string exceptionMessage);
+        void Execute();
+        void Executed(string executedWith);
+        void Start();
+        void Stop(string stopped);
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    public interface IAsyncQueryHandler<in TQuery, TResult> where TQuery : IQuery<TResult>
+    public interface IAsyncQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
         Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
     }
