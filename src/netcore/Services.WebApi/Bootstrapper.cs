@@ -1,14 +1,10 @@
 ﻿using Business.Contexts;
 using Business.Implementation;
-using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
 using SimpleInjector;
-using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Services.WebApi
 {
