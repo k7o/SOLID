@@ -22,8 +22,7 @@ namespace Clients.WebApi.WebApp
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-
-
+        
                 .UseStartup<Startup>()
                 .Build();
     }

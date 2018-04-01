@@ -24,6 +24,7 @@ namespace Clients.WebApi.WebApp
 
         public Startup(IHostingEnvironment env)
         {
+
             var builder = new ConfigurationBuilder()
               .SetBasePath(env.ContentRootPath)
               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -72,6 +73,15 @@ namespace Clients.WebApi.WebApp
             }
 
             app.UseStaticFiles();
+
+            app.MapWhen(context => context.Request.Path.StartsWithSegments(@"/api/command") || 
+                                   context.Request.Path.StartsWithSegments(@"/api/query"),
+                builder => builder.RunProxy(new ProxyOptions
+                {
+                    Scheme = "http",
+                    Host = "localhost",
+                    Port = "51964"
+                }));
 
             app.UseMvc(routes =>
             {
