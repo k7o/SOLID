@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IAddBsnQuery, AddBsnQuery } from './addbsnquery'
-import { AddBsnService } from './addbsn.service';
+import { ICommand } from '../contracts/command';
+import { AddBsn } from './addbsncommand'
+import { CommandService } from '../contracts/command.service';
 
 @Component({
     selector: 'addbsn',
@@ -8,16 +9,16 @@ import { AddBsnService } from './addbsn.service';
 })
 export class AddBsnComponent {
 
-    constructor(private _addBsnService: AddBsnService) {
+    constructor(private _commandService: CommandService) {
     }
 
-    model: AddBsnQuery = new AddBsnQuery();
+    model: AddBsn = new AddBsn();
 
     submitted = false;
 
     onSubmit() {
 
         this.submitted = true;
-        this._addBsnService.addBsn(this.model);
+        this._commandService.execute(this.model, "AddBsn");
     }
 }

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AddBsnService } from './addbsn/addbsn.service';
+import { CommandService } from './contracts/command.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 
-  providers: [AddBsnService]
+  providers: [CommandService]
 })
 export class AppComponent {
   title = 'app';
