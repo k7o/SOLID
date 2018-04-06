@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Injectable } from '@angular/core';
-import { ICommand } from './command'
+import { IQuery } from './query'
 
 @Injectable()
-export class CommandService {
+export class QueryService {
 
-    private _commandUrl = 'http://localhost:59922/api/command/';
+    private _queryUrl = 'http://localhost:59922/api/query/';
 
     constructor(private _http: HttpClient) { }
 
-    public execute(command: ICommand, action: string): void {
+    public execute(query: IQuery, action: string): void {
 
-        this._http.post(this._commandUrl + action, command)
+        this._http.get(this._queryUrl + action)
             .subscribe(data => {
                 console.log(data)
             });
