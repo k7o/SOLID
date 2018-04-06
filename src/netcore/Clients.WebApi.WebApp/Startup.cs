@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -24,7 +20,6 @@ namespace Clients.WebApi.WebApp
 
         public Startup(IHostingEnvironment env)
         {
-
             var builder = new ConfigurationBuilder()
               .SetBasePath(env.ContentRootPath)
               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -47,7 +42,14 @@ namespace Clients.WebApi.WebApp
         {
             services.AddMvc();
 
+            // In production, the Angular files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/dist";
+            });
+
             IntegrateSimpleInjector(services);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,10 +64,6 @@ namespace Clients.WebApi.WebApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true
-                });
             }
             else
             {
@@ -73,8 +71,9 @@ namespace Clients.WebApi.WebApp
             }
 
             app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
-            app.MapWhen(context => context.Request.Path.StartsWithSegments(@"/api/command") || 
+            app.MapWhen(context => context.Request.Path.StartsWithSegments(@"/api/command") ||
                                    context.Request.Path.StartsWithSegments(@"/api/query"),
                 builder => builder.RunProxy(new ProxyOptions
                 {
@@ -87,24 +86,32 @@ namespace Clients.WebApi.WebApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    template: "{controller}/{action=Index}/{id?}");
             });
 
-            InitializeContainer(app, loggerFactory);
-            container.Verify();
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
 
         private void IntegrateSimpleInjector(IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.AddSingleton<IControllerActivator>(
                 new SimpleInjectorControllerActivator(container));
             services.AddSingleton<IViewComponentActivator>(
                 new SimpleInjectorViewComponentActivator(container));
+                
             services.EnableSimpleInjectorCrossWiring(container);
             services.UseSimpleInjectorAspNetRequestScoping(container);
         }

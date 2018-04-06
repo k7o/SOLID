@@ -1,49 +1,38 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Crosscutting.Loggers.Decorators
 {
-    public class QueryStrategyHandlerTraceDecorator<TQuery, TResult> : IQueryStrategyHandler<TQuery, TResult> where TQuery : IAmTraceable, IQuery<TResult>
+    public class QueryStrategyHandlerTraceDecorator<TQuery, TResult> : IQueryStrategyHandler<TQuery, TResult> where TQuery : IQuery<TResult>
     {
         readonly IQueryStrategyHandler<TQuery, TResult> _decoratee;
-        readonly ITrace _queryTracer;
+        readonly ITrace _tracer;
 
-        public QueryStrategyHandlerTraceDecorator(ITrace queryTracer, IQueryStrategyHandler<TQuery, TResult> decoratee)
+        public QueryStrategyHandlerTraceDecorator(ITrace tracer, IQueryStrategyHandler<TQuery, TResult> decoratee)
         {
             Guard.IsNotNull(decoratee, nameof(decoratee));
-            Guard.IsNotNull(queryTracer, nameof(queryTracer));
+            Guard.IsNotNull(tracer, nameof(tracer));
 
             _decoratee = decoratee;
-            _queryTracer = queryTracer;
+            _tracer = tracer;
         }
 
         public TResult Handle(TQuery query)
         {
-            if (Equals(query, default(TQuery)))
-            {
-                throw new ArgumentNullException(nameof(query));
-            }
-
-            query.Start(_queryTracer);
-
             TResult result;
+
+            _tracer.Execute();
             try
             {
-                query.Excute(_queryTracer);
-
                 result = _decoratee.Handle(query);
-
-                query.Excuted(_queryTracer);
-            }
-            catch (Exception)
-            {
-                query.Exception(_queryTracer);
-                throw;
             }
             finally
             {
-                query.Stop(_queryTracer);
+                _tracer.Executed(JsonConvert.SerializeObject(query));
             }
 
             return result;

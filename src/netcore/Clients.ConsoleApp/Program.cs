@@ -57,7 +57,7 @@ namespace Clients.ConsoleApp1
             container.Register<ITrace, TraceSerilog>();
             container.RegisterDecorator(
                 typeof(IQueryStrategyHandler<,>),
-                typeof(Crosscutting.Loggers.Decorators.QueryStrategyHandlerTraceDecorator<,>));
+                typeof(Crosscutting.Loggers.Decorators.QueryStrategyHandlerQueryTraceDecorator<,>));
 
             CrosscuttingCachesBootstrapper.Bootstrap(container);
 

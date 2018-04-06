@@ -1,0 +1,10 @@
+﻿<h1>Add Bsn</h1>
+
+<form (ngSubmit)="onSubmit()" #addbsnForm="ngForm">
+
+    <label for="bsnnummer">Bsnnummer</label>
+    <input type="text" id="bsnnummer" required
+           [(ngModel)]="model.bsnnummer" name="bsnnummer" />
+
+    <button type="submit">Add</button>
+</form>
