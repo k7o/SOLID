@@ -32,6 +32,11 @@
                 <span class='glyphicon glyphicon-th-list'></span> Add bsn
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+                <a [routerLink]='["/listbsns"]' (click)='collapse()'>
+                  <span class='glyphicon glyphicon-th-list'></span> List bsns
+                </a>
+              </li>
           </ul>
         </div>
     </div>

@@ -1,5 +1,5 @@
 ﻿import { ICommand } from '../contracts/command'
 
-export class AddBsn implements ICommand {
+export class AddBsnCommand implements ICommand {
     bsnnummer: number;
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ICommand } from '../contracts/command';
-import { AddBsn } from './addbsncommand'
+import { AddBsnCommand } from './addbsn.command'
 import { CommandService } from '../contracts/command.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class AddBsnComponent {
     constructor(private _commandService: CommandService) {
     }
 
-    model: AddBsn = new AddBsn();
+    model: AddBsnCommand = new AddBsnCommand();
 
     submitted = false;
 
