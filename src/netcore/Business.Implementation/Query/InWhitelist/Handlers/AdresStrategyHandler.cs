@@ -1,8 +1,8 @@
-﻿using Business.Contracts.Query.Zoek;
+﻿using Business.Contracts.Query.InWhitelist;
 using Contracts;
 using Crosscutting.Contracts;
 
-namespace Business.Implementation.Query.Zoek.Handlers
+namespace Business.Implementation.Query.InWhitelist.Handlers
 {
     public class AdresStrategyHandler : IQueryStrategyHandler<AdresQuery, ZoekResult>
     {

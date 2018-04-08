@@ -2,7 +2,7 @@
 using Contracts;
 using FakeItEasy;
 using Crosscutting.Contracts;
-using Business.Contracts.Query.Zoek;
+using Business.Contracts.Query.InWhitelist;
 using Xunit;
 using Crosscutting.Caches.Decorators;
 

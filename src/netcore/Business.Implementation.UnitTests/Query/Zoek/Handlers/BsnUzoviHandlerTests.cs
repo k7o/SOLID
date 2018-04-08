@@ -2,8 +2,8 @@
 using FakeItEasy;
 using Business.Entities;
 using System.Collections.Generic;
-using Business.Implementation.Query.Zoek.Handlers;
-using Business.Contracts.Query.Zoek;
+using Business.Implementation.Query.InWhitelist.Handlers;
+using Business.Contracts.Query.InWhitelist;
 using Xunit;
 
 namespace Business.Implementation.UnitTests.Query.Zoek.Handlers

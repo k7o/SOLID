@@ -2,9 +2,9 @@
 using System.Linq;
 using Business.Entities;
 using Crosscutting.Contracts;
-using Business.Contracts.Query.Zoek;
+using Business.Contracts.Query.InWhitelist;
 
-namespace Business.Implementation.Query.Zoek.Handlers
+namespace Business.Implementation.Query.InWhitelist.Handlers
 {
     public class BsnUzoviDataHandler : IDataQueryHandler<BsnUzoviQuery, ZoekResult>
     {

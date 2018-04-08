@@ -1,5 +1,5 @@
 ﻿using Business.Contracts.Command;
-using Business.Contracts.Query.Zoek;
+using Business.Contracts.Query.InWhitelist;
 using Contracts.Agents;
 using System.Threading;
 

@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Business.Contracts.Query.Zoek
+namespace Business.Contracts.Query.InWhitelist
 {
     [Serializable]
     public class BsnQuery : IDataQuery<ZoekResult>

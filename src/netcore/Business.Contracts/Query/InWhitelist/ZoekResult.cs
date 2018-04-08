@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Business.Contracts.Query.Zoek
+namespace Business.Contracts.Query.InWhitelist
 {
     [Serializable]
     public class ZoekResult

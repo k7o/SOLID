@@ -1,6 +1,6 @@
 ﻿using Crosscutting.Contracts;
 
-namespace Business.Contracts.Query.Zoek
+namespace Business.Contracts.Query.InWhitelist
 {
     public partial class AdresQuery : IAmTraceable
     {

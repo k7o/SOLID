@@ -1,8 +1,8 @@
 ﻿using FakeItEasy;
 using Contracts;
 using System.Collections.Generic;
-using Business.Implementation.Query.Zoek.Handlers;
-using Business.Contracts.Query.Zoek;
+using Business.Implementation.Query.InWhitelist.Handlers;
+using Business.Contracts.Query.InWhitelist;
 using Business.Entities;
 using Xunit;
 

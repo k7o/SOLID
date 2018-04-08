@@ -1,7 +1,7 @@
 ﻿using Contracts;
 using System;
 
-namespace Business.Contracts.Query.Zoek
+namespace Business.Contracts.Query.InWhitelist
 {
     [Serializable]
     public partial class AdresQuery : IDataQuery<ZoekResult>

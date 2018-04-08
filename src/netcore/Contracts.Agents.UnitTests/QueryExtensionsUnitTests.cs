@@ -1,4 +1,4 @@
-using Business.Contracts.Query.Zoek;
+using Business.Contracts.Query.InWhitelist;
 using Xunit;
 
 namespace Contracts.Agents.UnitTests

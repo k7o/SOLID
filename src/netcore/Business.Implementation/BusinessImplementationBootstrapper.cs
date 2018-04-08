@@ -1,6 +1,7 @@
 ﻿using Business.Contracts.Command;
 using Business.Implementation.Command;
 using Business.Implementation.Command.Handlers;
+using Business.Implementation.Query.WhitelistResult.Handlers;
 using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;

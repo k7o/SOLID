@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Business.Contracts.Query.Zoek;
+using Business.Contracts.Query.InWhitelist;
 using Contracts;
 using Crosscutting.Contracts;
 using Business.Entities;
 
-namespace Business.Implementation.Query.Zoek.Handlers
+namespace Business.Implementation.Query.InWhitelist.Handlers
 {
     public class AdresDataHandler : IDataQueryHandler<AdresQuery, ZoekResult>
     {
