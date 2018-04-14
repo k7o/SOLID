@@ -1,5 +1,5 @@
-import { IResult } from '../contracts/query'
+import { IResult } from '../contracts/result'
 
-export class BsnResult implements IResult {
+export interface BsnResult extends IResult {
     bsnnummer: number;
 }

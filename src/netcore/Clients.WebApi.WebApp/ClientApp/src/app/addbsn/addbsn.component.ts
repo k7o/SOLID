@@ -9,7 +9,7 @@ import { CommandService } from '../contracts/command.service';
 })
 export class AddBsnComponent {
 
-    constructor(private _commandService: CommandService) {
+    constructor(private _commandService: CommandService<AddBsnCommand>) {
     }
 
     model: AddBsnCommand = new AddBsnCommand();

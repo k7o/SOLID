@@ -13,13 +13,16 @@ import { GetAllBsnsQuery } from './getallbsns.query';
 })
 export class ListBsnsComponent implements OnInit {
 
-  constructor(private _queryService: QueryService<Array<BsnResult>>) {
+  constructor(private _queryService: QueryService<GetAllBsnsQuery, Array<BsnResult>>) {
   }
 
-  bsns : Observable<BsnResult[]>
+  bsns : BsnResult[]
 
   ngOnInit() {
-    this.bsns = this._queryService.execute(new GetAllBsnsQuery(), "GetAllBsns");
+    this._queryService.execute(new GetAllBsnsQuery(), "GetAllBsns")
+          .subscribe(data => {
+              this.bsns = { ... data };
+            })
   }
 
 }

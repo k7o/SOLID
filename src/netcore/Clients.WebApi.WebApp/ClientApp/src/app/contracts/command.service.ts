@@ -3,15 +3,15 @@ import { Component, Injectable } from '@angular/core';
 import { ICommand } from './command'
 
 @Injectable()
-export class CommandService {
+export class CommandService<TCommand extends ICommand> {
 
     private _commandUrl = 'http://localhost:59922/api/command/';
 
     constructor(private _http: HttpClient) { }
 
-    public execute(command: ICommand, action: string): void {
+    public execute(command: TCommand, action: string): void {
 
-        this._http.post(this._commandUrl + action, command)
+        this._http.post<TCommand>(this._commandUrl + action, command)
             .subscribe(data => {
                 console.log(data)
             });
