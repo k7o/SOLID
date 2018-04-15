@@ -5,7 +5,7 @@ import { ICommand } from './command'
 @Injectable()
 export class CommandService<TCommand extends ICommand> {
 
-    private _commandUrl = 'http://localhost:59922/api/command/';
+    private _commandUrl = 'http://localhost:50384/api/command/';
 
     constructor(private _http: HttpClient) { }
 
