@@ -5,10 +5,12 @@ import { Observable } from 'rxjs/Observable';
 import { IQuery} from './query'
 import { IResult } from './result'
 
+import { environment } from '../../environments/environment'
+
 @Injectable()
 export class QueryService<TQuery extends IQuery<TResult>, TResult>  {
 
-    private _queryUrl = 'http://localhost:50384/api/query/';
+    private _queryUrl = environment.queryurl;
 
     constructor(private _http: HttpClient) { }
 

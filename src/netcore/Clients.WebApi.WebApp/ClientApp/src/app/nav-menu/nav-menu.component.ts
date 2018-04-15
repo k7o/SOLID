@@ -8,6 +8,14 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
   isExpanded = false;
 
+  tabLinks = [
+    { label: 'Home', link: '' },
+    { label: 'Counter', link: 'counter' },
+    { label: 'Fetch data', link: 'fetch-data' },
+    { label: 'Add Bsn', link: 'addbsn' },
+    { label: 'List Bsns', link: 'listbsns' },
+  ];
+
   collapse() {
     this.isExpanded = false;
   }
