@@ -12,7 +12,7 @@ export class QueryService<TQuery extends IQuery<TResult>, TResult>  {
 
     constructor(private _http: HttpClient) { }
 
-    public execute(query: TQuery) : Observable<TResult> {
+    public handle(query: TQuery) : Observable<TResult> {
 
         let action = query.constructor.name.replace('Query', '');
         return this._http.get<TResult>(this._queryUrl + action);

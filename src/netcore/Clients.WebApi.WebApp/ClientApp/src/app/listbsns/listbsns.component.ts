@@ -20,7 +20,7 @@ export class ListBsnsComponent implements OnInit {
 
   ngOnInit() {
     
-    this._queryService.execute(new GetAllBsnsQuery())
+    this._queryService.handle(new GetAllBsnsQuery())
           .subscribe(data => {
               this.bsns = data;
             })

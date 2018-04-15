@@ -9,8 +9,9 @@ export class CommandService<TCommand extends ICommand> {
 
     constructor(private _http: HttpClient) { }
 
-    public execute(command: TCommand, action: string): void {
+    public handle(command: TCommand): void {
 
+        let action = command.constructor.name.replace('Command', '');
         this._http.post<TCommand>(this._commandUrl + action, command)
             .subscribe(data => {
                 console.log(data)

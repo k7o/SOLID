@@ -17,7 +17,7 @@ export class AddBsnComponent {
     submitted = false;
 
     onSubmit() {
-        this._commandService.execute(this.model, "AddBsn");
+        this._commandService.handle(this.model);
         this.submitted = true;
     }
 }
