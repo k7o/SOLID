@@ -1,6 +1,27 @@
-@media (max-width: 767px) {
-  /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
-  .body-content {
-    padding-top: 50px;
-  }
+
+
+.bounds {
+  height :800px;
+}
+
+.sec1 {
+  text-transform: uppercase
+}
+
+.sec2 {
+  
+}
+
+.sec3 {
+  text-transform: uppercase
+}
+
+.sec1, .sec2, .sec3 {
+  padding-top:20px;
+  text-align:center
+}
+
+.content {
+  min-width: 300px;
+  /*height: 400px;*/
 }

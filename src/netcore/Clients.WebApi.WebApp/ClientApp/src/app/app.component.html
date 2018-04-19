@@ -1,10 +1,21 @@
-<div class='container-fluid'>
-  <div class='row'>
-    <div class='col-sm-3'>
-      <app-nav-menu></app-nav-menu>
+<div class="bounds">
+   <div class="content" 
+            fxLayout="row" 
+            fxLayout.xs="column" 
+            fxFlexFill >
+        <div fxFlex="15" class="sec1" fxFlex.xs="55">
+            <nav mat-tab-nav-bar>
+                <a mat-tab-link
+                    *ngFor="let tabLink of tabLinks"
+                    [routerLink]="tabLink.link"
+                    routerLinkActive #rla="routerLinkActive"
+                    [active]="rla.isActive">
+                    {{tabLink.label}}
+                </a>
+            </nav>
+        </div>
+        <div fxFlex="30" class="sec2" >
+            <router-outlet></router-outlet>
+        </div>
     </div>
-    <div class='col-sm-9 body-content'>
-      <router-outlet></router-outlet>
-    </div>
-  </div>
 </div>

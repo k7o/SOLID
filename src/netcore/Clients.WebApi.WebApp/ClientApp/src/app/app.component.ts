@@ -11,4 +11,13 @@ import { QueryService } from './contracts/query.service';
 })
 export class AppComponent {
   title = 'app';
+
+  tabLinks = [
+    { label: 'Home', link: '' },
+    { label: 'Counter', link: 'counter' },
+    { label: 'Fetch data', link: 'fetch-data' },
+    { label: 'Add Bsn', link: 'addbsn' },
+    { label: 'List Bsns', link: 'listbsns' },
+  ];
+  
 }
