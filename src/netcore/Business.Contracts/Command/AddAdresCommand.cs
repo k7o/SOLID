@@ -1,11 +1,12 @@
 ﻿using Contracts;
+using MediatR;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Business.Contracts.Command
 {
     [Serializable]
-    public class AddAdresCommand : IDataCommand
+    public class AddAdresCommand : IRequest
     {
         [StringLength(6)]
         [Required(ErrorMessage = "Postcode is required")]

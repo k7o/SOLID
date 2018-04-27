@@ -17,7 +17,7 @@ namespace Business.Implementation
     public static class BusinessImplementationBootstrapper
     {
         private static Assembly[] contractAssemblies = new[] { typeof(AddAdresCommand).Assembly };
-        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresDataCommandHandler).Assembly };
+        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommandHandler).Assembly };
 
         public static void Bootstrap(Container container)
         {
@@ -53,7 +53,8 @@ namespace Business.Implementation
         public static IEnumerable<Type> CommandTypes =>
             from assembly in contractAssemblies
             from type in assembly.GetExportedTypes()
-            where type.Name.EndsWith("Command", StringComparison.InvariantCulture)
+            where type.Name.EndsWith("Command", StringComparison.InvariantCulture) && 
+                      !type.Name.Equals("AddAdresCommand", StringComparison.InvariantCulture)
             select type;
 
         public static IEnumerable<QueryInfo> QueryTypes =>

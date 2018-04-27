@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Reflection;
 using Services.WebApi.Controllers;
 
-using System.Linq;
-using Business.Contracts.Command;
-
 namespace Services.WebApi.FeatureProviders
 {
-    public class CommandMediatRControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
+    public class CommandControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>
     {
         public void PopulateFeature(IEnumerable<ApplicationPart> parts, ControllerFeature feature)
         {
-            var controllerType = typeof(CommandMediatRController<>).MakeGenericType(typeof(AddAdresCommand)).GetTypeInfo();
-            feature.Controllers.Add(controllerType);
+            foreach (var commandType in Bootstrapper.KnownCommandTypes)
+            {
+                var controllerType = typeof(CommandController<>).MakeGenericType(commandType).GetTypeInfo();
+                feature.Controllers.Add(controllerType);
+            }
         }
     }
 }

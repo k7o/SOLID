@@ -8,14 +8,14 @@ using System.Runtime.Serialization;
 
 namespace Services.WebApi.Swagger.Filters
 {
-    public class CommandSchemaDefaultExampleFilter : ISchemaFilter
+    public class CommandMediatRSchemaDefaultExampleFilter : ISchemaFilter
     {
         public void Apply(Schema model, SchemaFilterContext context)
         {
             Guard.IsNotNull(model, nameof(model));
             Guard.IsNotNull(context, nameof(context));
 
-            if (context.SystemType.GetInterfaces().Any(@interface => @interface == typeof(ICommand)))
+            if (context.SystemType.GetInterfaces().Any(@interface => @interface == typeof(IRequest)))
             {
                 model.Example = FormatterServices.GetUninitializedObject(context.SystemType);
             }

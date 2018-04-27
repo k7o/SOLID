@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Business.Contracts.Command;
+using Business.Implementation.Command.Handlers;
+using MediatR;
+using MediatR.SimpleInjector;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -75,6 +79,7 @@ namespace Services.WebApi
                 .ConfigureApplicationPartManager(p =>
                 {
                     p.FeatureProviders.Add(new CommandControllerFeatureProvider());
+                    p.FeatureProviders.Add(new CommandMediatRControllerFeatureProvider());
                     p.FeatureProviders.Add(new QueryControllerFeatureProvider());
                 });
 
@@ -83,20 +88,10 @@ namespace Services.WebApi
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
                 c.OperationFilter<BodyRequiredOperationFilter>();
                 c.SchemaFilter<CommandSchemaDefaultExampleFilter>();
+                c.SchemaFilter<CommandMediatRSchemaDefaultExampleFilter>();
             });
 
             IntegrateSimpleInjector(services);
-        }
-
-        private void IntegrateSimpleInjector(IServiceCollection services)
-        {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IControllerActivator>(
-                new SimpleInjectorControllerActivator(container));
-            services.AddSingleton<IViewComponentActivator>(
-                new SimpleInjectorViewComponentActivator(container));
-            services.EnableSimpleInjectorCrossWiring(container);
-            services.UseSimpleInjectorAspNetRequestScoping(container);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -126,9 +121,26 @@ namespace Services.WebApi
             app.UseMvcWithDefaultRoute();
         }
 
+        private void IntegrateSimpleInjector(IServiceCollection services)
+        {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<IControllerActivator>(
+                new SimpleInjectorControllerActivator(container));
+            services.AddSingleton<IViewComponentActivator>(
+                new SimpleInjectorViewComponentActivator(container));
+            services.EnableSimpleInjectorCrossWiring(container);
+            services.UseSimpleInjectorAspNetRequestScoping(container);
+        }
+
         private void InitializeContainer(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
+
+            container.BuildMediator(
+                typeof(AddAdresCommandHandler).Assembly, 
+                typeof(AddAdresCommand).Assembly);
+
+            container.Register(typeof(IPipelineBehavior<,>), typeof(Crosscutting.Validators.ValidationResults).Assembly);
 
             // Add application presentation components:
             container.RegisterMvcControllers(app);

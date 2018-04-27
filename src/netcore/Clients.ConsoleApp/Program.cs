@@ -81,10 +81,10 @@ namespace Clients.ConsoleApp1
             container.Verify();
             
             // application logic
-            var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
+            //var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
             var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
 
-            addAdresCommand.Handle(new AddAdresCommand("1234"));
+            //addAdresCommand.Handle(new AddAdresCommand("1234"));
 
             addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(1, 2));
             addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4));

@@ -13,6 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.5.2" />
+    <PackageReference Include="MediatR" Version="4.1.0" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.0.1.4822" />
   </ItemGroup>
 

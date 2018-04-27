@@ -4,6 +4,8 @@ using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
 using Crosscutting.Loggers.Decorators;
+using Crosscutting.Validators.Behaviors;
+using MediatR;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,8 @@ namespace Services.WebApi
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
 
+            container.Register(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));// typeof(Crosscutting.Validators.ValidationResults).Assembly);
+            
             container.RegisterDecorator(typeof(IQueryStrategyHandler<,>), typeof(QueryStrategyHandlerTraceDecorator<,>));
             container.RegisterDecorator(typeof(ICommandStrategyHandler<>), typeof(CommandStrategyHandlerTraceDecorator<>));
 

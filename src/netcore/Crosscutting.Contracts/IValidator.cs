@@ -2,7 +2,7 @@
 
 namespace Crosscutting.Contracts
 {
-    public interface IValidator<in TInstance, out TResults>
+    public interface IValidator<in TInstance, TResults>
     {
         TResults Validate(TInstance instance);
     }

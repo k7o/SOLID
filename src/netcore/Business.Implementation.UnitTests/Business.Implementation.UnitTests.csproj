@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Command\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Business.Contracts\Business.Contracts.csproj" />
     <ProjectReference Include="..\Business.Entities\Business.Entities.csproj" />
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj" />

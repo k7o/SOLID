@@ -5,24 +5,24 @@ using Business.Contracts.Command;
 
 namespace Business.Implementation.Command.Handlers
 {
-    public class AddAdresDataCommandHandler : IDataCommandHandler<AddAdresCommand>
+    public class AddBsnDataCommandHandler : IDataCommandHandler<AddBsnCommand>
     {
         readonly IUnitOfWork _unitOfWork;
 
-        public AddAdresDataCommandHandler(IUnitOfWork unitOfWork)
+        public AddBsnDataCommandHandler(IUnitOfWork unitOfWork)
         {
             Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
 
             _unitOfWork = unitOfWork;
         }
 
-        public void Handle(AddAdresCommand command)
+        public void Handle(AddBsnCommand command)
         {
             Guard.IsNotNull(command, nameof(command));
 
             _unitOfWork
-                .Repository<Adres>()
-                .Add(new Adres(command.Postcode));
+                .Repository<Bsn>()
+                .Add(new Bsn(command.Bsnnummer));
         }
     }
 }

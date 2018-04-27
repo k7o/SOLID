@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Services.WebApi.Controllers.Conventions
 {
-    public class CommandControllerNameConvention : Attribute, IControllerModelConvention
+    public class CommandMediatRControllerNameConvention : Attribute, IControllerModelConvention
     {
         public void Apply(ControllerModel controllerModel)
         {
             Guard.IsNotNull(controllerModel, nameof(controllerModel));
 
             if (controllerModel.ControllerType.GetGenericTypeDefinition() !=
-                typeof(CommandController<>))
+                typeof(CommandMediatRController<>))
             {
                 // Not a CommandController, ignore.
                 return;
