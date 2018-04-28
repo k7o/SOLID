@@ -1,10 +1,11 @@
 ﻿using Business.Contracts.Command;
 using Business.Implementation.Command;
 using Business.Implementation.Command.Handlers;
-using Business.Implementation.Query.WhitelistResult.Handlers;
+using Business.Implementation.Query.GetWhitelisted.Handlers;
 using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
+using MediatR;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,6 @@ namespace Business.Implementation
         {
             Guard.IsNotNull(container, nameof(container));
 
-            // commands
-            container.Register(typeof(ICommandStrategyHandler<>), businessLayerAssemblies);
-            container.Register(typeof(IDataCommandHandler<>), businessLayerAssemblies);
-            // queries
-            container.Register(typeof(IQueryStrategyHandler<,>), businessLayerAssemblies);
-            container.Register(typeof(IDataQueryHandler<,>), businessLayerAssemblies);
-
             // validators
             container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
             container.RegisterCollection(typeof(IValidator<,>),
@@ -39,15 +33,9 @@ namespace Business.Implementation
                 });
 
             // decorators
-            //context
             container.RegisterDecorator(
-                typeof(ICommandStrategyHandler<>),
-                typeof(Business.Contexts.Decorators.CommandStrategyContextDecorator<>));
-            // validators
-            container.RegisterDecorator(
-                typeof(ICommandStrategyHandler<>),
-                typeof(Crosscutting.Validators.Decorators.CommandStrategyValidatorDecorator<>));
-            
+                typeof(IRequestHandler<>),
+                typeof(Business.Contexts.Decorators.ContextTransactionDecorator<>));
         }
 
         public static IEnumerable<Type> CommandTypes =>
@@ -75,12 +63,16 @@ namespace Business.Implementation
             ResultType = DetermineResultTypes(queryType).Single();
         }
 
-        public static bool IsQuery(Type type) => DetermineResultTypes(type).Any();
+        public static bool IsQuery(Type type)
+        {
+            return DetermineResultTypes(type).Any();
+        }
 
         private static IEnumerable<Type> DetermineResultTypes(Type type) =>
             from interfaceType in type.GetInterfaces()
             where interfaceType.IsGenericType
-            where interfaceType.GetGenericTypeDefinition() == typeof(IQuery<>)
-            select interfaceType.GetGenericArguments()[0];
+            where interfaceType.GetGenericTypeDefinition() == typeof(IRequest<>) && type.Name.EndsWith("Query", StringComparison.OrdinalIgnoreCase)
+
+        select interfaceType.GetGenericArguments()[0];
     }
 }

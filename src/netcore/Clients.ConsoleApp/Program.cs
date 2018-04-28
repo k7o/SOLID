@@ -90,11 +90,12 @@ namespace Clients.ConsoleApp1
             //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4));
             //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(4, 5));
 
+            /*
             var zoekAdresQuery = container.GetInstance<IQueryStrategyHandler<AdresQuery, ZoekResult>>();
             if (!zoekAdresQuery.Handle(new AdresQuery("1234")).InWhitelist)
             {
                 throw new Exception("Not found");
-            }
+            }*/
         }
     }
 }

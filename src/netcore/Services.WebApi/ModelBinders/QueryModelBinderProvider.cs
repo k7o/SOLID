@@ -15,7 +15,8 @@ namespace Services.WebApi.ModelBinders
         {
             Guard.IsNotNull(context, nameof(context));
             
-            if (context.Metadata.ModelType.GetInterface("IQuery`1") != null)
+            if (context.Metadata.ModelType.GetInterface("IRequest`1") != null &&
+                context.Metadata.ModelType.Name.EndsWith("Query", StringComparison.OrdinalIgnoreCase))
             {
                 var fallbackBinder = new BinderTypeModelBinder(typeof(ComplexTypeModelBinder));
                 return new QueryModelBinder(fallbackBinder);

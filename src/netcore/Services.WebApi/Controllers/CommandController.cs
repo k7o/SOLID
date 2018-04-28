@@ -1,9 +1,7 @@
-﻿using Contracts;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Services.WebApi.Controllers.Conventions;
-using System.ComponentModel.DataAnnotations;
 
 namespace Services.WebApi.Controllers
 {

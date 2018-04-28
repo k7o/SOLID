@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Business.Implementation.Query.InWhitelist.Handlers;
 using Business.Contracts.Query.InWhitelist;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
 {
@@ -16,7 +17,7 @@ namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
         readonly IRepository<Bsn> _bsnRepository;
         readonly IUnitOfWork _unitOfWork;
 
-        BsnDataHandler _sut;
+        BsnInWhitelistHandler _sut;
 
         public BsnHandlerTests()
         {
@@ -35,7 +36,7 @@ namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
 
             var result = ExecuteHandleOnSut();
 
-            Assert.False(result.InWhitelist);
+            Assert.False(result.Result.InWhitelist);
         }
 
         [Fact]
@@ -47,15 +48,15 @@ namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
 
             var result = ExecuteHandleOnSut();
 
-            Assert.True(result.InWhitelist);
+            Assert.True(result.Result.InWhitelist);
         }
 
         private void CreateSut()
         {
-            _sut = new BsnDataHandler(_unitOfWork);
+            _sut = new BsnInWhitelistHandler(_unitOfWork);
         }
 
-        private ZoekResult ExecuteHandleOnSut()
+        private Task<ZoekResult> ExecuteHandleOnSut()
         {
             CreateSut();
 
@@ -64,7 +65,7 @@ namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
             A.CallTo(() => _unitOfWork.Repository<Bsn>())
                 .Returns(_bsnRepository);
 
-            return _sut.Handle(_zoekBsn);
+            return _sut.Handle(_zoekBsn, new System.Threading.CancellationToken());
         }
     }
 }

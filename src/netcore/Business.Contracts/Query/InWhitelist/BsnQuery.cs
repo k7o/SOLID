@@ -1,11 +1,10 @@
-﻿using Contracts;
+﻿using MediatR;
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Business.Contracts.Query.InWhitelist
 {
     [Serializable]
-    public class BsnQuery : IDataQuery<ZoekResult>
+    public class BsnQuery : IRequest<ZoekResult>
     {
         public int Bsnnummer { get; private set; }
 

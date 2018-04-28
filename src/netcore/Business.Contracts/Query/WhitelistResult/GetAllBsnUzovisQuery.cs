@@ -1,11 +1,9 @@
-﻿using Contracts;
-using System;
+﻿using MediatR;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Business.Contracts.Query.WhitelistResult
 {
-    public class GetAllBsnUzovisQuery : IQuery<IEnumerable<BsnUzoviResult>>
+    public class GetAllBsnUzovisQuery : IRequest<IEnumerable<BsnUzoviResult>>
     {
     }
 }

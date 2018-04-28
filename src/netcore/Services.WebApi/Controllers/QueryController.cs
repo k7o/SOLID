@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Services.WebApi.Controllers.Conventions;
@@ -8,15 +9,15 @@ namespace Services.WebApi.Controllers
 {
     [Route("api/query/[controller]")]
     [QueryControllerNameConvention]
-    public class QueryController<TQuery, TResult> : Controller where TQuery : IQuery<TResult>
+    public class QueryController<TQuery, TResult> : Controller where TQuery : IRequest<TResult>
     {
-        readonly IQueryStrategyHandler<TQuery, TResult> _handler;
+        readonly IMediator _mediator;
 
-        public QueryController(IQueryStrategyHandler<TQuery, TResult> handler)
+        public QueryController(IMediator mediator)
         {
-            Guard.IsNotNull(handler, nameof(handler));
+            Guard.IsNotNull(mediator, nameof(mediator));
 
-            _handler = handler;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -24,9 +25,9 @@ namespace Services.WebApi.Controllers
         {
             Guard.IsNotNull(query, nameof(query));
 
-            var result = _handler.Handle(query);
-
-            return new JsonResult(result);
+            var result = _mediator.Send(query);
+            result.Start();
+            return new JsonResult(result.Result);
         }
     }
 }

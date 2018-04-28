@@ -15,17 +15,26 @@ namespace Services.WebApi
 {
     public static class Bootstrapper
     {
-        public static IEnumerable<Type> KnownCommandTypes => BusinessImplementationBootstrapper.CommandTypes;
+        public static IEnumerable<Type> KnownCommandTypes
+        {
+            get
+            {
+                return BusinessImplementationBootstrapper.CommandTypes;
+            }
+        }
 
-        public static IEnumerable<QueryInfo> KnownQueryTypes => BusinessImplementationBootstrapper.QueryTypes;
+        public static IEnumerable<QueryInfo> KnownQueryTypes
+        {
+            get
+            {
+                return BusinessImplementationBootstrapper.QueryTypes;
+            }
+        }
 
         public static Container Bootstrap(Container container)
         {
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
-            
-            container.RegisterDecorator(typeof(IQueryStrategyHandler<,>), typeof(QueryStrategyHandlerTraceDecorator<,>));
-            container.RegisterDecorator(typeof(ICommandStrategyHandler<>), typeof(CommandStrategyHandlerTraceDecorator<>));
 
             BusinessContextsBootstrapper.Bootstrap(container);
             BusinessImplementationBootstrapper.Bootstrap(container);
