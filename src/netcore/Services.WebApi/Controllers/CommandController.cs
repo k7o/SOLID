@@ -1,5 +1,6 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Services.WebApi.Controllers.Conventions;
 using System.ComponentModel.DataAnnotations;
@@ -8,15 +9,15 @@ namespace Services.WebApi.Controllers
 {
     [Route("api/command/[controller]")]
     [CommandControllerNameConvention]
-    public class CommandController<TCommand> : Controller where TCommand : ICommand
+    public class CommandController<TCommand> : Controller where TCommand : IRequest
     {
-        readonly ICommandStrategyHandler<TCommand> _handler;
+        readonly IMediator _mediator;
 
-        public CommandController(ICommandStrategyHandler<TCommand> handler)
+        public CommandController(IMediator mediator)
         {
-            Guard.IsNotNull(handler, nameof(handler));
+            Guard.IsNotNull(mediator, nameof(mediator));
 
-            _handler = handler;
+            _mediator = mediator;
         }
 
         [HttpPost]
@@ -24,7 +25,7 @@ namespace Services.WebApi.Controllers
         {
             Guard.IsNotNull(command, nameof(command));
 
-            _handler.Handle(command);
+            _mediator.Send(command);
 
             return Ok();
         }

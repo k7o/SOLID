@@ -82,13 +82,13 @@ namespace Clients.ConsoleApp1
             
             // application logic
             //var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
-            var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
+            //var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
 
             //addAdresCommand.Handle(new AddAdresCommand("1234"));
 
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(1, 2));
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4));
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(4, 5));
+            //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(1, 2));
+            //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4));
+            //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(4, 5));
 
             var zoekAdresQuery = container.GetInstance<IQueryStrategyHandler<AdresQuery, ZoekResult>>();
             if (!zoekAdresQuery.Handle(new AdresQuery("1234")).InWhitelist)

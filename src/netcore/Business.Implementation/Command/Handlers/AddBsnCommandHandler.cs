@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Command.Handlers
 {
-    public class AddAdresCommandHandler : IRequestHandler<AddAdresCommand>
+    public class AddBsnCommandHandler : IRequestHandler<AddBsnCommand>
     {
         readonly IUnitOfWork _unitOfWork;
 
-        public AddAdresCommandHandler(IUnitOfWork unitOfWork)
+        public AddBsnCommandHandler(IUnitOfWork unitOfWork)
         {
             Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
 
             _unitOfWork = unitOfWork;
         }
 
-        public Task Handle(AddAdresCommand request, CancellationToken cancellationToken)
+        public Task Handle(AddBsnCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
             _unitOfWork
-                .Repository<Adres>()
-                .Add(new Adres(request.Postcode));
+                .Repository<Bsn>()
+                .Add(new Bsn(request.Bsnnummer));
 
             return Task.CompletedTask;
         }

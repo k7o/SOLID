@@ -15,7 +15,7 @@ namespace Services.WebApi.Swagger.Filters
             Guard.IsNotNull(model, nameof(model));
             Guard.IsNotNull(context, nameof(context));
 
-            if (context.SystemType.GetInterfaces().Any(@interface => @interface == typeof(ICommand)))
+            if (context.SystemType.GetInterfaces().Any(@interface => @interface == typeof(IRequest)))
             {
                 model.Example = FormatterServices.GetUninitializedObject(context.SystemType);
             }

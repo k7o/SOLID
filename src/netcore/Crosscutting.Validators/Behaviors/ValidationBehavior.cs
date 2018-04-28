@@ -1,37 +1,28 @@
-﻿using FluentValidation;
-using MediatR;
-using System.Linq;
-using System.Collections.Generic;
+﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Crosscutting.Contracts;
 
 namespace Crosscutting.Validators.Behaviors
 {
-    public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
-        where TRequest : IRequest<TResponse>
+    public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+        where TRequest : IRequest, IRequest<TResponse>
     {
-        private readonly IEnumerable<IValidator<TRequest>> _validators;
+        private readonly IValidator<TRequest, ValidationResults> _validator;
 
-        public ValidationBehavior(IEnumerable<IValidator<TRequest>> validators)
+        public ValidationBehavior(IValidator<TRequest, ValidationResults> validator)
         {
-            Guard.IsNotNull(validators, nameof(validators));
+            Guard.IsNotNull(validator, nameof(validator));
 
-            _validators = validators;
+            _validator = validator;
         }
 
         public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
         {
-            var context = new ValidationContext(request);
-            var failures = _validators
-                .Select(v => v.Validate(context))
-                .SelectMany(result => result.Errors)
-                .Where(f => f != null)
-                .ToList();
-
-            if (failures.Count != 0)
+            var result = _validator.Validate(request);
+            if (!result.Succeeded)
             {
-                throw new ValidationException(failures);
+                throw new BrokenRulesException(result.ErrorMessage);
             }
 
             return next();

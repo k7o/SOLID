@@ -53,8 +53,7 @@ namespace Business.Implementation
         public static IEnumerable<Type> CommandTypes =>
             from assembly in contractAssemblies
             from type in assembly.GetExportedTypes()
-            where type.Name.EndsWith("Command", StringComparison.InvariantCulture) && 
-                      !type.Name.Equals("AddAdresCommand", StringComparison.InvariantCulture)
+            where type.Name.EndsWith("Command", StringComparison.InvariantCulture)
             select type;
 
         public static IEnumerable<QueryInfo> QueryTypes =>

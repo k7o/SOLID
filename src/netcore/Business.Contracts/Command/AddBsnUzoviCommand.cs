@@ -1,11 +1,12 @@
 ﻿using Contracts;
+using MediatR;
 using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Business.Contracts.Command
 {
     [Serializable]
-    public class AddBsnUzoviCommand : IDataCommand
+    public class AddBsnUzoviCommand : IRequest
     {
         [Required]
         [Range(1, 999999999)]

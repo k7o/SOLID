@@ -1,7 +1,8 @@
 ﻿using Business.Contracts.Command;
 using Business.Implementation.Command.Handlers;
+using Crosscutting.Validators.Behaviors;
 using MediatR;
-using MediatR.SimpleInjector;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -79,7 +80,6 @@ namespace Services.WebApi
                 .ConfigureApplicationPartManager(p =>
                 {
                     p.FeatureProviders.Add(new CommandControllerFeatureProvider());
-                    p.FeatureProviders.Add(new CommandMediatRControllerFeatureProvider());
                     p.FeatureProviders.Add(new QueryControllerFeatureProvider());
                 });
 
@@ -88,7 +88,6 @@ namespace Services.WebApi
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
                 c.OperationFilter<BodyRequiredOperationFilter>();
                 c.SchemaFilter<CommandSchemaDefaultExampleFilter>();
-                c.SchemaFilter<CommandMediatRSchemaDefaultExampleFilter>();
             });
 
             IntegrateSimpleInjector(services);
@@ -137,10 +136,19 @@ namespace Services.WebApi
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
             container.BuildMediator(
-                typeof(AddAdresCommandHandler).Assembly, 
-                typeof(AddAdresCommand).Assembly);
+                typeof(Business.Implementation.Command.Handlers.AddAdresCommandHandler).Assembly, 
+                typeof(Business.Contracts.Command.AddAdresCommand).Assembly);
 
-            container.Register(typeof(IPipelineBehavior<,>), typeof(Crosscutting.Validators.ValidationResults).Assembly);
+            //Pipeline
+            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
+            {
+//                typeof(RequestPreProcessorBehavior<,>),
+  //              typeof(RequestPostProcessorBehavior<,>),
+                typeof(ValidationBehavior<,>)
+            });
+
+            // container.RegisterCollection(typeof(IRequestPreProcessor<>), new[] { typeof(DummyBehavior<>) });
+            //container.RegisterCollection(typeof(IRequestPostProcessor<,>), new[] { typeof(DummyBehavior<,>) });
 
             // Add application presentation components:
             container.RegisterMvcControllers(app);
