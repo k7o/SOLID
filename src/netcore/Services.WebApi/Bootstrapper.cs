@@ -1,12 +1,8 @@
 ﻿using Business.Contexts;
 using Business.Implementation;
-using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
-using Crosscutting.Loggers.Decorators;
-using Crosscutting.Validators.Behaviors;
 using MediatR;
-using MediatR.Pipeline;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;

@@ -31,7 +31,6 @@ namespace Business.Implementation
                     typeof(DataAnnotationValidator<>),
                     typeof(NullValidator<>)
                 });
-
         }
 
         public static IEnumerable<Type> CommandTypes =>
@@ -67,8 +66,8 @@ namespace Business.Implementation
         private static IEnumerable<Type> DetermineResultTypes(Type type) =>
             from interfaceType in type.GetInterfaces()
             where interfaceType.IsGenericType
-            where interfaceType.GetGenericTypeDefinition() == typeof(IRequest<>) && type.Name.EndsWith("Query", StringComparison.OrdinalIgnoreCase)
-
-        select interfaceType.GetGenericArguments()[0];
+            where interfaceType.GetGenericTypeDefinition() == typeof(IRequest<>) && 
+                                                              type.Name.EndsWith("Query", StringComparison.OrdinalIgnoreCase)
+            select interfaceType.GetGenericArguments()[0];
     }
 }
