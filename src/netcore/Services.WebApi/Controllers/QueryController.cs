@@ -25,9 +25,10 @@ namespace Services.WebApi.Controllers
         {
             Guard.IsNotNull(query, nameof(query));
 
-            var result = _mediator.Send(query);
-            result.Start();
-            return new JsonResult(result.Result);
+            var queryDelegate = _mediator.Send(query);
+            queryDelegate.Start();
+
+            return new JsonResult(queryDelegate.Result);
         }
     }
 }
