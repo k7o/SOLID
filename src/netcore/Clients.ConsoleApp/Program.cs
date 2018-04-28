@@ -13,6 +13,7 @@ using Crosscutting.Contracts;
 using System.Reflection;
 using Serilog;
 using MediatR;
+using System.Threading;
 
 namespace Clients.ConsoleApp1
 {
@@ -80,23 +81,24 @@ namespace Clients.ConsoleApp1
 
             // verify container
             container.Verify();
-            
+
             // application logic
-            //var addAdresCommand = container.GetInstance<ICommandStrategyHandler<AddAdresCommand>>();
-            //var addBsnUzoviCommand = container.GetInstance<ICommandStrategyHandler<AddBsnUzoviCommand>>();
+            var cancellationToken = new CancellationToken();
 
-            //addAdresCommand.Handle(new AddAdresCommand("1234"));
+            var addAdresCommand = container.GetInstance<IRequestHandler<AddAdresCommand>>();
+            var addBsnUzoviCommand = container.GetInstance<IRequestHandler<AddBsnUzoviCommand>>();
 
-            //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(1, 2));
-            //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4));
-            //addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(4, 5));
+            addAdresCommand.Handle(new AddAdresCommand("1234"), cancellationToken);
 
-            /*
-            var zoekAdresQuery = container.GetInstance<IQueryStrategyHandler<AdresQuery, ZoekResult>>();
-            if (!zoekAdresQuery.Handle(new AdresQuery("1234")).InWhitelist)
+            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(1, 2), cancellationToken);
+            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4), cancellationToken);
+            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(4, 5), cancellationToken);
+
+            var zoekAdresQuery = container.GetInstance<IRequestHandler<AdresQuery, ZoekResult>>();
+            if (!zoekAdresQuery.Handle(new AdresQuery("1234"), cancellationToken).Result.InWhitelist)
             {
                 throw new Exception("Not found");
-            }*/
+            }
         }
     }
 }

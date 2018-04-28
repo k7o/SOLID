@@ -135,23 +135,6 @@ namespace Services.WebApi
         {
             container.Options.DefaultScopedLifestyle = new AsyncScopedLifestyle();
 
-            container.BuildMediator(
-                typeof(Business.Implementation.Command.Handlers.AddAdresCommandHandler).Assembly, 
-                typeof(Business.Contracts.Command.AddAdresCommand).Assembly);
-
-            //Pipeline
-            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
-            {
-//                typeof(RequestPreProcessorBehavior<,>),
-  //              typeof(RequestPostProcessorBehavior<,>),
-                typeof(ValidationBehavior<,>)
-            });
-
-            
-
-            // container.RegisterCollection(typeof(IRequestPreProcessor<>), new[] { typeof(DummyBehavior<>) });
-            //container.RegisterCollection(typeof(IRequestPostProcessor<,>), new[] { typeof(DummyBehavior<,>) });
-
             // Add application presentation components:
             container.RegisterMvcControllers(app);
             container.RegisterMvcViewComponents(app);

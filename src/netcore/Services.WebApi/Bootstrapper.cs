@@ -2,6 +2,7 @@
 using Business.Implementation;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
+using Crosscutting.Validators.Behaviors;
 using MediatR;
 using SimpleInjector;
 using System;
@@ -31,6 +32,18 @@ namespace Services.WebApi
         {
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
+
+            container.BuildMediator(
+              typeof(Business.Implementation.Command.Handlers.AddAdresCommandHandler).Assembly,
+              typeof(Business.Contracts.Command.AddAdresCommand).Assembly);
+
+            // pipeline
+            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
+            {
+//                typeof(RequestPreProcessorBehavior<,>),
+//                typeof(RequestPostProcessorBehavior<,>),
+                typeof(ValidationBehavior<,>)
+            });
 
             // decorators
             container.RegisterDecorator(
