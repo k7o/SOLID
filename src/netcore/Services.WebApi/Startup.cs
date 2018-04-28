@@ -147,6 +147,8 @@ namespace Services.WebApi
                 typeof(ValidationBehavior<,>)
             });
 
+            
+
             // container.RegisterCollection(typeof(IRequestPreProcessor<>), new[] { typeof(DummyBehavior<>) });
             //container.RegisterCollection(typeof(IRequestPostProcessor<,>), new[] { typeof(DummyBehavior<,>) });
 

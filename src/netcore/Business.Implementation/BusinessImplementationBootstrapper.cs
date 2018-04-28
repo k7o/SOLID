@@ -32,10 +32,6 @@ namespace Business.Implementation
                     typeof(NullValidator<>)
                 });
 
-            // decorators
-            container.RegisterDecorator(
-                typeof(IRequestHandler<>),
-                typeof(Business.Contexts.Decorators.ContextTransactionDecorator<>));
         }
 
         public static IEnumerable<Type> CommandTypes =>

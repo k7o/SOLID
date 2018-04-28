@@ -1,18 +1,21 @@
 ﻿using Contracts;
 using Crosscutting.Contracts;
+using MediatR;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Crosscutting.Contracts.Decorators
 {
-    public class ThreadScopedCommandStrategyHandlerProxy<TCommand> : ICommandStrategyHandler<TCommand> where TCommand : ICommand
+    public class ThreadScopedCommandHandlerProxy<TRequest> : IRequestHandler<TRequest> where TRequest : IRequest
     {
         readonly Container _container;
-        readonly Func<ICommandStrategyHandler<TCommand>> _decorateeFactory;
+        readonly Func<IRequestHandler<TRequest>> _decorateeFactory;
 
-        public ThreadScopedCommandStrategyHandlerProxy(Container container,
-            Func<ICommandStrategyHandler<TCommand>> decorateeFactory)
+        public ThreadScopedCommandHandlerProxy(Container container,
+            Func<IRequestHandler<TRequest>> decorateeFactory)
         {
             Guard.IsNotNull(container, nameof(container));
             Guard.IsNotNull(decorateeFactory, nameof(decorateeFactory));
@@ -21,13 +24,14 @@ namespace Crosscutting.Contracts.Decorators
             _decorateeFactory = decorateeFactory;
         }
 
-        public void Handle(TCommand command)
+        public Task Handle(TRequest request, CancellationToken cancellationToken)
         {
             using (ThreadScopedLifestyle.BeginScope(_container))
             {
                 var handler = this._decorateeFactory.Invoke();
-                handler.Handle(command);
+                handler.Handle(request, cancellationToken);
             }
+            return Task.CompletedTask;
         }
     }
 }

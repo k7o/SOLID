@@ -36,6 +36,11 @@ namespace Services.WebApi
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
 
+            // decorators
+            container.RegisterDecorator(
+                typeof(IRequestHandler<>),
+                typeof(Business.Contexts.Decorators.ContextTransactionDecorator<>));
+
             BusinessContextsBootstrapper.Bootstrap(container);
             BusinessImplementationBootstrapper.Bootstrap(container);
 

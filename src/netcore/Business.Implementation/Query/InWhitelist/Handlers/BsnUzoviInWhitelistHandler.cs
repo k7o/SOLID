@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Query.InWhitelist.Handlers
 {
-    public class BsnUzoviInWhitelistHandler : IRequestHandler<BsnUzoviQuery, ZoekResult>
+    public class BsnUzoviInWhitelistHandler : MediatR.IRequestHandler<BsnUzoviQuery, ZoekResult>
     {
         readonly IUnitOfWork _unitOfWork;
 

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Query.GetWhitelisted.Handlers
 {
-    public class GetWhitelistedBsnUzovisHandler : IRequestHandler<GetAllBsnUzovisQuery, IEnumerable<BsnUzoviResult>>
+    public class GetWhitelistedBsnUzovisHandler : MediatR.IRequestHandler<GetAllBsnUzovisQuery, IEnumerable<BsnUzoviResult>>
     {
         readonly IUnitOfWork _unitOfWork;
 

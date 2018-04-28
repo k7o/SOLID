@@ -12,6 +12,7 @@ using Crosscutting.Contracts.Decorators;
 using Crosscutting.Contracts;
 using System.Reflection;
 using Serilog;
+using MediatR;
 
 namespace Clients.ConsoleApp1
 {
@@ -56,8 +57,8 @@ namespace Clients.ConsoleApp1
             container.Register<ILog, LogSerilog>();
             container.Register<ITrace, TraceSerilog>();
             container.RegisterDecorator(
-                typeof(IQueryStrategyHandler<,>),
-                typeof(Crosscutting.Loggers.Decorators.QueryStrategyHandlerQueryTraceDecorator<,>));
+                typeof(IRequestHandler<>),
+                typeof(Crosscutting.Loggers.Decorators.IAmTraceableRequestHandlerDecorator<,>));
 
             CrosscuttingCachesBootstrapper.Bootstrap(container);
 
@@ -67,14 +68,14 @@ namespace Clients.ConsoleApp1
             // register scoped
             // run every commandstrategy in own scope
             container.RegisterDecorator(
-                typeof(ICommandStrategyHandler<>),
-                typeof(ThreadScopedCommandStrategyHandlerProxy<>),
+                typeof(IRequestHandler<>),
+                typeof(ThreadScopedCommandHandlerProxy<>),
                 Lifestyle.Singleton);
 
             // run every querystrategy in own scope
             container.RegisterDecorator(
-                typeof(IQueryStrategyHandler<,>),
-                typeof(ThreadScopedQueryStrategyHandlerProxy<,>),
+                typeof(IRequestHandler<>),
+                typeof(ThreadScopedQueryHandlerProxy<,>),
                 Lifestyle.Singleton);
 
             // verify container

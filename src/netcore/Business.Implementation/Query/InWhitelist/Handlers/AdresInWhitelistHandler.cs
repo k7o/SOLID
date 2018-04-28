@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Query.InWhitelist.Handlers
 {
-    public class AdresInWhitelistHandler : IRequestHandler<AdresQuery, ZoekResult>
+    public class AdresInWhitelistHandler : MediatR.IRequestHandler<AdresQuery, ZoekResult>
     {
         readonly IUnitOfWork _unitOfWork;
 

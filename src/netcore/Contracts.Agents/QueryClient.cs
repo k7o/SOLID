@@ -1,4 +1,5 @@
 ﻿using Contracts;
+using MediatR;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,44 +11,30 @@ using System.Threading.Tasks;
 
 namespace Contracts.Agents
 {
-    public class QueryClient<TQuery, TResult> : IAsyncQueryHandler<TQuery, TResult> where TQuery : IQuery<TResult>
+    public class QueryClient<TQuery, TResult> : IRequestHandler<TQuery, TResult> where TQuery : IRequest<TResult>
     {
-        public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken)
+        public async Task<TResult> Handle(TQuery request, CancellationToken cancellationToken)
         {
             var urlBuilder = new StringBuilder();
             urlBuilder
                 .Append("http://localhost:51964/")
-                .Append($"api/query/{query.GetType().Name.Replace("Query", string.Empty, StringComparison.InvariantCulture)}?")
-                .Append(query.ToQueryString());
+                .Append($"api/query/{request.GetType().Name.Replace("Query", string.Empty, StringComparison.InvariantCulture)}?")
+                .Append(request.ToQueryString());
 
             var client = new HttpClient();
-            try
+
+            using (var clientRequest = new HttpRequestMessage())
             {
-                using (var request = new HttpRequestMessage())
-                {
-                    request.Method = new HttpMethod("GET");
+                clientRequest.Method = new HttpMethod("GET");
 
-                    var url = urlBuilder.ToString();
-                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                var url = urlBuilder.ToString();
+                clientRequest.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
 
-                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false); 
+                var response = await client.SendAsync(clientRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false); 
 
-                    var responseData = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                var responseData = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-                    return (TResult) JsonConvert.DeserializeObject(responseData, typeof(TResult));
-                }
-            }
-            catch (Exception ex)
-            {
-                var message = (ex.InnerException != null) ? ex.InnerException.Message : ex.Message;
-                throw;
-            }
-            finally
-            {
-                if (client != null)
-                {
-                    client.Dispose();
-                }
+                return (TResult) JsonConvert.DeserializeObject(responseData, typeof(TResult));
             }
         }
     }

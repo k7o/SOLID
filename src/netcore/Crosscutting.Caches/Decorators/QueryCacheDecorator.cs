@@ -1,15 +1,19 @@
-﻿using Contracts;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Contracts;
 using Crosscutting.Contracts;
+using MediatR;
 
 namespace Crosscutting.Caches.Decorators
 {
-    public class QueryCacheDecorator<TQuery, TResult> : IDataQueryHandler<TQuery, TResult> where TQuery : IAmCacheable, IDataQuery<TResult>
+    public class QueryCacheDecorator<TQuery, TResult> : IRequestHandler<TQuery, TResult> 
+        where TQuery : IAmCacheable, IRequest<TResult>
     {
         readonly ICache _cache;
         readonly ILog _log;
-        readonly IQueryHandler<TQuery, TResult> _decoratee;
+        readonly IRequestHandler<TQuery, TResult> _decoratee;
 
-        public QueryCacheDecorator(ICache cache, ILog log, IQueryHandler<TQuery, TResult> decoratee)
+        public QueryCacheDecorator(ICache cache, ILog log, IRequestHandler<TQuery, TResult> decoratee)
         {
             Guard.IsNotNull(cache, nameof(cache));
             Guard.IsNotNull(log, nameof(log));
@@ -20,14 +24,14 @@ namespace Crosscutting.Caches.Decorators
             _decoratee = decoratee;
         }
 
-        public TResult Handle(TQuery query)
+        public Task<TResult> Handle(TQuery request, CancellationToken cancellationToken)
         {
-            var key = $"{query.GetType().Name}.{query.CacheKey}";
+            var key = $"{request.GetType().Name}.{request.CacheKey}";
 
             return _cache.GetOrAdd(key, () =>
             {
                 _log.Informational($"Caching results of {key}");
-                return _decoratee.Handle(query);
+                return _decoratee.Handle(request, cancellationToken);
             });
         }
     }

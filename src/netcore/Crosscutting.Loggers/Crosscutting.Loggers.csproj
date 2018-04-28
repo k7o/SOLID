@@ -26,4 +26,8 @@
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Behaviors\" />
+  </ItemGroup>
+
 </Project>

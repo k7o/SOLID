@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Query.InWhitelist.Handlers
 {
-    public class BsnInWhitelistHandler : IRequestHandler<BsnQuery, ZoekResult>
+    public class BsnInWhitelistHandler : MediatR.IRequestHandler<BsnQuery, ZoekResult>
     {
         readonly IUnitOfWork _unitOfWork;
 

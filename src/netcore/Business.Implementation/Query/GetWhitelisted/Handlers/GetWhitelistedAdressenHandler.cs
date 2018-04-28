@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Query.GetWhitelisted.Handlers
 {
-    public class GetWhitelistedAdressenHandler : IRequestHandler<GetAllAdressenQuery, IEnumerable<AdresResult>>
+    public class GetWhitelistedAdressenHandler : MediatR.IRequestHandler<GetAllAdressenQuery, IEnumerable<AdresResult>>
     {
         readonly IUnitOfWork _unitOfWork;
 

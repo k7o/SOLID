@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Business.Implementation.Query.GetWhitelisted.Handlers
 {
-    public class GetWhitelistedBsnsHandler : IRequestHandler<GetAllBsnsQuery, IEnumerable<BsnResult>>
+    public class GetWhitelistedBsnsHandler : MediatR.IRequestHandler<GetAllBsnsQuery, IEnumerable<BsnResult>>
     {
         readonly IUnitOfWork _unitOfWork;
 
