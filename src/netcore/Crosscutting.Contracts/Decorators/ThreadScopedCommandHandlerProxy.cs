@@ -1,6 +1,4 @@
-﻿using Contracts;
-using Crosscutting.Contracts;
-using MediatR;
+﻿using MediatR;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;

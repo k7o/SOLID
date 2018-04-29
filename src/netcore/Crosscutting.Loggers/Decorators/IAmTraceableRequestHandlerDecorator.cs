@@ -1,5 +1,4 @@
-﻿using Contracts;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using MediatR;
 using System;
 using System.Threading;

@@ -1,11 +1,6 @@
-﻿using Contracts;
-using Crosscutting.Contracts;
-using MediatR;
+﻿using Crosscutting.Contracts;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Services.WebApi.Controllers.Conventions
 {

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace Contracts
+namespace Contexts.Contracts
 {
     public interface IUnitOfWork
     {
         IRepository<TEntity> Repository<TEntity>() where TEntity : class;
+
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         int SaveChanges();
     }

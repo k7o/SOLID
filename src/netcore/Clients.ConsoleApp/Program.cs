@@ -1,16 +1,13 @@
-﻿using Contracts;
-using System;
+﻿using System;
 using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using Crosscutting.Caches;
 using Crosscutting.Loggers;
-using Business.Contexts;
 using Business.Implementation;
 using Business.Contracts.Query.InWhitelist;
 using Business.Contracts.Command;
 using Crosscutting.Contracts.Decorators;
 using Crosscutting.Contracts;
-using System.Reflection;
 using Serilog;
 using MediatR;
 using System.Threading;
@@ -61,10 +58,8 @@ namespace Clients.ConsoleApp1
                 typeof(IRequestHandler<>),
                 typeof(Crosscutting.Loggers.Decorators.IAmTraceableRequestHandlerDecorator<,>));
 
-            CrosscuttingCachesBootstrapper.Bootstrap(container);
-
-            BusinessContextsBootstrapper.Bootstrap(container);
-            BusinessImplementationBootstrapper.Bootstrap(container);
+            container.RegisterCache();
+            container.RegisterBusinessLogic();
 
             // register scoped
             // run every commandstrategy in own scope

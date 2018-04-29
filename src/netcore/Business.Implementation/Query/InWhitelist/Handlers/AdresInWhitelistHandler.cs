@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using Business.Contracts.Query.InWhitelist;
-using Contracts;
 using Crosscutting.Contracts;
 using Business.Entities;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Contexts.Contracts;
 
 namespace Business.Implementation.Query.InWhitelist.Handlers
 {
@@ -22,7 +21,7 @@ namespace Business.Implementation.Query.InWhitelist.Handlers
 
         public Task<ZoekResult> Handle(AdresQuery request, CancellationToken cancellationToken)
         {
-            return new Task<ZoekResult>(() => new ZoekResult(_unitOfWork
+            return Task.FromResult(new ZoekResult(_unitOfWork
                     .Repository<Adres>()
                     .GetAll()
                     .Any(c => c.Postcode == request.Postcode)));

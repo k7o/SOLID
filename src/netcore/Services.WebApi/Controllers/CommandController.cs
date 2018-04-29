@@ -2,6 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Services.WebApi.Controllers.Conventions;
+using System.Threading.Tasks;
 
 namespace Services.WebApi.Controllers
 {
@@ -19,11 +20,11 @@ namespace Services.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Handle([FromBody] TCommand command)
+        public async Task<IActionResult> HandleAsync([FromBody] TCommand command)
         {
             Guard.IsNotNull(command, nameof(command));
 
-            _mediator.Send(command);
+            await _mediator.Send(command);
 
             return Ok();
         }

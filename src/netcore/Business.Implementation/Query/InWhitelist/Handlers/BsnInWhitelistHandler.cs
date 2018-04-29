@@ -1,11 +1,10 @@
 ﻿using System.Linq;
-using Contracts;
 using Business.Entities;
 using Crosscutting.Contracts;
 using Business.Contracts.Query.InWhitelist;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Contexts.Contracts;
 
 namespace Business.Implementation.Query.InWhitelist.Handlers
 {
@@ -22,8 +21,7 @@ namespace Business.Implementation.Query.InWhitelist.Handlers
 
         public Task<ZoekResult> Handle(BsnQuery request, CancellationToken cancellationToken)
         {
-            return new Task<ZoekResult>(() =>
-                new ZoekResult(_unitOfWork
+            return Task.FromResult(new ZoekResult(_unitOfWork
                     .Repository<Bsn>()
                     .GetAll()
                     .Any(c => c.Bsnnummer == request.Bsnnummer)));

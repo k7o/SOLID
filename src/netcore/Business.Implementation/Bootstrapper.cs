@@ -1,10 +1,8 @@
 ﻿using Business.Contracts.Command;
-using Business.Implementation.Command;
 using Business.Implementation.Command.Handlers;
-using Business.Implementation.Query.GetWhitelisted.Handlers;
-using Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
+using Crosscutting.Validators.Behaviors;
 using MediatR;
 using SimpleInjector;
 using System;
@@ -15,12 +13,12 @@ using System.Reflection;
 
 namespace Business.Implementation
 {
-    public static class BusinessImplementationBootstrapper
+    public static class Bootstrapper
     {
         private static Assembly[] contractAssemblies = new[] { typeof(AddAdresCommand).Assembly };
         private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommandHandler).Assembly };
 
-        public static void Bootstrap(Container container)
+        public static Container RegisterBusinessLogic(this Container container)
         {
             Guard.IsNotNull(container, nameof(container));
 
@@ -31,6 +29,14 @@ namespace Business.Implementation
                     typeof(DataAnnotationValidator<>),
                     typeof(NullValidator<>)
                 });
+
+            // mediator pipeline
+            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
+            {
+                typeof(ValidationBehavior<,>)
+            });
+
+            return container;
         }
 
         public static IEnumerable<Type> CommandTypes =>

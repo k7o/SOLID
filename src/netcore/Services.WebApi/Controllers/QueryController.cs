@@ -1,9 +1,8 @@
-﻿using Contracts;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Services.WebApi.Controllers.Conventions;
+using System.Threading.Tasks;
 
 namespace Services.WebApi.Controllers
 {
@@ -21,14 +20,13 @@ namespace Services.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult Handle([FromQuery] TQuery query)
+        public async Task<IActionResult> HandleAsync([FromQuery] TQuery query)
         {
             Guard.IsNotNull(query, nameof(query));
 
-            var queryDelegate = _mediator.Send(query);
-            queryDelegate.Start();
+            var queryDelegate = await _mediator.Send(query);
 
-            return new JsonResult(queryDelegate.Result);
+            return new JsonResult(queryDelegate);
         }
     }
 }

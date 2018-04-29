@@ -1,13 +1,11 @@
-﻿using Business.Contexts;
-using Business.Contracts.Query.WhitelistResult;
+﻿using Business.Contracts.Query.WhitelistResult;
 using Business.Entities;
-using Contracts;
+using Contexts.Contracts;
 using Crosscutting.Contracts;
-using MediatR;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Business.Implementation.Query.GetWhitelisted.Handlers
 {
@@ -26,7 +24,7 @@ namespace Business.Implementation.Query.GetWhitelisted.Handlers
         {
             Guard.IsNotNull(request, nameof(request));
 
-            return new Task<IEnumerable<BsnResult>>(() =>_unitOfWork
+            return Task.FromResult(_unitOfWork
                 .Repository<Bsn>()
                 .GetAll()
                 .Select(d => new BsnResult(d.Bsnnummer)));

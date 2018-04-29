@@ -1,9 +1,11 @@
-﻿using Business.Contexts;
-using Business.Implementation;
+﻿using Business.Implementation;
+using Business.UnitOfWork;
+using Contexts.Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
 using Crosscutting.Validators.Behaviors;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -16,7 +18,7 @@ namespace Services.WebApi
         {
             get
             {
-                return BusinessImplementationBootstrapper.CommandTypes;
+                return Business.Implementation.Bootstrapper.CommandTypes;
             }
         }
 
@@ -24,34 +26,33 @@ namespace Services.WebApi
         {
             get
             {
-                return BusinessImplementationBootstrapper.QueryTypes;
+                return Business.Implementation.Bootstrapper.QueryTypes;
             }
         }
 
-        public static Container Bootstrap(Container container)
+        public static Container RegisterApplication(this Container container)
         {
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
 
+            // datasource
+            container.Register<IUnitOfWork>(() =>
+                    new WhitelistUnitOfWork(
+                            new DbContextOptionsBuilder()
+                                .UseInMemoryDatabase("Whitelist")
+                                .Options), Lifestyle.Scoped);
+
+            // mediator
             container.BuildMediator(
               typeof(Business.Implementation.Command.Handlers.AddAdresCommandHandler).Assembly,
               typeof(Business.Contracts.Command.AddAdresCommand).Assembly);
 
-            // pipeline
-            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
-            {
-//                typeof(RequestPreProcessorBehavior<,>),
-//                typeof(RequestPostProcessorBehavior<,>),
-                typeof(ValidationBehavior<,>)
-            });
-
             // decorators
             container.RegisterDecorator(
                 typeof(IRequestHandler<>),
-                typeof(Business.Contexts.Decorators.ContextTransactionDecorator<>));
+                typeof(Contexts.Contracts.Decorators.ContextTransactionDecorator<>));
 
-            BusinessContextsBootstrapper.Bootstrap(container);
-            BusinessImplementationBootstrapper.Bootstrap(container);
+            container.RegisterBusinessLogic();
 
             return container;
         }

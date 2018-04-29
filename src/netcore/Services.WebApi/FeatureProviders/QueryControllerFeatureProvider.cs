@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using System.Collections.Generic;
 using System.Reflection;
 using Services.WebApi.Controllers;
-using System.Linq;
-using Contracts;
 
 namespace Services.WebApi.FeatureProviders
 {

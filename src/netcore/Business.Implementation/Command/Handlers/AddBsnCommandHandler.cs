@@ -1,10 +1,10 @@
 ﻿using Business.Entities;
-using Contracts;
 using Crosscutting.Contracts;
 using Business.Contracts.Command;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
+using Contexts.Contracts;
 
 namespace Business.Implementation.Command.Handlers
 {

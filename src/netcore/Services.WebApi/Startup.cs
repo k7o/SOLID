@@ -142,7 +142,7 @@ namespace Services.WebApi
             container.RegisterInstance(loggerFactory);
             container.RegisterInstance(loggerFactory.CreateLogger("test"));
 
-            Bootstrapper.Bootstrap(container);
+            container.RegisterApplication();
 
             container.AutoCrossWireAspNetComponents(app);
         }

@@ -1,9 +1,11 @@
-﻿using Contracts;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Crosscutting.Contracts;
 using Business.Entities;
+using System.Threading.Tasks;
+using System.Threading;
+using Contexts.Contracts;
 
-namespace Business.Contexts
+namespace Business.UnitOfWork
 {
     public class WhitelistUnitOfWork : DbContext, IUnitOfWork
     {
@@ -14,6 +16,11 @@ namespace Business.Contexts
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
             return new Repository<TEntity>(Set<TEntity>());
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return base.SaveChangesAsync(cancellationToken);
         }
 
         public override int SaveChanges()

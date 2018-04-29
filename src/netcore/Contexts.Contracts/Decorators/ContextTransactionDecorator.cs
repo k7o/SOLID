@@ -1,10 +1,9 @@
-﻿using Contracts;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Business.Contexts.Decorators
+namespace Contexts.Contracts.Decorators
 {
     public class ContextTransactionDecorator<TRequest> : IRequestHandler<TRequest> 
         where TRequest : IRequest 
@@ -21,12 +20,15 @@ namespace Business.Contexts.Decorators
             _unitOfWork = unitOfWork;
         }
 
-        public Task Handle(TRequest request, CancellationToken cancellationToken)
+        public async Task Handle(TRequest request, CancellationToken cancellationToken)
         {
-            _decoratee.Handle(request, cancellationToken);
-            _unitOfWork.SaveChanges();
+            await _decoratee
+                .Handle(request, cancellationToken)
+                .ConfigureAwait(false);
 
-            return Task.CompletedTask;
+            await _unitOfWork
+                .SaveChangesAsync(cancellationToken)
+                .ConfigureAwait(false);
         }
     }
 }

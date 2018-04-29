@@ -1,5 +1,4 @@
-﻿using Contracts;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.ComponentModel.DataAnnotations;
 

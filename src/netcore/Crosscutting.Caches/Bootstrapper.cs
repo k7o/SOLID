@@ -4,11 +4,11 @@ using System.Reflection;
 
 namespace Crosscutting.Caches
 {
-    public static class CrosscuttingCachesBootstrapper
+    public static class Bootstrapper
     {
         private static Assembly[] crosscuttingCachesAssemblies = new[] { typeof(ICacheSettings).Assembly };
 
-        public static void Bootstrap(Container container)
+        public static void RegisterCache(this Container container)
         {
             Guard.IsNotNull(container, nameof(container));
 

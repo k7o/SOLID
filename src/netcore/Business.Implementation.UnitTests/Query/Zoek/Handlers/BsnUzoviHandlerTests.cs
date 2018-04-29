@@ -1,11 +1,11 @@
-﻿using Contracts;
-using FakeItEasy;
+﻿using FakeItEasy;
 using Business.Entities;
 using System.Collections.Generic;
 using Business.Implementation.Query.InWhitelist.Handlers;
 using Business.Contracts.Query.InWhitelist;
 using Xunit;
 using System.Threading.Tasks;
+using Contexts.Contracts;
 
 namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
 {

@@ -30,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business.Contexts\Business.Contexts.csproj" />
     <ProjectReference Include="..\Business.Implementation\Business.Implementation.csproj" />
     <ProjectReference Include="..\Crosscutting.Loggers\Crosscutting.Loggers.csproj" />
   </ItemGroup>

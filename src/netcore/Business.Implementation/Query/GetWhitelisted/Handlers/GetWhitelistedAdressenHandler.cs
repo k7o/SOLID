@@ -1,9 +1,7 @@
-﻿using Business.Contexts;
-using Business.Contracts.Query.WhitelistResult;
+﻿using Business.Contracts.Query.WhitelistResult;
 using Business.Entities;
-using Contracts;
+using Contexts.Contracts;
 using Crosscutting.Contracts;
-using MediatR;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,7 +24,7 @@ namespace Business.Implementation.Query.GetWhitelisted.Handlers
         {
             Guard.IsNotNull(request, nameof(request));
 
-            return new Task<IEnumerable<AdresResult>>(() => _unitOfWork
+            return Task.FromResult(_unitOfWork
                 .Repository<Adres>()
                 .GetAll()
                 .Select(d => new AdresResult(d.Postcode)));
