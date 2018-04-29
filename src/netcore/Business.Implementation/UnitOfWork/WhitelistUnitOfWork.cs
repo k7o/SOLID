@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Crosscutting.Contracts;
-using Business.Entities;
+using Business.Implementation.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using Contexts.Contracts;

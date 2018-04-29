@@ -1,6 +1,6 @@
 ﻿using Business.Contracts.Command;
 using Crosscutting.Contracts;
-using Business.Entities;
+using Business.Implementation.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;

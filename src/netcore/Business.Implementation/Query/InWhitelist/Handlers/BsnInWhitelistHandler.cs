@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Business.Entities;
+using Business.Implementation.Entities;
 using Crosscutting.Contracts;
 using Business.Contracts.Query.InWhitelist;
 using System.Threading;

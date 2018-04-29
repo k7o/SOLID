@@ -1,5 +1,5 @@
 ﻿using Business.Contracts.Command;
-using Business.Entities;
+using Business.Implementation.Entities;
 using Contexts.Contracts;
 using Crosscutting.Contracts;
 using MediatR;

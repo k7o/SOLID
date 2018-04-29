@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Business.Contracts\Business.Contracts.csproj" />
-    <ProjectReference Include="..\Business.Entities\Business.Entities.csproj" />
     <ProjectReference Include="..\Contexts.Contracts\Contexts.Contracts.csproj" />
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj" />
     <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj" />

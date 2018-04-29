@@ -1,5 +1,5 @@
 ﻿using Business.Contracts.Query.WhitelistResult;
-using Business.Entities;
+using Business.Implementation.Entities;
 using Contexts.Contracts;
 using Crosscutting.Contracts;
 using System.Collections.Generic;

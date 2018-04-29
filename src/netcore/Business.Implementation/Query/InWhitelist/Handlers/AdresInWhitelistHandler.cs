@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Business.Contracts.Query.InWhitelist;
 using Crosscutting.Contracts;
-using Business.Entities;
+using Business.Implementation.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 using Contexts.Contracts;

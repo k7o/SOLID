@@ -1,4 +1,4 @@
-﻿using Business.Entities;
+﻿using Business.Implementation.Entities;
 using Crosscutting.Contracts;
 using Business.Contracts.Command;
 using MediatR;
