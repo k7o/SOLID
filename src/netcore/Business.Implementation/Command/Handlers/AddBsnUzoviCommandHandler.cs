@@ -19,15 +19,13 @@ namespace Business.Implementation.Command.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public Task Handle(AddBsnUzoviCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddBsnUzoviCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            _unitOfWork
+            await _unitOfWork
                 .Repository<BsnUzovi>()
-                .Add(new BsnUzovi(request.Bsnnummer, request.Uzovi));
-
-            return Task.CompletedTask;
+                .AddAsync(new BsnUzovi(request.Bsnnummer, request.Uzovi));
         }
     }
 }

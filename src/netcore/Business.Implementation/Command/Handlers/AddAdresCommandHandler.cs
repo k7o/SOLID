@@ -19,15 +19,13 @@ namespace Business.Implementation.Command.Handlers
             _unitOfWork = unitOfWork;
         }
 
-        public Task Handle(AddAdresCommand request, CancellationToken cancellationToken)
+        public async Task Handle(AddAdresCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            _unitOfWork
+            await _unitOfWork
                 .Repository<Adres>()
-                .Add(new Adres(request.Postcode));
-
-            return Task.CompletedTask;
+                .AddAsync(new Adres(request.Postcode));
         }
     }
 }
