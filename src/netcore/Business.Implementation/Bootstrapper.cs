@@ -32,12 +32,7 @@ namespace BusinessLogic
                     typeof(NullValidator<>)
                 });
 
-            // pipeline
-            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
-            {
-                typeof(InMemoryContextTransactionBehavior<WhitelistContext>),
-                typeof(ValidationBehavior<,>)
-            });
+         
 
             return container;
         }

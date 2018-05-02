@@ -1,7 +1,7 @@
 ﻿using Business.Context;
-using BusinessLogic.Entities;
 using Crosscutting.Contracts;
 using Dtos.Features.GetWhitelisted;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -20,14 +20,13 @@ namespace BusinessLogic.Features.GetWhitelisted
             _context = context;
         }
 
-        public Task<IEnumerable<BsnUzoviResult>> Handle(GetWhitelistedBsnUzovisQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BsnUzoviResult>> Handle(GetWhitelistedBsnUzovisQuery request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            return Task.FromResult(_context
-                .Repository<BsnUzovi>()
-                .GetAll()
-                .Select(d => new BsnUzoviResult(d.Bsnnummer, d.Uzovi)));
+            return await _context.BsnUzovis
+                .Select(c => new BsnUzoviResult(c.Bsnnummer, c.Uzovi))
+                    .ToListAsync();
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using Business.Context;
-using BusinessLogic.Entities;
+﻿using BusinessLogic.Entities;
 using Crosscutting.Contracts;
 using Dtos.Features.AddToWhitelist;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,23 +10,21 @@ namespace BusinessLogic.Features.AddToWhitelist
 {
     public class AddAdresToWhitelistCommandHandler : IRequestHandler<AddAdresToWhitelistCommand>
     {
-        readonly WhitelistContext _whitelistContext;
+        readonly DbContext _context;
 
-        public AddAdresToWhitelistCommandHandler(WhitelistContext whitelistContext)
+        public AddAdresToWhitelistCommandHandler(DbContext context)
         {
-            Guard.IsNotNull(whitelistContext, nameof(whitelistContext));
+            Guard.IsNotNull(context, nameof(context));
 
-            _whitelistContext = whitelistContext;
+            _context = context;
         }
 
         public async Task Handle(AddAdresToWhitelistCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            await _whitelistContext
-                .Repository<Adres>()
-                .AddAsync(new Adres(request.Postcode))
-                .ConfigureAwait(false);
+            await _context
+                .AddAsync(new Adres(request.Postcode));
         }
     }
 }

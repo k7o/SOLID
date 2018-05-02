@@ -1,8 +1,10 @@
 ﻿using Business.Context;
 using BusinessLogic;
-using Contexts.Contracts;
+using Contexts.Contracts.Behaviors;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
+using Crosscutting.Validators.Behaviors;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
 using System;
@@ -34,25 +36,28 @@ namespace Services.WebApi
             container.Register<ITrace, TraceAspNetCore>();
 
             // datasource
-            container.RegisterInstance(
-                new WhitelistContext(
-                    new DbContextOptionsBuilder()
-                        .UseInMemoryDatabase("Whitelist")
-                        .Options));
+            var whitelistContext = new WhitelistContext(
+                                        new DbContextOptionsBuilder()
+                                            .UseInMemoryDatabase("Whitelist")
+                                            .Options);
+
+            container.RegisterInstance(whitelistContext);
+            container.RegisterInstance<DbContext>(whitelistContext);
 
             // mediator
             container.BuildMediator(
-              typeof(BusinessLogic.Features.AddToWhitelist.AddAdresToWhitelistCommandHandler).Assembly,
-              typeof(Dtos.Features.AddToWhitelist.AddAdresToWhitelistCommand).Assembly);
+                typeof(BusinessLogic.Features.AddToWhitelist.AddAdresToWhitelistCommandHandler).Assembly,
+                typeof(Dtos.Features.AddToWhitelist.AddAdresToWhitelistCommand).Assembly);
 
-            /*
-            // decorators
-            container.RegisterDecorator(
-                typeof(IRequestHandler<>),
-                typeof(Contexts.Contracts.Decorators.ContextTransactionDecorator<>));
-            */
-
+            // register business logic
             container.RegisterBusinessLogic();
+
+            // pipeline
+            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
+            {
+                typeof(InMemoryContextTransactionBehavior),
+                typeof(ValidationBehavior<,>)
+            });
 
             return container;
         }

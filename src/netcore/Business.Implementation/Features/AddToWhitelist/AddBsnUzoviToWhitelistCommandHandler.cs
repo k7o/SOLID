@@ -3,30 +3,28 @@ using BusinessLogic.Entities;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Business.Context;
 using Dtos.Features.AddToWhitelist;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Features.AddToWhitelist
 {
     public class AddBsnUzoviToWhitelistCommandHandler : IRequestHandler<AddBsnUzoviToWhitelistCommand>
     {
-        readonly WhitelistContext _whitelistContext;
+        readonly DbContext _context;
 
-        public AddBsnUzoviToWhitelistCommandHandler(WhitelistContext whitelistContext)
+        public AddBsnUzoviToWhitelistCommandHandler(DbContext context)
         {
-            Guard.IsNotNull(whitelistContext, nameof(whitelistContext));
+            Guard.IsNotNull(context, nameof(context));
 
-            _whitelistContext = whitelistContext;
+            _context = context;
         }
 
         public async Task Handle(AddBsnUzoviToWhitelistCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            await _whitelistContext
-                .Repository<BsnUzovi>()
-                .AddAsync(new BsnUzovi(request.Bsnnummer, request.Uzovi))
-                .ConfigureAwait(false);
+            await _context
+                .AddAsync(new BsnUzovi(request.Bsnnummer, request.Uzovi));
         }
     }
 }

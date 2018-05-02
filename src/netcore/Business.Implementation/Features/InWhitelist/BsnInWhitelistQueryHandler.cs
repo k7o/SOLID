@@ -1,14 +1,14 @@
-﻿using System.Linq;
-using BusinessLogic.Entities;
+﻿using BusinessLogic.Entities;
 using Crosscutting.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
 using Business.Context;
 using Dtos.Features.InWhitelist;
+using MediatR;
 
 namespace BusinessLogic.Features.InWhitelist
 {
-    public class BsnInWhitelistQueryHandler : MediatR.IRequestHandler<BsnInWhitelistQuery, ZoekResult>
+    public class BsnInWhitelistQueryHandler : IRequestHandler<BsnInWhitelistQuery, ZoekResult>
     {
         readonly WhitelistContext _context;
 
@@ -19,12 +19,13 @@ namespace BusinessLogic.Features.InWhitelist
             _context  = context;
         }
 
-        public Task<ZoekResult> Handle(BsnInWhitelistQuery request, CancellationToken cancellationToken)
+        public async Task<ZoekResult> Handle(BsnInWhitelistQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new ZoekResult(_context
-                    .Repository<Bsn>()
-                    .GetAll()
-                    .Any(c => c.Bsnnummer == request.Bsnnummer)));
+            Guard.IsNotNull(request, nameof(request));
+
+            return new ZoekResult(
+                await _context.FindAsync<Bsn>(
+                    request.Bsnnummer) != null);
         }
     }
 }

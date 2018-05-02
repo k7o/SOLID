@@ -1,17 +1,17 @@
 ﻿using Crosscutting.Contracts;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Contexts.Contracts.Behaviors
 {
-    public class InMemoryContextTransactionBehavior<TContext> : IPipelineBehavior<IRequest, Unit> 
-        where TContext : IContext
+    public class InMemoryContextTransactionBehavior : IPipelineBehavior<IRequest, Unit>
     {
-        readonly IContext _context;
+        readonly DbContext _context;
 
-        public InMemoryContextTransactionBehavior(TContext context)
+        public InMemoryContextTransactionBehavior(DbContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 
@@ -20,12 +20,9 @@ namespace Contexts.Contracts.Behaviors
 
         public async Task<Unit> Handle(IRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<Unit> next)
         {
-            var result = await next()
-                .ConfigureAwait(false);
+            var result = await next();
 
-            await _context
-                .SaveChangesAsync(cancellationToken)
-                .ConfigureAwait(false);
+            await _context.SaveChangesAsync(cancellationToken);
 
             return result;
         }

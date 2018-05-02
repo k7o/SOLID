@@ -3,30 +3,28 @@ using Crosscutting.Contracts;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Business.Context;
 using Dtos.Features.AddToWhitelist;
+using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Features.AddToWhitelist
 {
     public class AddBsnToWhitelistCommandHandler : IRequestHandler<AddBsnToWhitelistCommand>
     {
-        readonly WhitelistContext _whitelistContext;
+        readonly DbContext _context;
 
-        public AddBsnToWhitelistCommandHandler(WhitelistContext whitelistContext)
+        public AddBsnToWhitelistCommandHandler(DbContext dbContext)
         {
-            Guard.IsNotNull(whitelistContext, nameof(whitelistContext));
+            Guard.IsNotNull(dbContext, nameof(dbContext));
 
-            _whitelistContext = whitelistContext;
+            _context = dbContext;
         }
 
         public async Task Handle(AddBsnToWhitelistCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            await _whitelistContext
-                .Repository<Bsn>()
-                .AddAsync(new Bsn(request.Bsnnummer))
-                .ConfigureAwait(false);
+            await _context
+                .AddAsync(new Bsn(request.Bsnnummer));
         }
     }
 }

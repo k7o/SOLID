@@ -19,12 +19,13 @@ namespace BusinessLogic.Features.InWhitelist
             _context = context;
         }
 
-        public Task<ZoekResult> Handle(BsnUzoviInWhitelistQuery request, CancellationToken cancellationToken)
+        public async Task<ZoekResult> Handle(BsnUzoviInWhitelistQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new ZoekResult(_context
-                    .Repository<BsnUzovi>()
-                    .GetAll()
-                    .Any(c => c.Bsnnummer == request.Bsnnummer && c.Uzovi == request.Uzovi)));
+            Guard.IsNotNull(request, nameof(request));
+
+            return new ZoekResult(
+                await _context.FindAsync<BsnUzovi>(
+                    request.Bsnnummer, request.Uzovi) != null);
         }
     }
 }

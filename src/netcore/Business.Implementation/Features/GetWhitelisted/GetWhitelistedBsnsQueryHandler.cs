@@ -1,15 +1,16 @@
-﻿using BusinessLogic.Entities;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
 using Business.Context;
 using Dtos.Features.GetWhitelisted;
+using Microsoft.EntityFrameworkCore;
+using MediatR;
 
 namespace BusinessLogic.Features.GetWhitelisted
 {
-    public class GetWhitelistedBsnsQueryHandler : MediatR.IRequestHandler<GetWhitelistedBsnsQuery, IEnumerable<BsnResult>>
+    public class GetWhitelistedBsnsQueryHandler : IRequestHandler<GetWhitelistedBsnsQuery, IEnumerable<BsnResult>>
     {
         readonly WhitelistContext _context;
 
@@ -20,14 +21,13 @@ namespace BusinessLogic.Features.GetWhitelisted
             _context = context;
         }
 
-        public Task<IEnumerable<BsnResult>> Handle(GetWhitelistedBsnsQuery request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<BsnResult>> Handle(GetWhitelistedBsnsQuery request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            return Task.FromResult(_context
-                .Repository<Bsn>()
-                .GetAll()
-                .Select(d => new BsnResult(d.Bsnnummer)));
+            return await _context.Bsns
+                .Select(c => new BsnResult(c.Bsnnummer))
+                    .ToListAsync();
         }
     }
 }
