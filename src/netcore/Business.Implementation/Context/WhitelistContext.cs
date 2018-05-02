@@ -4,6 +4,7 @@ using BusinessLogic.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using Contexts.Contracts;
+using BusinessLogic.Context;
 
 namespace Business.Context
 {
@@ -13,6 +14,17 @@ namespace Business.Context
             : base(options)
         {
         }
+
+        public IContextTransaction BeginTransaction()
+        {
+            return new WhitelistContextTransaction(Database.BeginTransaction());
+        }
+
+        public Task<IContextTransaction> BeginTransactionAsync()
+        {
+            return Task.FromResult<IContextTransaction>(new WhitelistContextTransaction(Database.BeginTransactionAsync()));
+        }
+
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
             return new Repository<TEntity>(Set<TEntity>());
@@ -52,5 +64,7 @@ namespace Business.Context
                 bsn.HasKey(primaryKey => primaryKey.Bsnnummer);
             });
         }
+
+       
     }
 }

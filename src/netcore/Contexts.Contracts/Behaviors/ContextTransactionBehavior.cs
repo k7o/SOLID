@@ -1,5 +1,6 @@
 ﻿using Crosscutting.Contracts;
 using MediatR;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,12 +20,28 @@ namespace Contexts.Contracts.Behaviors
 
         public async Task<Unit> Handle(IRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<Unit> next)
         {
-            var result = await next()
-                .ConfigureAwait(false);
-            
-            await _context
-                .SaveChangesAsync(cancellationToken)
-                .ConfigureAwait(false);
+            Unit result;
+
+            using (var transaction = _context.BeginTransaction())
+            {
+                try
+                {
+                    result = await next()
+                        .ConfigureAwait(false);
+
+                    await _context
+                        .SaveChangesAsync(cancellationToken)
+                        .ConfigureAwait(false);
+
+                    // Commit transaction if all commands succeed, transaction will auto-rollback
+                    // when disposed if either commands fails
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    // TODO: Handle failure
+                }
+            }
 
             return result;
         }

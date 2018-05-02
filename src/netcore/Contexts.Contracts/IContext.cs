@@ -14,5 +14,9 @@ namespace Contexts.Contracts
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         int SaveChanges();
+
+        IContextTransaction BeginTransaction();
+
+        Task<IContextTransaction> BeginTransactionAsync();
     }
 }

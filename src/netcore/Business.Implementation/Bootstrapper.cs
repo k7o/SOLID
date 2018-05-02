@@ -35,7 +35,7 @@ namespace BusinessLogic
             // pipeline
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
-                typeof(ContextTransactionBehavior<WhitelistContext>),
+                typeof(InMemoryContextTransactionBehavior<WhitelistContext>),
                 typeof(ValidationBehavior<,>)
             });
 
