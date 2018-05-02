@@ -22,7 +22,8 @@ namespace Business.Context
 
         public Task<IContextTransaction> BeginTransactionAsync()
         {
-            return Task.FromResult<IContextTransaction>(new WhitelistContextTransaction(Database.BeginTransactionAsync()));
+            // TODO: this is not the way i think
+            return new Task<IContextTransaction>(() => new WhitelistContextTransaction(Database.BeginTransactionAsync()));
         }
 
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class

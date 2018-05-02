@@ -22,7 +22,8 @@ namespace Contexts.Contracts.Behaviors
         {
             Unit result;
 
-            using (var transaction = _context.BeginTransaction())
+            using (var transaction = 
+                await _context.BeginTransactionAsync().ConfigureAwait(false))
             {
                 try
                 {
