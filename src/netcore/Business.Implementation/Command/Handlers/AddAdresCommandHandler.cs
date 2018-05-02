@@ -26,7 +26,8 @@ namespace BusinessLogic.Command.Handlers
 
             await _whitelistContext
                 .Repository<Adres>()
-                .AddAsync(new Adres(request.Postcode));
+                .AddAsync(new Adres(request.Postcode))
+                .ConfigureAwait(false);
         }
     }
 }

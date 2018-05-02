@@ -48,10 +48,12 @@ namespace Services.WebApi
               typeof(BusinessLogic.Command.Handlers.AddAdresCommandHandler).Assembly,
               typeof(Dtos.Command.AddAdresCommand).Assembly);
 
+            /*
             // decorators
             container.RegisterDecorator(
                 typeof(IRequestHandler<>),
                 typeof(Contexts.Contracts.Decorators.ContextTransactionDecorator<>));
+            */
 
             container.RegisterBusinessLogic();
 

@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Command.Handlers;
+using Contexts.Contracts.Behaviors;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
 using Crosscutting.Validators.Behaviors;
@@ -30,9 +31,10 @@ namespace BusinessLogic
                     typeof(NullValidator<>)
                 });
 
-            // mediator pipeline
+            // pipeline
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
+                typeof(ContextTransactionBehavior),
                 typeof(ValidationBehavior<,>)
             });
 

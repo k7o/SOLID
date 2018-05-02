@@ -26,7 +26,8 @@ namespace BusinessLogic.Command.Handlers
 
             await _whitelistContext
                 .Repository<Bsn>()
-                .AddAsync(new Bsn(request.Bsnnummer));
+                .AddAsync(new Bsn(request.Bsnnummer))
+                .ConfigureAwait(false);
         }
     }
 }

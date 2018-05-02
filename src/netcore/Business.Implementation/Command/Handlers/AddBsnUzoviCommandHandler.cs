@@ -26,7 +26,8 @@ namespace BusinessLogic.Command.Handlers
 
             await _whitelistContext
                 .Repository<BsnUzovi>()
-                .AddAsync(new BsnUzovi(request.Bsnnummer, request.Uzovi));
+                .AddAsync(new BsnUzovi(request.Bsnnummer, request.Uzovi))
+                .ConfigureAwait(false);
         }
     }
 }
