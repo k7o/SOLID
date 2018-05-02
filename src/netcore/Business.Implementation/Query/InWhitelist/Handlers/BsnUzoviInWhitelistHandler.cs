@@ -1,27 +1,27 @@
 ﻿using System.Linq;
-using Business.Implementation.Entities;
+using BusinessLogic.Entities;
 using Crosscutting.Contracts;
-using Business.Contracts.Query.InWhitelist;
 using System.Threading;
 using System.Threading.Tasks;
-using Contexts.Contracts;
+using Business.Context;
+using Dtos.Query.InWhitelist;
 
-namespace Business.Implementation.Query.InWhitelist.Handlers
+namespace BusinessLogic.Query.InWhitelist.Handlers
 {
     public class BsnUzoviInWhitelistHandler : MediatR.IRequestHandler<BsnUzoviQuery, ZoekResult>
     {
-        readonly IUnitOfWork _unitOfWork;
+        readonly WhitelistContext _context;
 
-        public BsnUzoviInWhitelistHandler(IUnitOfWork unitOfWork)
+        public BsnUzoviInWhitelistHandler(WhitelistContext context)
         {
-            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
+            Guard.IsNotNull(context, nameof(context));
 
-            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public Task<ZoekResult> Handle(BsnUzoviQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new ZoekResult(_unitOfWork
+            return Task.FromResult(new ZoekResult(_context
                     .Repository<BsnUzovi>()
                     .GetAll()
                     .Any(c => c.Bsnnummer == request.Bsnnummer && c.Uzovi == request.Uzovi)));

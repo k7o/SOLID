@@ -6,7 +6,7 @@
 //using Xunit;
 //using Crosscutting.Caches.Decorators;
 
-//namespace Business.Implementation.UnitTests.Decorators
+//namespace BusinessLogic.UnitTests.Decorators
 //{
 //    public class QueryCacheDecoratorTests
 //    {

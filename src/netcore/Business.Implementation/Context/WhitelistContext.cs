@@ -1,15 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Crosscutting.Contracts;
-using Business.Implementation.Entities;
+using BusinessLogic.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using Contexts.Contracts;
 
-namespace Business.UnitOfWork
+namespace Business.Context
 {
-    public class WhitelistUnitOfWork : DbContext, IUnitOfWork
+    public class WhitelistContext : DbContext, IContext
     {
-        public WhitelistUnitOfWork(DbContextOptions options) 
+        public WhitelistContext(DbContextOptions options) 
             : base(options)
         {
         }

@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using System.Diagnostics.Contracts;
+using MediatR;
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Business.Contracts.Command
+namespace Dtos.Command
 {
     [Serializable]
     public class AddAdresCommand : IRequest

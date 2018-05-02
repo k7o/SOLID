@@ -1,4 +1,4 @@
-﻿namespace Business.Implementation.Entities
+﻿namespace BusinessLogic.Entities
 {
     public class Bsn
     {

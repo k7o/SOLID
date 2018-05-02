@@ -1,69 +1,102 @@
-﻿//using FakeItEasy;
-//using Contracts;
-//using System.Collections.Generic;
-//using Business.Implementation.Query.InWhitelist.Handlers;
-//using Business.Contracts.Query.InWhitelist;
-//using Business.Entities;
-//using Xunit;
+﻿using System;
+using Business.Context;
+using BusinessLogic.Query.InWhitelist.Handlers;
+using Xunit;
+using Dtos.Query.InWhitelist;
+using Microsoft.EntityFrameworkCore;
+using BusinessLogic.Entities;
 
-//namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
-//{
-//    public class AdresHandlerTests
-//    {
-//        IRepository<Adres> _adresRepository;
-//        IUnitOfWork _unitOfWork;
-//        List<Adres> _adressen;
+namespace BusinessLogic.UnitTests.Query.Zoek.Handlers
+{
+    public class AdresHandlerTests : IDisposable
+    {
+        WhitelistContext _whitelistContext;
 
-//        AdresQuery _zoekAdres;
+        AdresQuery _zoekAdres;
 
-//        AdresInWhitelistHandler _sut;
+        AdresInWhitelistHandler _sut;
 
-//        public AdresHandlerTests()
-//        {
-//            _adressen = new List<Adres>();
-//            _unitOfWork = A.Fake<IUnitOfWork>();
-//            _adresRepository = A.Fake<IRepository<Adres>>();
-//        }
+        public AdresHandlerTests()
+        {
+            _whitelistContext = new WhitelistContext(
+                new DbContextOptionsBuilder()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .Options);
+        }
 
-//        [Fact]
-//        public void Should_Return_InWhitelist_False_When_Adress_Is_Not_Found()
-//        {
-//            _adressen.Add(new Adres("1111AA"));
+        [Fact]
+        public void Should_Return_InWhitelist_False_When_Adress_Is_Not_Found()
+        {
+            _whitelistContext.Add(new Adres("1111AA"));
+            _whitelistContext.SaveChanges();
 
-//            _zoekAdres = new AdresQuery("1111AB");
+            _zoekAdres = new AdresQuery("1111AB");
 
-//            var result = ExecuteHandleOnSut();
+            var result = ExecuteHandleOnSut();
 
-//            Assert.False(result.InWhitelist);
-//        }
+            Assert.False(result.InWhitelist);
+        }
 
-//        [Fact]
-//        public void Should_Return_InWhitelist_True_When_Adress_Is_Found()
-//        {
-//            _adressen.Add(new Adres("1111AA"));
+        [Fact]
+        public void Should_Return_InWhitelist_True_When_Adress_Is_Found()
+        {
+            _whitelistContext.Add(new Adres("1111AA"));
+            _whitelistContext.SaveChanges();
 
-//            _zoekAdres = new AdresQuery("1111AA");
+            _zoekAdres = new AdresQuery("1111AA");
 
-//            var result = ExecuteHandleOnSut();
+            var result = ExecuteHandleOnSut();
 
-//            Assert.True(result.InWhitelist);
-//        }
+            Assert.True(result.InWhitelist);
+        }
 
-//        private void CreateSut()
-//        {
-//            _sut = new AdresInWhitelistHandler(_unitOfWork);
-//        }
+        private void CreateSut()
+        {
+            _sut = new AdresInWhitelistHandler(_whitelistContext);
+        }
 
-//        private ZoekResult ExecuteHandleOnSut()
-//        {
-//            CreateSut();
+        private ZoekResult ExecuteHandleOnSut()
+        {
+            CreateSut();
 
-//            A.CallTo(() => _adresRepository.GetAll())
-//                .Returns(_adressen);
-//            A.CallTo(() => _unitOfWork.Repository<Adres>())
-//                .Returns(_adresRepository);
+            return _sut
+                .Handle(_zoekAdres, new System.Threading.CancellationToken())
+                .Result;
+        }
 
-//            return _sut.Handle(_zoekAdres);
-//        }
-//    }
-//}
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _whitelistContext.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~AdresHandlerTests() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
+    }
+}

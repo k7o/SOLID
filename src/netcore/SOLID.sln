@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{C139D75A-9E57-48A2-BD57-435D445D2E84}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Deploy", ".Deploy", "{C139D75A-9E57-48A2-BD57-435D445D2E84}"
 	ProjectSection(SolutionItems) = preProject
 		default.runsettings = default.runsettings
 		..\..\README.md = ..\..\README.md
 		sonarcloud.cmd = sonarcloud.cmd
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{142D1B08-417D-4028-8CB3-99DE6C356FDC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SonarQube", ".SonarQube", "{142D1B08-417D-4028-8CB3-99DE6C356FDC}"
 	ProjectSection(SolutionItems) = preProject
 		SonarQube\SOLIDCSharp.ruleset = SonarQube\SOLIDCSharp.ruleset
 		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Contracts", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Contracts.UnitTests", "Crosscutting.Contracts.UnitTests\Crosscutting.Contracts.UnitTests.csproj", "{66DC8D4D-01C9-46AB-9C84-033D40606DF0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Contracts", "Business.Contracts\Business.Contracts.csproj", "{AAA89A63-15EE-4729-91E5-D005AAF32B9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dtos", "Business.Contracts\Dtos.csproj", "{AAA89A63-15EE-4729-91E5-D005AAF32B9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Validators", "Crosscutting.Validators\Crosscutting.Validators.csproj", "{51726A14-6C40-4E3F-B995-0A3EACB29BA5}"
 EndProject
@@ -30,9 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Caches", "Cros
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crosscutting.Loggers", "Crosscutting.Loggers\Crosscutting.Loggers.csproj", "{F700380C-8301-4B59-B75B-3A6DB2ACDA40}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Implementation", "Business.Implementation\Business.Implementation.csproj", "{0547DF85-81C0-4E0A-B210-64209E303A2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "Business.Implementation\BusinessLogic.csproj", "{0547DF85-81C0-4E0A-B210-64209E303A2F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business.Implementation.UnitTests", "Business.Implementation.UnitTests\Business.Implementation.UnitTests.csproj", "{450A3A7B-A3EC-440B-8D4C-06A140D1ED6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic.UnitTests", "Business.Implementation.UnitTests\BusinessLogic.UnitTests.csproj", "{450A3A7B-A3EC-440B-8D4C-06A140D1ED6C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.ConsoleApp", "Clients.ConsoleApp\Clients.ConsoleApp.csproj", "{5D8FFD26-EE93-464A-BFE8-723173C2D0B6}"
 EndProject
@@ -48,7 +48,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.WebApi.WebApp", "Cl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clients.WebApi.ConsoleApp", "Clients.WebApi.ConsoleApp\Clients.WebApi.ConsoleApp.csproj", "{F1D1E320-8C36-4F10-A97F-ECA50A83FA73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contexts.Contracts", "Contexts.Contracts\Contexts.Contracts.csproj", "{4A78B260-F0A8-4393-B104-3426174B7FF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contexts.Contracts", "Contexts.Contracts\Contexts.Contracts.csproj", "{4A78B260-F0A8-4393-B104-3426174B7FF5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{2AACD5CE-3E88-44CD-8E7C-326EAA8D20AB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{8349179D-00C0-44A9-B8BB-847E56716F28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -197,6 +201,16 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AAA89A63-15EE-4729-91E5-D005AAF32B9E} = {2AACD5CE-3E88-44CD-8E7C-326EAA8D20AB}
+		{0547DF85-81C0-4E0A-B210-64209E303A2F} = {2AACD5CE-3E88-44CD-8E7C-326EAA8D20AB}
+		{450A3A7B-A3EC-440B-8D4C-06A140D1ED6C} = {2AACD5CE-3E88-44CD-8E7C-326EAA8D20AB}
+		{5D8FFD26-EE93-464A-BFE8-723173C2D0B6} = {8349179D-00C0-44A9-B8BB-847E56716F28}
+		{506448BB-CC9A-4617-83CC-3CD2B1643A26} = {2AACD5CE-3E88-44CD-8E7C-326EAA8D20AB}
+		{62519423-2E62-494D-9CE9-A7F523052F62} = {8349179D-00C0-44A9-B8BB-847E56716F28}
+		{13C143A5-E467-4B0C-8694-EA819D316D8E} = {8349179D-00C0-44A9-B8BB-847E56716F28}
+		{F1D1E320-8C36-4F10-A97F-ECA50A83FA73} = {8349179D-00C0-44A9-B8BB-847E56716F28}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F786DDB-7411-4004-8E91-5BA539CA62FF}

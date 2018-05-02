@@ -9,15 +9,15 @@ namespace Contexts.Contracts.Decorators
         where TRequest : IRequest 
     {
         readonly IRequestHandler<TRequest> _decoratee;
-        readonly IUnitOfWork _unitOfWork;
+        readonly IContext _context;
 
-        public ContextTransactionDecorator(IUnitOfWork unitOfWork, IRequestHandler<TRequest> decoratee)
+        public ContextTransactionDecorator(IContext context, IRequestHandler<TRequest> decoratee)
         {
             Guard.IsNotNull(decoratee, nameof(decoratee));
-            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
+            Guard.IsNotNull(context, nameof(context));
 
             _decoratee = decoratee;
-            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public async Task Handle(TRequest request, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ namespace Contexts.Contracts.Decorators
                 .Handle(request, cancellationToken)
                 .ConfigureAwait(false);
 
-            await _unitOfWork
+            await _context
                 .SaveChangesAsync(cancellationToken)
                 .ConfigureAwait(false);
         }

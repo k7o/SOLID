@@ -1,9 +1,4 @@
-﻿using Business.Contracts.Command;
-using Business.Implementation.Command.Handlers;
-using Crosscutting.Validators.Behaviors;
-using MediatR;
-using MediatR.Pipeline;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;

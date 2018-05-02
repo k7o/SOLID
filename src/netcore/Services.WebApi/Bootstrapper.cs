@@ -1,5 +1,5 @@
-﻿using Business.Implementation;
-using Business.UnitOfWork;
+﻿using Business.Context;
+using BusinessLogic;
 using Contexts.Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
@@ -18,7 +18,7 @@ namespace Services.WebApi
         {
             get
             {
-                return Business.Implementation.Bootstrapper.CommandTypes;
+                return BusinessLogic.Bootstrapper.CommandTypes;
             }
         }
 
@@ -26,7 +26,7 @@ namespace Services.WebApi
         {
             get
             {
-                return Business.Implementation.Bootstrapper.QueryTypes;
+                return BusinessLogic.Bootstrapper.QueryTypes;
             }
         }
 
@@ -35,17 +35,18 @@ namespace Services.WebApi
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
 
+            var context = new WhitelistContext(
+                    new DbContextOptionsBuilder()
+                        .UseInMemoryDatabase("Whitelist")
+                        .Options);
             // datasource
-            container.Register<IUnitOfWork>(() =>
-                    new WhitelistUnitOfWork(
-                            new DbContextOptionsBuilder()
-                                .UseInMemoryDatabase("Whitelist")
-                                .Options), Lifestyle.Scoped);
+            container.RegisterInstance<IContext>(context);
+            container.RegisterInstance<WhitelistContext>(context);
 
             // mediator
             container.BuildMediator(
-              typeof(Business.Implementation.Command.Handlers.AddAdresCommandHandler).Assembly,
-              typeof(Business.Contracts.Command.AddAdresCommand).Assembly);
+              typeof(BusinessLogic.Command.Handlers.AddAdresCommandHandler).Assembly,
+              typeof(Dtos.Command.AddAdresCommand).Assembly);
 
             // decorators
             container.RegisterDecorator(

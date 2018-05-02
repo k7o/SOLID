@@ -1,6 +1,6 @@
 ﻿using Crosscutting.Contracts;
 
-namespace Business.Contracts.Query.InWhitelist
+namespace Dtos.Query.InWhitelist
 {
     public partial class AdresQuery : IAmCacheable
     {

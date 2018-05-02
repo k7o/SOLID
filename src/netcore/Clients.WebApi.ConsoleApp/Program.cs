@@ -1,6 +1,6 @@
-﻿using Business.Contracts.Command;
-using Business.Contracts.Query.InWhitelist;
-using Contracts.Agents;
+﻿using Contracts.Agents;
+using Dtos.Command;
+using Dtos.Query.InWhitelist;
 using System.Threading;
 
 namespace Clients.WebApi.ConsoleApp

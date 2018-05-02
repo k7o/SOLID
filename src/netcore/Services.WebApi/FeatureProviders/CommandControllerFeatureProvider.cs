@@ -4,9 +4,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using Services.WebApi.Controllers;
 
-using System.Linq;
-using Business.Contracts.Command;
-
 namespace Services.WebApi.FeatureProviders
 {
     public class CommandControllerFeatureProvider : IApplicationFeatureProvider<ControllerFeature>

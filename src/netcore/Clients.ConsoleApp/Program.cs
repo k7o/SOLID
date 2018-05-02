@@ -3,14 +3,14 @@ using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using Crosscutting.Caches;
 using Crosscutting.Loggers;
-using Business.Implementation;
-using Business.Contracts.Query.InWhitelist;
-using Business.Contracts.Command;
 using Crosscutting.Contracts.Decorators;
 using Crosscutting.Contracts;
 using Serilog;
 using MediatR;
 using System.Threading;
+using Dtos.Command;
+using Dtos.Query.InWhitelist;
+using BusinessLogic;
 
 namespace Clients.ConsoleApp1
 {

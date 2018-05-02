@@ -1,27 +1,28 @@
 ﻿using System.Linq;
-using Business.Contracts.Query.InWhitelist;
 using Crosscutting.Contracts;
-using Business.Implementation.Entities;
+using BusinessLogic.Entities;
 using System.Threading;
 using System.Threading.Tasks;
 using Contexts.Contracts;
+using Business.Context;
+using Dtos.Query.InWhitelist;
 
-namespace Business.Implementation.Query.InWhitelist.Handlers
+namespace BusinessLogic.Query.InWhitelist.Handlers
 {
     public class AdresInWhitelistHandler : MediatR.IRequestHandler<AdresQuery, ZoekResult>
     {
-        readonly IUnitOfWork _unitOfWork;
+        readonly WhitelistContext _context;
 
-        public AdresInWhitelistHandler(IUnitOfWork unitOfWork)
+        public AdresInWhitelistHandler(WhitelistContext context)
         {
-            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
+            Guard.IsNotNull(context, nameof(context));
 
-            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public Task<ZoekResult> Handle(AdresQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new ZoekResult(_unitOfWork
+            return Task.FromResult(new ZoekResult(_context
                     .Repository<Adres>()
                     .GetAll()
                     .Any(c => c.Postcode == request.Postcode)));

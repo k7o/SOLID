@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Business.Contracts.Command
+namespace Dtos.Command
 {
     [Serializable]
     public class AddBsnUzoviCommand : IRequest

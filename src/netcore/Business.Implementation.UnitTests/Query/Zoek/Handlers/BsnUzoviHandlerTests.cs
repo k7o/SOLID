@@ -1,69 +1,101 @@
-﻿using FakeItEasy;
-using System.Collections.Generic;
-using Business.Implementation.Query.InWhitelist.Handlers;
-using Business.Contracts.Query.InWhitelist;
-using Xunit;
-using System.Threading.Tasks;
-using Contexts.Contracts;
-using Business.Implementation.Entities;
+﻿using Xunit;
+using Dtos.Query.InWhitelist;
+using BusinessLogic.Entities;
+using BusinessLogic.Query.InWhitelist.Handlers;
+using Business.Context;
+using Microsoft.EntityFrameworkCore;
+using System;
 
-namespace Business.Implementation.UnitTests.Query.Zoek.Handlers
+namespace BusinessLogic.UnitTests.Query.Zoek.Handlers
 {
-    public class BsnUzoviHandlerTests
+    public class BsnUzoviHandlerTests : IDisposable
     {
-        readonly List<BsnUzovi> _bsnUzovis;
-        readonly IUnitOfWork _unitOfWork;
-        readonly IRepository<BsnUzovi> _bsnUzoviRepository;
+        readonly WhitelistContext _whitelistContext;
 
         BsnUzoviQuery _zoekBsnUzovi;
         BsnUzoviInWhitelistHandler _sut;
 
         public BsnUzoviHandlerTests()
         {
-            _bsnUzovis = new List<BsnUzovi>();
-            _bsnUzoviRepository = A.Fake<IRepository<BsnUzovi>>();
-            _unitOfWork = A.Fake<IUnitOfWork>();
+            _whitelistContext = new WhitelistContext(
+                new DbContextOptionsBuilder()
+                    .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                    .Options);
         }
 
         [Fact]
         public void Should_Return_InWhitelist_False_When_BsnUzovi_Is_Not_Found()
         {
-            _bsnUzovis.Add(new BsnUzovi(1, 2));
+            _whitelistContext.BsnUzovis.Add(new BsnUzovi(1, 2));
+            _whitelistContext.SaveChanges();
 
             _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
 
             var result = ExecuteHandleOnSut();
 
-            Assert.False(result.Result.InWhitelist);
+            Assert.False(result.InWhitelist);
         }
 
         [Fact]
         public void Should_Return_InWhitelist_True_When_BsnUzovi_Is_Found()
         {
-            _bsnUzovis.Add(new BsnUzovi(1, 1));
+            _whitelistContext.BsnUzovis.Add(new BsnUzovi(1, 1));
+            _whitelistContext.SaveChanges();
 
             _zoekBsnUzovi = new BsnUzoviQuery(1, 1);
 
             var result = ExecuteHandleOnSut();
 
-            Assert.True(result.Result.InWhitelist);
+            Assert.True(result.InWhitelist);
         }
 
         private void CreateSut()
         {
-            _sut = new BsnUzoviInWhitelistHandler(_unitOfWork);
+            _sut = new BsnUzoviInWhitelistHandler(_whitelistContext);
         }
 
-        private Task<ZoekResult> ExecuteHandleOnSut()
+        private ZoekResult ExecuteHandleOnSut()
         {
             CreateSut();
 
-            A.CallTo(() => _bsnUzoviRepository.GetAll())
-                .Returns(_bsnUzovis);
-            A.CallTo(() => _unitOfWork.Repository<BsnUzovi>())
-                .Returns(_bsnUzoviRepository);
-         
-            return _sut.Handle(_zoekBsnUzovi, new System.Threading.CancellationToken());
+            return _sut
+                .Handle(_zoekBsnUzovi, new System.Threading.CancellationToken())
+                .Result;
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _whitelistContext.Dispose();
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                // TODO: set large fields to null.
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~BsnUzoviHandlerTests() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }

@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business.Contracts\Business.Contracts.csproj" />
+    <ProjectReference Include="..\Business.Contracts\Dtos.csproj" />
     <ProjectReference Include="..\Contracts.Agents\Contracts.Agents.csproj" />
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj" />
   </ItemGroup>

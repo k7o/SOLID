@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Collections.Generic;
 
-namespace Business.Contracts.Query.WhitelistResult
+namespace Dtos.Query.WhitelistResult
 {
     public class GetAllBsnsQuery : IRequest<IEnumerable<BsnResult>>
     {

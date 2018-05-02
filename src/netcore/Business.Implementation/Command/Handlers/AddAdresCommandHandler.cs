@@ -1,29 +1,30 @@
-﻿using Business.Contracts.Command;
-using Business.Implementation.Entities;
+﻿using Business.Context;
+using BusinessLogic.Entities;
 using Contexts.Contracts;
 using Crosscutting.Contracts;
+using Dtos.Command;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Business.Implementation.Command.Handlers
+namespace BusinessLogic.Command.Handlers
 {
     public class AddAdresCommandHandler : IRequestHandler<AddAdresCommand>
     {
-        readonly IUnitOfWork _unitOfWork;
+        readonly WhitelistContext _whitelistContext;
 
-        public AddAdresCommandHandler(IUnitOfWork unitOfWork)
+        public AddAdresCommandHandler(WhitelistContext whitelistContext)
         {
-            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
+            Guard.IsNotNull(whitelistContext, nameof(whitelistContext));
 
-            _unitOfWork = unitOfWork;
+            _whitelistContext = whitelistContext;
         }
 
         public async Task Handle(AddAdresCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            await _unitOfWork
+            await _whitelistContext
                 .Repository<Adres>()
                 .AddAsync(new Adres(request.Postcode));
         }

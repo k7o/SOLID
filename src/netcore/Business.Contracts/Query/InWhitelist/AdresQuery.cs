@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System;
 
-namespace Business.Contracts.Query.InWhitelist
+namespace Dtos.Query.InWhitelist
 {
     [Serializable]
     public partial class AdresQuery : IRequest<ZoekResult>

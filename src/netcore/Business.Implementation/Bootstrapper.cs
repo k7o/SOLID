@@ -1,8 +1,8 @@
-﻿using Business.Contracts.Command;
-using Business.Implementation.Command.Handlers;
+﻿using BusinessLogic.Command.Handlers;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
 using Crosscutting.Validators.Behaviors;
+using Dtos.Command;
 using MediatR;
 using SimpleInjector;
 using System;
@@ -11,11 +11,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
-namespace Business.Implementation
+namespace BusinessLogic
 {
     public static class Bootstrapper
     {
-        private static Assembly[] contractAssemblies = new[] { typeof(AddAdresCommand).Assembly };
+        private static Assembly[] dtoAssemblies = new[] { typeof(AddAdresCommand).Assembly };
         private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommandHandler).Assembly };
 
         public static Container RegisterBusinessLogic(this Container container)
@@ -40,13 +40,13 @@ namespace Business.Implementation
         }
 
         public static IEnumerable<Type> CommandTypes =>
-            from assembly in contractAssemblies
+            from assembly in dtoAssemblies
             from type in assembly.GetExportedTypes()
             where type.Name.EndsWith("Command", StringComparison.InvariantCulture)
             select type;
 
         public static IEnumerable<QueryInfo> QueryTypes =>
-            from assembly in contractAssemblies
+            from assembly in dtoAssemblies
             from type in assembly.GetExportedTypes()
             where QueryInfo.IsQuery(type)
             select new QueryInfo(type);

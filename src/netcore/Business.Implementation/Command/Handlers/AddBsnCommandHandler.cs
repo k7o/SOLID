@@ -1,29 +1,30 @@
-﻿using Business.Implementation.Entities;
+﻿using BusinessLogic.Entities;
 using Crosscutting.Contracts;
-using Business.Contracts.Command;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Contexts.Contracts;
+using Dtos.Command;
+using Business.Context;
 
-namespace Business.Implementation.Command.Handlers
+namespace BusinessLogic.Command.Handlers
 {
     public class AddBsnCommandHandler : IRequestHandler<AddBsnCommand>
     {
-        readonly IUnitOfWork _unitOfWork;
+        readonly WhitelistContext _whitelistContext;
 
-        public AddBsnCommandHandler(IUnitOfWork unitOfWork)
+        public AddBsnCommandHandler(WhitelistContext whitelistContext)
         {
-            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
+            Guard.IsNotNull(whitelistContext, nameof(whitelistContext));
 
-            _unitOfWork = unitOfWork;
+            _whitelistContext = whitelistContext;
         }
 
         public async Task Handle(AddBsnCommand request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            await _unitOfWork
+            await _whitelistContext
                 .Repository<Bsn>()
                 .AddAsync(new Bsn(request.Bsnnummer));
         }

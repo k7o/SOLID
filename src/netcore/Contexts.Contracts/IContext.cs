@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Contexts.Contracts
 {
-    public interface IUnitOfWork
+    public interface IContext
     {
         IRepository<TEntity> Repository<TEntity>() where TEntity : class;
 

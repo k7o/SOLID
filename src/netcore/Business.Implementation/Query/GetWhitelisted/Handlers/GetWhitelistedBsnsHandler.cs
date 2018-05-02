@@ -1,30 +1,31 @@
-﻿using Business.Contracts.Query.WhitelistResult;
-using Business.Implementation.Entities;
+﻿using BusinessLogic.Entities;
 using Contexts.Contracts;
 using Crosscutting.Contracts;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
+using Dtos.Query.WhitelistResult;
+using Business.Context;
 
-namespace Business.Implementation.Query.GetWhitelisted.Handlers
+namespace BusinessLogic.Query.GetWhitelisted.Handlers
 {
     public class GetWhitelistedBsnsHandler : MediatR.IRequestHandler<GetAllBsnsQuery, IEnumerable<BsnResult>>
     {
-        readonly IUnitOfWork _unitOfWork;
+        readonly WhitelistContext _context;
 
-        public GetWhitelistedBsnsHandler(IUnitOfWork unitOfWork)
+        public GetWhitelistedBsnsHandler(WhitelistContext context)
         {
-            Guard.IsNotNull(unitOfWork, nameof(unitOfWork));
+            Guard.IsNotNull(context, nameof(context));
 
-            _unitOfWork = unitOfWork;
+            _context = context;
         }
 
         public Task<IEnumerable<BsnResult>> Handle(GetAllBsnsQuery request, CancellationToken cancellationToken)
         {
             Guard.IsNotNull(request, nameof(request));
 
-            return Task.FromResult(_unitOfWork
+            return Task.FromResult(_context
                 .Repository<Bsn>()
                 .GetAll()
                 .Select(d => new BsnResult(d.Bsnnummer)));
