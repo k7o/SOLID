@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace Contexts.Contracts.Behaviors
 {
-    public class ContextTransactionBehavior : IPipelineBehavior<IRequest, Unit>
+    public class ContextTransactionBehavior<TContext> : IPipelineBehavior<IRequest, Unit> 
+        where TContext : IContext
     {
         readonly IContext _context;
 
-        public ContextTransactionBehavior(IContext context)
+        public ContextTransactionBehavior(TContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 

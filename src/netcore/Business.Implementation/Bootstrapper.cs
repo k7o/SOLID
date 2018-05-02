@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Features.AddToWhitelist;
+﻿using Business.Context;
+using BusinessLogic.Features.AddToWhitelist;
 using Contexts.Contracts.Behaviors;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
@@ -34,7 +35,7 @@ namespace BusinessLogic
             // pipeline
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
-                typeof(ContextTransactionBehavior),
+                typeof(ContextTransactionBehavior<WhitelistContext>),
                 typeof(ValidationBehavior<,>)
             });
 

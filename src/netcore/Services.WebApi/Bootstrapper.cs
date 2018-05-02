@@ -33,13 +33,12 @@ namespace Services.WebApi
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
 
-            var context = new WhitelistContext(
+            // datasource
+            container.RegisterInstance(
+                new WhitelistContext(
                     new DbContextOptionsBuilder()
                         .UseInMemoryDatabase("Whitelist")
-                        .Options);
-            // datasource
-            container.RegisterInstance<IContext>(context);
-            container.RegisterInstance<WhitelistContext>(context);
+                        .Options));
 
             // mediator
             container.BuildMediator(
