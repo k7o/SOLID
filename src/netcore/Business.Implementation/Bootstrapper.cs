@@ -1,9 +1,9 @@
-﻿using BusinessLogic.Command.Handlers;
+﻿using BusinessLogic.Features.AddToWhitelist;
 using Contexts.Contracts.Behaviors;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
 using Crosscutting.Validators.Behaviors;
-using Dtos.Command;
+using Dtos.Features.AddToWhitelist;
 using MediatR;
 using SimpleInjector;
 using System;
@@ -16,8 +16,8 @@ namespace BusinessLogic
 {
     public static class Bootstrapper
     {
-        private static Assembly[] dtoAssemblies = new[] { typeof(AddAdresCommand).Assembly };
-        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresCommandHandler).Assembly };
+        private static Assembly[] dtoAssemblies = new[] { typeof(AddAdresToWhitelistCommand).Assembly };
+        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresToWhitelistCommandHandler).Assembly };
 
         public static Container RegisterBusinessLogic(this Container container)
         {

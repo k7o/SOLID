@@ -8,9 +8,9 @@ using Crosscutting.Contracts;
 using Serilog;
 using MediatR;
 using System.Threading;
-using Dtos.Command;
-using Dtos.Query.InWhitelist;
 using BusinessLogic;
+using Dtos.Features.AddToWhitelist;
+using Dtos.Features.InWhitelist;
 
 namespace Clients.ConsoleApp1
 {
@@ -80,17 +80,17 @@ namespace Clients.ConsoleApp1
             // application logic
             var cancellationToken = new CancellationToken();
 
-            var addAdresCommand = container.GetInstance<IRequestHandler<AddAdresCommand>>();
-            var addBsnUzoviCommand = container.GetInstance<IRequestHandler<AddBsnUzoviCommand>>();
+            var addAdresCommand = container.GetInstance<IRequestHandler<AddAdresToWhitelistCommand>>();
+            var addBsnUzoviCommand = container.GetInstance<IRequestHandler<AddBsnUzoviToWhitelistCommand>>();
 
-            addAdresCommand.Handle(new AddAdresCommand("1234"), cancellationToken);
+            addAdresCommand.Handle(new AddAdresToWhitelistCommand("1234"), cancellationToken);
 
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(1, 2), cancellationToken);
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(3, 4), cancellationToken);
-            addBsnUzoviCommand.Handle(new AddBsnUzoviCommand(4, 5), cancellationToken);
+            addBsnUzoviCommand.Handle(new AddBsnUzoviToWhitelistCommand(1, 2), cancellationToken);
+            addBsnUzoviCommand.Handle(new AddBsnUzoviToWhitelistCommand(3, 4), cancellationToken);
+            addBsnUzoviCommand.Handle(new AddBsnUzoviToWhitelistCommand(4, 5), cancellationToken);
 
-            var zoekAdresQuery = container.GetInstance<IRequestHandler<AdresQuery, ZoekResult>>();
-            if (!zoekAdresQuery.Handle(new AdresQuery("1234"), cancellationToken).Result.InWhitelist)
+            var zoekAdresQuery = container.GetInstance<IRequestHandler<AdresInWhitelistQuery, ZoekResult>>();
+            if (!zoekAdresQuery.Handle(new AdresInWhitelistQuery("1234"), cancellationToken).Result.InWhitelist)
             {
                 throw new Exception("Not found");
             }

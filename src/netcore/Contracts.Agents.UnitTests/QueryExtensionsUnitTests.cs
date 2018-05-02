@@ -1,4 +1,4 @@
-using Dtos.Query.InWhitelist;
+using Dtos.Features.InWhitelist;
 using Xunit;
 
 namespace Contracts.Agents.UnitTests
@@ -8,7 +8,7 @@ namespace Contracts.Agents.UnitTests
         [Fact]
         public void Should_Convert_To_QueryString()
         {
-            var adresQuery = new BsnUzoviQuery(12, 34);
+            var adresQuery = new BsnUzoviInWhitelistQuery(12, 34);
 
             Assert.Equal("Bsnnummer=12&Uzovi=34", adresQuery.ToQueryString());
         }

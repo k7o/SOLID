@@ -3,8 +3,6 @@ using BusinessLogic;
 using Contexts.Contracts;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
-using Crosscutting.Validators.Behaviors;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
 using System;
@@ -45,8 +43,8 @@ namespace Services.WebApi
 
             // mediator
             container.BuildMediator(
-              typeof(BusinessLogic.Command.Handlers.AddAdresCommandHandler).Assembly,
-              typeof(Dtos.Command.AddAdresCommand).Assembly);
+              typeof(BusinessLogic.Features.AddToWhitelist.AddAdresToWhitelistCommandHandler).Assembly,
+              typeof(Dtos.Features.AddToWhitelist.AddAdresToWhitelistCommand).Assembly);
 
             /*
             // decorators
