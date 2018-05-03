@@ -5,20 +5,25 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CodeAnalysisRuleSet>Business.Contracts.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>BusinessLogic.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CodeAnalysisRuleSet>Business.Contracts.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>BusinessLogic.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="4.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
+    <PackageReference Include="SimpleInjector" Version="4.2.2" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.0.1.4822" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Contexts.Contracts\Contexts.Contracts.csproj" />
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj" />
+    <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj" />
+    <ProjectReference Include="..\Dtos\Dtos.csproj" />
   </ItemGroup>
 
 </Project>

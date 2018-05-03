@@ -19,9 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business.Implementation\BusinessLogic.csproj" />
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\Crosscutting.Caches\Crosscutting.Caches.csproj" />
     <ProjectReference Include="..\Crosscutting.Loggers\Crosscutting.Loggers.csproj" />
+    <ProjectReference Include="..\Dtos\Dtos.csproj" />
   </ItemGroup>
 
 </Project>
