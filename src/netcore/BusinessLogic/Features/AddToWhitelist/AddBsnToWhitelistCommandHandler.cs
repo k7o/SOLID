@@ -1,10 +1,10 @@
-﻿using BusinessLogic.Entities;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Dtos.Features.AddToWhitelist;
 using Microsoft.EntityFrameworkCore;
+using BusinessLogic.Contexts.Entities;
 
 namespace BusinessLogic.Features.AddToWhitelist
 {

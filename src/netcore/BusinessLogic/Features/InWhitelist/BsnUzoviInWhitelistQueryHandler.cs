@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using BusinessLogic.Entities;
-using Crosscutting.Contracts;
+﻿using Crosscutting.Contracts;
 using System.Threading;
 using System.Threading.Tasks;
-using Business.Context;
 using Dtos.Features.InWhitelist;
+using BusinessLogic.Contexts;
+using BusinessLogic.Contexts.Entities;
 
 namespace BusinessLogic.Features.InWhitelist
 {

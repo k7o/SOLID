@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Crosscutting.Contracts;
-using BusinessLogic.Entities;
 using System.Threading.Tasks;
 using System.Threading;
 using Contexts.Contracts;
-using BusinessLogic.Context;
+using BusinessLogic.Contexts;
+using BusinessLogic.Contexts.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Business.Context
+namespace BusinessLogic.Contexts
 {
     public class WhitelistContext : DbContext, IContext
     {
@@ -60,12 +61,13 @@ namespace Business.Context
                 bsnUzovi.HasKey(primaryKey => new { primaryKey.Bsnnummer, primaryKey.Uzovi });
             });
 
+            // make sure bsnnummer becomes no identity column
+            modelBuilder.Entity<Bsn>().Property(c => c.Bsnnummer)
+                .ValueGeneratedNever();
             modelBuilder.Entity<Bsn>(bsn =>
             {
                 bsn.HasKey(primaryKey => primaryKey.Bsnnummer);
             });
         }
-
-       
     }
 }

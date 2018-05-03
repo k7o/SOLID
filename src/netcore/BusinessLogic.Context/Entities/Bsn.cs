@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Entities
+﻿namespace BusinessLogic.Contexts.Entities
 {
     public class Bsn
     {

@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contexts.Contracts\Contexts.Contracts.csproj" />
+    <ProjectReference Include="..\BusinessLogic.Context\BusinessLogic.Contexts.csproj" />
     <ProjectReference Include="..\Crosscutting.Contracts\Crosscutting.Contracts.csproj" />
     <ProjectReference Include="..\Crosscutting.Validators\Crosscutting.Validators.csproj" />
     <ProjectReference Include="..\Dtos\Dtos.csproj" />

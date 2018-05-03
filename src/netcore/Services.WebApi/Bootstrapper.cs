@@ -1,5 +1,5 @@
-﻿using Business.Context;
-using BusinessLogic;
+﻿using BusinessLogic;
+using BusinessLogic.Contexts;
 using Contexts.Contracts.Behaviors;
 using Crosscutting.Contracts;
 using Crosscutting.Loggers;
@@ -38,8 +38,10 @@ namespace Services.WebApi
             // datasource
             var whitelistContext = new WhitelistContext(
                                         new DbContextOptionsBuilder()
+                                            //.UseSqlServer("Server=DESKTOP-P99H00B\\SQLEXPRESS;Database=Whitelist;Trusted_Connection=True;")
                                             .UseInMemoryDatabase("Whitelist")
                                             .Options);
+
 
             container.RegisterInstance(whitelistContext);
             container.RegisterInstance<DbContext>(whitelistContext);
@@ -55,6 +57,7 @@ namespace Services.WebApi
             // pipeline
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
+                //typeof(ContextTransactionBehavior),
                 typeof(InMemoryContextTransactionBehavior),
                 typeof(ValidationBehavior<,>)
             });

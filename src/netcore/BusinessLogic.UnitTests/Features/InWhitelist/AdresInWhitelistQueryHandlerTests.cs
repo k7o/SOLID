@@ -1,10 +1,10 @@
 ﻿using System;
-using Business.Context;
 using Xunit;
 using Microsoft.EntityFrameworkCore;
-using BusinessLogic.Entities;
 using BusinessLogic.Features.InWhitelist;
 using Dtos.Features.InWhitelist;
+using BusinessLogic.Contexts;
+using BusinessLogic.Contexts.Entities;
 
 namespace BusinessLogic.UnitTests.Features.InWhitelist
 {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Threading.Tasks;
 
-namespace BusinessLogic.Context
+namespace BusinessLogic.Contexts
 {
     class WhitelistContextTransaction : IContextTransaction
     {

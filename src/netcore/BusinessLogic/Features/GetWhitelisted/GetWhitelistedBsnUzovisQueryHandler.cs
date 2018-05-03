@@ -1,4 +1,4 @@
-﻿using Business.Context;
+﻿using BusinessLogic.Contexts;
 using Crosscutting.Contracts;
 using Dtos.Features.GetWhitelisted;
 using Microsoft.EntityFrameworkCore;

@@ -1,9 +1,6 @@
-﻿using Business.Context;
-using BusinessLogic.Features.AddToWhitelist;
-using Contexts.Contracts.Behaviors;
+﻿using BusinessLogic.Features.AddToWhitelist;
 using Crosscutting.Contracts;
 using Crosscutting.Validators;
-using Crosscutting.Validators.Behaviors;
 using Dtos.Features.AddToWhitelist;
 using MediatR;
 using SimpleInjector;

@@ -1,10 +1,10 @@
 ﻿using Crosscutting.Contracts;
-using BusinessLogic.Entities;
 using System.Threading;
 using System.Threading.Tasks;
-using Business.Context;
 using Dtos.Features.InWhitelist;
 using MediatR;
+using BusinessLogic.Contexts;
+using BusinessLogic.Contexts.Entities;
 
 namespace BusinessLogic.Features.InWhitelist
 {

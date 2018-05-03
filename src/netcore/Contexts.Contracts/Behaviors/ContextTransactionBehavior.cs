@@ -22,26 +22,15 @@ namespace Contexts.Contracts.Behaviors
         {
             Unit result;
 
-            using (var transaction = 
-                await _context.Database.BeginTransactionAsync().ConfigureAwait(false))
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                try
-                {
-                    result = await next()
-                        .ConfigureAwait(false);
+                result = await next();
 
-                    await _context
-                        .SaveChangesAsync(cancellationToken)
-                        .ConfigureAwait(false);
+                await _context.SaveChangesAsync(cancellationToken);
 
-                    // Commit transaction if all commands succeed, transaction will auto-rollback
-                    // when disposed if either commands fails
-                    transaction.Commit();
-                }
-                catch (Exception)
-                {
-                    // TODO: Handle failure
-                }
+                // Commit transaction if all commands succeed, transaction will auto-rollback
+                // when disposed if either commands fails
+                transaction.Commit();
             }
 
             return result;

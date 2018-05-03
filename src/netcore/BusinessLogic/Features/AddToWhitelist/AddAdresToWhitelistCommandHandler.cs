@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Entities;
+﻿using BusinessLogic.Contexts.Entities;
 using Crosscutting.Contracts;
 using Dtos.Features.AddToWhitelist;
 using MediatR;

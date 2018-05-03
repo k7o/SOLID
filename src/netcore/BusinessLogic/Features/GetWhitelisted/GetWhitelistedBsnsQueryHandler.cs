@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Linq;
-using Business.Context;
 using Dtos.Features.GetWhitelisted;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
+using BusinessLogic.Contexts;
 
 namespace BusinessLogic.Features.GetWhitelisted
 {
