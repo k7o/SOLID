@@ -10,7 +10,7 @@ namespace Crosscutting.Validators
     {
         public IEnumerable<ValidationResult> Results { get; private set; }
 
-        public static ValidationResults Join(ValidationResults first, ValidationResults second)
+        public static ValidationResults Join([IsNotNull] ValidationResults first, [IsNotNull] ValidationResults second)
         {
             Guard.IsNotNull(first, nameof(first));
             Guard.IsNotNull(second, nameof(second));

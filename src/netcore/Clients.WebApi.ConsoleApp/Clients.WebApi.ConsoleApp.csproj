@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.0.1.4822" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.1.0.5212" />
   </ItemGroup>
 
   <ItemGroup>

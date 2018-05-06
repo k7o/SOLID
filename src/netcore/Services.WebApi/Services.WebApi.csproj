@@ -27,7 +27,7 @@
     <PackageReference Include="Serilog.Sinks.Seq" Version="4.0.0" />
     <PackageReference Include="SimpleInjector" Version="4.2.2" />
     <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc" Version="4.2.2" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.0.1.4822" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="7.1.0.5212" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 

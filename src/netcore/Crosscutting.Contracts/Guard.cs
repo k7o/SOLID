@@ -2,6 +2,9 @@
 
 namespace Crosscutting.Contracts
 {
+    [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
+    public sealed class IsNotNullAttribute : Attribute { }
+
     public static class Guard
     {
         public static void IsNotNull(object o, string name)

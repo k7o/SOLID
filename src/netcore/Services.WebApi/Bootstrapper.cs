@@ -36,17 +36,8 @@ namespace Services.WebApi
             container.Register<ILog, LogAspNetCore>();
             container.Register<ITrace, TraceAspNetCore>();
 
-            // datasource
-            // dbcontexts should be registered scoped
-            // register WhitelistContext
-            container.Register(() => new WhitelistContext(
-                                        new DbContextOptionsBuilder()
-                                            //.UseSqlServer("Server=DESKTOP-P99H00B\\SQLEXPRESS;Database=Whitelist;Trusted_Connection=True;")
-                                            .UseInMemoryDatabase("Whitelist")
-                                            .Options), Lifestyle.Scoped);
-            // also register as DbContext
-            container.Register<DbContext>(() => container.GetInstance<WhitelistContext>(), Lifestyle.Scoped);
-
+            container.RegisterSqlContext("Server=DESKTOP-P99H00B\\SQLEXPRESS; Database = Whitelist; Trusted_Connection = True; ");
+            
             // mediator
             container.BuildMediator(
                 typeof(BusinessLogic.Features.AddToWhitelist.AddAdresToWhitelistCommandHandler).Assembly,
@@ -59,7 +50,7 @@ namespace Services.WebApi
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
                 //typeof(ContextTransactionBehavior),
-                typeof(InMemoryContextTransactionBehavior),
+                typeof(ContextTransactionBehavior),
                 typeof(ValidationBehavior<,>)
             });
 
