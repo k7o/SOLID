@@ -3,7 +3,6 @@ using BusinessLogic.Contexts.Entities;
 using Crosscutting.Contracts;
 using Dtos.Features.AddToWhitelist;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,4 +27,6 @@ namespace BusinessLogic.Features.AddToWhitelist
                 .AddAsync(new Adres(request.Postcode));
         }
     }
+
+    // public class AddAdresToWhitelistAdresShouldNotExistRule
 }

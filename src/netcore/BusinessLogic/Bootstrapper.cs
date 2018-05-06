@@ -29,7 +29,8 @@ namespace BusinessLogic
                     typeof(NullValidator<>)
                 });
 
-         
+            // business rules
+
 
             return container;
         }
