@@ -1,14 +1,15 @@
 ﻿using Crosscutting.Contracts;
+using Crosscutting.Validators;
 using MediatR;
 using System.Collections.Generic;
 
 namespace Crosscutting.Validators
 {
-    public class CompositeBusinessRule<TInstance> : IRule<TInstance, ValidationResults>
+    public class CompositeRule<TInstance> : IRule<TInstance, ValidationResults>
     {
         readonly IEnumerable<IRule<TInstance, ValidationResults>> _businessRules;
 
-        public CompositeBusinessRule(IEnumerable<IRule<TInstance, ValidationResults>> businessRules)
+        public CompositeRule(IEnumerable<IRule<TInstance, ValidationResults>> businessRules)
         {
             Guard.IsNotNull(businessRules, nameof(businessRules));
 

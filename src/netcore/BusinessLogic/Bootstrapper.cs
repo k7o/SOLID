@@ -14,16 +14,14 @@ namespace BusinessLogic
 {
     public static class Bootstrapper
     {
-        private static Assembly[] dtoAssemblies = new[] { typeof(AddAdresToWhitelistCommand).Assembly };
-        private static Assembly[] businessLayerAssemblies = new[] { typeof(AddAdresToWhitelistCommandHandler).Assembly };
+        private static Assembly[] assemblies = new[] { typeof(AddAdresToWhitelistCommand).Assembly };
 
         public static Container RegisterBusinessLogic(this Container container)
         {
             Guard.IsNotNull(container, nameof(container));
 
-            // validators
+            // validation
             container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
-            container.Register(typeof(IRule<,>), typeof(CompositeBusinessRule<>));
             container.RegisterCollection(typeof(IValidator<,>),
                 new[] {
                     typeof(DataAnnotationValidator<>),
@@ -31,24 +29,23 @@ namespace BusinessLogic
                 });
 
             // business rules
+            container.Register(typeof(IRule<,>), typeof(CompositeRule<>));
             container.RegisterCollection(typeof(IRule<,>),
                 new[] {
-                    typeof(AddAdresToWhitelistRulesIsUnique),
+                    typeof(AddAdresToWhitelistRuleIsUnique),
                 });
-            
-
 
             return container;
         }
 
         public static IEnumerable<Type> CommandTypes =>
-            from assembly in dtoAssemblies
+            from assembly in assemblies
             from type in assembly.GetExportedTypes()
             where type.Name.EndsWith("Command", StringComparison.InvariantCulture)
             select type;
 
         public static IEnumerable<QueryInfo> QueryTypes =>
-            from assembly in dtoAssemblies
+            from assembly in assemblies
             from type in assembly.GetExportedTypes()
             where QueryInfo.IsQuery(type)
             select new QueryInfo(type);

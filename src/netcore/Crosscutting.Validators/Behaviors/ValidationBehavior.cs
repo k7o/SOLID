@@ -1,8 +1,9 @@
 ﻿using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
-using Crosscutting.Contracts;
+using Crosscutting.Validators;
 using System.ComponentModel.DataAnnotations;
+using Crosscutting.Contracts;
 
 namespace Crosscutting.Validators.Behaviors
 {

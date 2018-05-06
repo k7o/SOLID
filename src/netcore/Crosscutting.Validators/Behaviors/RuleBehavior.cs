@@ -1,4 +1,5 @@
 ﻿using Crosscutting.Contracts;
+using Crosscutting.Validators;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Crosscutting.Validators.Behaviors
             var result = _validator.Validate(request);
             if (!result.Succeeded)
             {
-                throw new BrokenRulesException(result.ErrorMessage);
+                throw new RuleException(result.ErrorMessage);
             }
 
             return next();

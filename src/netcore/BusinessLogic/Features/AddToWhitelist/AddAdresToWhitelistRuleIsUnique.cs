@@ -3,18 +3,17 @@ using Crosscutting.Contracts;
 using Crosscutting.Validators;
 using Dtos.Features.AddToWhitelist;
 using System.Linq;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Features.AddToWhitelist
 {
-    class AddAdresToWhitelistRulesIsUnique : IRule<AddAdresToWhitelistCommand, ValidationResults>
+    class AddAdresToWhitelistRuleIsUnique : IRule<AddAdresToWhitelistCommand, ValidationResults>
     {
         readonly WhitelistContext _context;
 
-        public AddAdresToWhitelistRulesIsUnique([IsNotNull] WhitelistContext context)
+        public AddAdresToWhitelistRuleIsUnique([IsNotNull] WhitelistContext context)
         {
             Guard.IsNotNull(context, nameof(context));
+
             _context = context;
         }
 

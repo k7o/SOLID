@@ -1,4 +1,5 @@
 ﻿using Crosscutting.Contracts;
+using Crosscutting.Validators;
 using System.Collections.Generic;
 
 namespace Crosscutting.Validators
