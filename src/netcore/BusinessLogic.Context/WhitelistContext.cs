@@ -21,7 +21,8 @@ namespace BusinessLogic.Contexts
 
         public async Task<IContextTransaction> BeginTransactionAsync()
         {
-            return new WhitelistContextTransaction(Database.BeginTransactionAsync());
+            return new WhitelistContextTransaction(
+                await Database.BeginTransactionAsync());
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
