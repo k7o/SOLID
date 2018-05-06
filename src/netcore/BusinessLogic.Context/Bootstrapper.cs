@@ -1,4 +1,5 @@
 ﻿using Contexts.Contracts;
+using Crosscutting.Contracts;
 using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
 using System;
@@ -24,8 +25,10 @@ namespace BusinessLogic.Contexts
             return container;
         }
 
-        public static Container RegisterSqlContext(this Container container, string connectionstring)
+        public static Container RegisterSqlContext(this Container container, [IsNullOrWhiteSpace] string connectionstring)
         {
+            Guard.IsNullOrWhiteSpace(connectionstring, nameof(connectionstring));
+
             // datasource
             // register WhitelistContext (scoped)
             container.Register(() => new WhitelistContext(
