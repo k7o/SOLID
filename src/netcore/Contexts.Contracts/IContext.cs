@@ -9,8 +9,6 @@ namespace Contexts.Contracts
 {
     public interface IContext
     {
-        IRepository<TEntity> Repository<TEntity>() where TEntity : class;
-
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
         int SaveChanges();

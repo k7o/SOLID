@@ -3,9 +3,7 @@ using Crosscutting.Contracts;
 using System.Threading.Tasks;
 using System.Threading;
 using Contexts.Contracts;
-using BusinessLogic.Contexts;
 using BusinessLogic.Contexts.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BusinessLogic.Contexts
 {
@@ -23,13 +21,7 @@ namespace BusinessLogic.Contexts
 
         public Task<IContextTransaction> BeginTransactionAsync()
         {
-            // TODO: this is not the way i think
             return new Task<IContextTransaction>(() => new WhitelistContextTransaction(Database.BeginTransactionAsync()));
-        }
-
-        public IRepository<TEntity> Repository<TEntity>() where TEntity : class
-        {
-            return new Repository<TEntity>(Set<TEntity>());
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))

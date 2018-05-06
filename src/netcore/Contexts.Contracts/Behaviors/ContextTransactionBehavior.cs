@@ -1,7 +1,5 @@
 ﻿using Crosscutting.Contracts;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,9 +7,9 @@ namespace Contexts.Contracts.Behaviors
 {
     public class ContextTransactionBehavior : IPipelineBehavior<IRequest, Unit> 
     {
-        readonly DbContext _context;
+        readonly IContext _context;
 
-        public ContextTransactionBehavior(DbContext context)
+        public ContextTransactionBehavior(IContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 
@@ -22,7 +20,7 @@ namespace Contexts.Contracts.Behaviors
         {
             Unit result;
 
-            using (var transaction = await _context.Database.BeginTransactionAsync())
+            using (var transaction = await _context.BeginTransactionAsync())
             {
                 result = await next();
 
