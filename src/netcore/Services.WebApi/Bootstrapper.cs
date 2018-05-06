@@ -7,6 +7,7 @@ using Crosscutting.Validators.Behaviors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
+using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
 
@@ -36,15 +37,15 @@ namespace Services.WebApi
             container.Register<ITrace, TraceAspNetCore>();
 
             // datasource
-            var whitelistContext = new WhitelistContext(
+            // dbcontexts should be registered scoped
+            // register WhitelistContext
+            container.Register(() => new WhitelistContext(
                                         new DbContextOptionsBuilder()
                                             //.UseSqlServer("Server=DESKTOP-P99H00B\\SQLEXPRESS;Database=Whitelist;Trusted_Connection=True;")
                                             .UseInMemoryDatabase("Whitelist")
-                                            .Options);
-
-
-            container.RegisterInstance(whitelistContext);
-            container.RegisterInstance<DbContext>(whitelistContext);
+                                            .Options), Lifestyle.Scoped);
+            // also register as DbContext
+            container.Register<DbContext>(() => container.GetInstance<WhitelistContext>(), Lifestyle.Scoped);
 
             // mediator
             container.BuildMediator(

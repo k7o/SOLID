@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 using Dtos.Features.AddToWhitelist;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Contexts.Entities;
+using BusinessLogic.Contexts;
 
 namespace BusinessLogic.Features.AddToWhitelist
 {
     public class AddBsnUzoviToWhitelistCommandHandler : IRequestHandler<AddBsnUzoviToWhitelistCommand>
     {
-        readonly DbContext _context;
+        readonly WhitelistContext _context;
 
-        public AddBsnUzoviToWhitelistCommandHandler(DbContext context)
+        public AddBsnUzoviToWhitelistCommandHandler(WhitelistContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 

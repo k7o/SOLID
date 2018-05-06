@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore.Design;
 
 namespace BusinessLogic.Contexts
 {
+    /// <summary>
+    /// Used for Migrations
+    /// </summary>
     class WhitelistContextFactory : IDesignTimeDbContextFactory<WhitelistContext>
     {
         public WhitelistContext CreateDbContext(string[] args)

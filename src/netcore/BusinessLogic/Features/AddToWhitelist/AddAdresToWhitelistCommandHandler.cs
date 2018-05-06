@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Contexts.Entities;
+﻿using BusinessLogic.Contexts;
+using BusinessLogic.Contexts.Entities;
 using Crosscutting.Contracts;
 using Dtos.Features.AddToWhitelist;
 using MediatR;
@@ -10,9 +11,9 @@ namespace BusinessLogic.Features.AddToWhitelist
 {
     public class AddAdresToWhitelistCommandHandler : IRequestHandler<AddAdresToWhitelistCommand>
     {
-        readonly DbContext _context;
+        readonly WhitelistContext _context;
 
-        public AddAdresToWhitelistCommandHandler(DbContext context)
+        public AddAdresToWhitelistCommandHandler(WhitelistContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 
