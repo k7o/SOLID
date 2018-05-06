@@ -23,13 +23,19 @@ namespace BusinessLogic
 
             // validators
             container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
+            container.Register(typeof(IRule<,>), typeof(CompositeBusinessRule<>));
             container.RegisterCollection(typeof(IValidator<,>),
                 new[] {
                     typeof(DataAnnotationValidator<>),
-                    typeof(NullValidator<>)
+                    typeof(NullValidator<>),
                 });
 
             // business rules
+            container.RegisterCollection(typeof(IRule<,>),
+                new[] {
+                    typeof(AddAdresToWhitelistRulesIsUnique),
+                });
+            
 
 
             return container;

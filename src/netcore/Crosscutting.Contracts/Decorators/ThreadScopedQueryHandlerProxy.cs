@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Crosscutting.Contracts.Decorators
 {
-    public class ThreadScopedQueryHandlerProxy<TQuery, TResult> : MediatR.IRequestHandler<TQuery, TResult> 
+    public class ThreadScopedQueryHandlerProxy<TQuery, TResult> : IRequestHandler<TQuery, TResult>
         where TQuery : IRequest<TResult>
     {
         readonly Container _container;
-        readonly Func<MediatR.IRequestHandler<TQuery, TResult>> _decorateeFactory;
+        readonly Func<IRequestHandler<TQuery, TResult>> _decorateeFactory;
 
         public ThreadScopedQueryHandlerProxy(Container container,
             Func<MediatR.IRequestHandler<TQuery, TResult>> decorateeFactory)

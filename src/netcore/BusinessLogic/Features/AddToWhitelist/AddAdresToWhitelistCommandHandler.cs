@@ -28,5 +28,4 @@ namespace BusinessLogic.Features.AddToWhitelist
         }
     }
 
-    // public class AddAdresToWhitelistAdresShouldNotExistRule
 }

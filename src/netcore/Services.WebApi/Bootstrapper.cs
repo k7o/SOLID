@@ -34,9 +34,8 @@ namespace Services.WebApi
         public static Container RegisterApplication(this Container container)
         {
             container.Register<ILog, LogAspNetCore>();
-            container.Register<ITrace, TraceAspNetCore>();
 
-            container.RegisterSqlContext("Server=DESKTOP-P99H00B\\SQLEXPRESS; Database = Whitelist; Trusted_Connection = True; ");
+            container.RegisterSqlContext("Server=DESKTOP-P99H00B\\SQLEXPRESS; Database = Whitelist; Trusted_Connection = True;");
             
             // mediator
             container.BuildMediator(
@@ -49,9 +48,10 @@ namespace Services.WebApi
             // pipeline
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
-                //typeof(ContextTransactionBehavior),
+                typeof(ValidationBehavior<,>),
                 typeof(ContextTransactionBehavior),
-                typeof(ValidationBehavior<,>)
+                typeof(RuleBehavior<,>)
+
             });
 
             return container;
