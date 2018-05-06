@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace BusinessLogic.Features.AddToWhitelist
 {
-    class AddAdresToWhitelistRuleIsUnique : IRule<AddAdresToWhitelistCommand, ValidationResults>
+    class AddAdresToWhitelistIsUniqueRule : IRule<AddAdresToWhitelistCommand, ValidationResults>
     {
         readonly WhitelistContext _context;
 
-        public AddAdresToWhitelistRuleIsUnique([IsNotNull] WhitelistContext context)
+        public AddAdresToWhitelistIsUniqueRule([IsNotNull] WhitelistContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 

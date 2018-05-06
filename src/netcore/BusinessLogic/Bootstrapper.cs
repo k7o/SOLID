@@ -32,7 +32,7 @@ namespace BusinessLogic
             container.Register(typeof(IRule<,>), typeof(CompositeRule<>));
             container.RegisterCollection(typeof(IRule<,>),
                 new[] {
-                    typeof(AddAdresToWhitelistRuleIsUnique),
+                    typeof(AddAdresToWhitelistIsUniqueRule),
                 });
 
             return container;

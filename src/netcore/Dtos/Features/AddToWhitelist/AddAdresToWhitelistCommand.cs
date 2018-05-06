@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Contracts;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.ComponentModel.DataAnnotations;
 
