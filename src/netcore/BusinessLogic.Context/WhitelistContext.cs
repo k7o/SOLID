@@ -24,15 +24,15 @@ namespace BusinessLogic.Contexts
             return new WhitelistContextTransaction(
                 await Database.BeginTransactionAsync());
         }
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
-        {
-            return base.SaveChangesAsync(cancellationToken);
-        }
-
+        
         public override int SaveChanges()
         {
             return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         // usefull for debugging
