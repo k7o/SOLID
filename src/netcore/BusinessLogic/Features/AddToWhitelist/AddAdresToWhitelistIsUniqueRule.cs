@@ -19,6 +19,8 @@ namespace BusinessLogic.Features.AddToWhitelist
 
         public ValidationResults Validate(AddAdresToWhitelistCommand instance)
         {
+            Guard.IsNotNull(instance, nameof(instance));
+
             return _context.Adressen.Any(c => c.Postcode == instance.Postcode) ?
                 new ValidationResults("Postcode already exists") :
                 ValidationResults.Success;

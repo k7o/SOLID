@@ -33,26 +33,29 @@ namespace Services.WebApi
 
         public static Container RegisterApplication(this Container container)
         {
+            Guard.IsNotNull(container, nameof(container));
+
+            // use aspnetcore logging
             container.Register<ILog, LogAspNetCore>();
 
+            // register context
             container.RegisterSqlContext("Server=DESKTOP-P99H00B\\SQLEXPRESS; Database = Whitelist; Trusted_Connection = True;");
             
-            // mediator
+            // build mediator
             container.BuildMediator(
                 typeof(BusinessLogic.Features.AddToWhitelist.AddAdresToWhitelistCommandHandler).Assembly,
                 typeof(Dtos.Features.AddToWhitelist.AddAdresToWhitelistCommand).Assembly);
 
-            // register business logic
-            container.RegisterBusinessLogic();
-
-            // pipeline
+            // set pipeline behavior
             container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
             {
                 typeof(ValidationBehavior<,>),
                 typeof(ContextTransactionBehavior),
                 typeof(RuleBehavior<,>)
-
             });
+
+            // register business logic
+            container.RegisterBusinessLogic();
 
             return container;
         }

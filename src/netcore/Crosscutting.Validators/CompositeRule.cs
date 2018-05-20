@@ -1,6 +1,4 @@
 ﻿using Crosscutting.Contracts;
-using Crosscutting.Validators;
-using MediatR;
 using System.Collections.Generic;
 
 namespace Crosscutting.Validators
@@ -13,7 +11,7 @@ namespace Crosscutting.Validators
         {
             Guard.IsNotNull(businessRules, nameof(businessRules));
 
-            this._businessRules = businessRules;
+            _businessRules = businessRules;
         }
 
         public ValidationResults Validate(TInstance instance)
