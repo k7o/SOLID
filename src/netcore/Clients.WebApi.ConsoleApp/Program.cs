@@ -19,7 +19,6 @@ namespace Clients.WebApi.ConsoleApp
             var queryHandleTask = queryClient.Handle(new AdresInWhitelistQuery("1111AA"), cancellationToken);
             
             var result = queryHandleTask.Result;
-            //// what todo;)
 
             commandHandleTask.Wait();
             queryHandleTask.Wait();

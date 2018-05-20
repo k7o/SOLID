@@ -4,6 +4,7 @@ using System;
 
 namespace Services.WebApi.Controllers.Conventions
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
     public class CommandControllerNameConvention : Attribute, IControllerModelConvention
     {
         public void Apply(ControllerModel controllerModel)

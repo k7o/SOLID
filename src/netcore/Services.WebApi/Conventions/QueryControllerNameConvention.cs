@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services.WebApi.Controllers.Conventions
 {
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
     public class QueryControllerNameConvention : Attribute, IControllerModelConvention
     {
         public void Apply(ControllerModel controllerModel)
