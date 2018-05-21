@@ -5,21 +5,21 @@ using System;
 namespace Services.WebApi.Controllers.Conventions
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public class CommandControllerNameConventionAttribute : Attribute, IControllerModelConvention
+    public sealed class CommandControllerNameConventionAttribute : Attribute, IControllerModelConvention
     {
-        public void Apply(ControllerModel controllerModel)
+        public void Apply(ControllerModel controller)
         {
-            Guard.IsNotNull(controllerModel, nameof(controllerModel));
+            Guard.IsNotNull(controller, nameof(controller));
 
-            if (controllerModel.ControllerType.GetGenericTypeDefinition() !=
+            if (controller.ControllerType.GetGenericTypeDefinition() !=
                 typeof(CommandController<>))
             {
                 // Not a CommandController, ignore.
                 return;
             }
 
-            var dtoType = controllerModel.ControllerType.GenericTypeArguments[0];
-            controllerModel.ControllerName = dtoType.Name.RemoveFromEnd("Command");
+            var dtoType = controller.ControllerType.GenericTypeArguments[0];
+            controller.ControllerName = dtoType.Name.RemoveFromEnd("Command");
         }
     }
 }

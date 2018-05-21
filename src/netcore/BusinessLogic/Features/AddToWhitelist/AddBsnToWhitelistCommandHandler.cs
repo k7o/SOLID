@@ -3,7 +3,6 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using Dtos.Features.AddToWhitelist;
-using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Contexts.Entities;
 using BusinessLogic.Contexts;
 

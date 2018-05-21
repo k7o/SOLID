@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Clients.WebApi.ConsoleApp
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {

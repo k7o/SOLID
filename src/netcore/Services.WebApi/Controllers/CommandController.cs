@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Services.WebApi.Controllers
 {
     [Route("api/command/[controller]")]
-    [CommandControllerNameConventionAttribute]
+    [CommandControllerNameConvention]
     public class CommandController<TCommand> : Controller where TCommand : class, IRequest 
     {
         readonly IMediator _mediator;

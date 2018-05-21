@@ -8,16 +8,9 @@ namespace BusinessLogic.Contexts
 {
     class WhitelistContextTransaction : IContextTransaction
     {
-        readonly Task<IDbContextTransaction> _dbContextTransaction;
+        readonly IDbContextTransaction _dbContextTransaction;
 
         public WhitelistContextTransaction(IDbContextTransaction dbContextTransaction)
-        {
-            Guard.IsNotNull(dbContextTransaction, nameof(dbContextTransaction));
-
-            _dbContextTransaction = Task.FromResult(dbContextTransaction);
-        }
-
-        public WhitelistContextTransaction(Task<IDbContextTransaction> dbContextTransaction)
         {
             Guard.IsNotNull(dbContextTransaction, nameof(dbContextTransaction));
 
@@ -28,12 +21,12 @@ namespace BusinessLogic.Contexts
 
         public void Commit()
         {
-            _dbContextTransaction.Result.Commit();
+            _dbContextTransaction.Commit();
         }
 
         public void Rollback()
         {
-            _dbContextTransaction.Result.Rollback();
+            _dbContextTransaction.Rollback();
         }
 
         #region IDisposable Support

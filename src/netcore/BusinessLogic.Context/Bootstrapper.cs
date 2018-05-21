@@ -21,9 +21,9 @@ namespace BusinessLogic.Contexts
             return container;
         }
 
-        public static Container RegisterSqlContext(this Container container, [IsNullOrWhiteSpace] string connectionstring)
+        public static Container RegisterSqlContext(this Container container, string connectionstring)
         {
-            Guard.IsNullOrWhiteSpace(connectionstring, nameof(connectionstring));
+            Guard.IsNotNull(connectionstring, nameof(connectionstring));
 
             // datasource
             // register WhitelistContext (scoped)

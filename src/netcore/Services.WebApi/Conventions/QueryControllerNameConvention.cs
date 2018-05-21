@@ -1,28 +1,25 @@
 ﻿using Crosscutting.Contracts;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Services.WebApi.Controllers.Conventions
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public class QueryControllerNameConventionAttribute : Attribute, IControllerModelConvention
+    public sealed class QueryControllerNameConventionAttribute : Attribute, IControllerModelConvention
     {
-        public void Apply(ControllerModel controllerModel)
+        public void Apply(ControllerModel controller)
         {
-            Guard.IsNotNull(controllerModel, nameof(controllerModel));
+            Guard.IsNotNull(controller, nameof(controller));
 
-            if (controllerModel.ControllerType.GetGenericTypeDefinition() !=
+            if (controller.ControllerType.GetGenericTypeDefinition() !=
                 typeof(QueryController<,>))
             {
                 // Not a QueryController, ignore.
                 return;
             }
 
-            var dtoType = controllerModel.ControllerType.GenericTypeArguments[0];
-            controllerModel.ControllerName = dtoType.Name.RemoveFromEnd("Query");
+            var dtoType = controller.ControllerType.GenericTypeArguments[0];
+            controller.ControllerName = dtoType.Name.RemoveFromEnd("Query");
         }
     }
 }

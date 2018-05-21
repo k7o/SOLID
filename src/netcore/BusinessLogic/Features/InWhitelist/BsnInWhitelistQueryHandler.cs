@@ -24,8 +24,7 @@ namespace BusinessLogic.Features.InWhitelist
             Guard.IsNotNull(request, nameof(request));
 
             return new ZoekResult(
-                await _context.FindAsync<Bsn>(
-                    request.Bsnnummer) != null);
+                await _context.FindAsync<Bsn>(request.Bsnnummer) != null);
         }
     }
 }
