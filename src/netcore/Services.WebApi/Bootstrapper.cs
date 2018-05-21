@@ -5,9 +5,7 @@ using Crosscutting.Contracts;
 using Crosscutting.Loggers;
 using Crosscutting.Validators.Behaviors;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using SimpleInjector;
-using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
 
@@ -42,12 +40,12 @@ namespace Services.WebApi
             container.RegisterSqlContext("Server=DESKTOP-P99H00B\\SQLEXPRESS; Database = Whitelist; Trusted_Connection = True;");
             
             // build mediator
-            container.BuildMediator(
+            container.RegisterMediator(
                 typeof(BusinessLogic.Features.AddToWhitelist.AddAdresToWhitelistCommandHandler).Assembly,
                 typeof(Dtos.Features.AddToWhitelist.AddAdresToWhitelistCommand).Assembly);
 
             // set pipeline behavior
-            container.RegisterCollection(typeof(IPipelineBehavior<,>), new[]
+            container.Collection.Register(typeof(IPipelineBehavior<,>), new[]
             {
                 typeof(ValidationBehavior<,>),
                 typeof(ContextTransactionBehavior),

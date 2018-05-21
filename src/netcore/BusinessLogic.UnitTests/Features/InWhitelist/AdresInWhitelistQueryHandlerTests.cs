@@ -10,7 +10,7 @@ namespace BusinessLogic.UnitTests.Features.InWhitelist
 {
     public class AdresInWhitelistQueryHandlerTests : IDisposable
     {
-        WhitelistContext _whitelistContext;
+        readonly WhitelistContext _whitelistContext;
 
         AdresInWhitelistQuery _zoekAdres;
 

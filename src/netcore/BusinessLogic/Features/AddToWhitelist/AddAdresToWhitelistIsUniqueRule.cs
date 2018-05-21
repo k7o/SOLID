@@ -10,7 +10,7 @@ namespace BusinessLogic.Features.AddToWhitelist
     {
         readonly WhitelistContext _context;
 
-        public AddAdresToWhitelistIsUniqueRule([IsNotNull] WhitelistContext context)
+        public AddAdresToWhitelistIsUniqueRule(WhitelistContext context)
         {
             Guard.IsNotNull(context, nameof(context));
 

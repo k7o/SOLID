@@ -53,7 +53,7 @@ namespace Services.WebApi
             services
                 .AddMvc(options =>
                 {
-                    options.Conventions.Add(new FromBodyRequiredConvention());
+                    options.Conventions.Add(new FromBodyRequiredConventionAttribute());
                     options.ModelBinderProviders.Insert(0, new QueryModelBinderProvider());
                 })
                 .AddJsonOptions(json =>

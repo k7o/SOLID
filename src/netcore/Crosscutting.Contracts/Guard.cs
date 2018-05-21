@@ -3,22 +3,22 @@
 namespace Crosscutting.Contracts
 {
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
-    public sealed class IsNotNullAttribute : Attribute { }
+    public sealed class ValidatedNotNullAttribute : Attribute { }
 
     [AttributeUsage(AttributeTargets.Parameter, AllowMultiple = false, Inherited = false)]
     public sealed class IsNullOrWhiteSpaceAttribute : Attribute { }
 
     public static class Guard
     {
-        public static void IsNotNull(object o, string name)
+        public static void IsNotNull<T>([ValidatedNotNullAttribute] T @object, string name) where T : class
         {
-            if (o == null)
+            if (@object == null)
             {
                 throw new ArgumentNullException(name);
             }
         }
 
-        public static void IsNullOrWhiteSpace(string o, string name)
+        public static void IsNullOrWhiteSpace([IsNullOrWhiteSpace] string o, string name)
         {
             if (string.IsNullOrWhiteSpace(o))
             {

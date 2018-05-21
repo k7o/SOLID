@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Contracts.Agents
 {
-    public class CommandClient<TCommand> : IRequestHandler<TCommand> where TCommand : IRequest
+    public class CommandClient<TCommand> : IRequestHandler<TCommand> where TCommand : class, IRequest
     {
         public async Task Handle(TCommand request, CancellationToken cancellationToken)
         {

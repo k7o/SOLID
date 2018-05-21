@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace Services.WebApi.Controllers
 {
     [Route("api/query/[controller]")]
-    [QueryControllerNameConvention]
-    public class QueryController<TQuery, TResult> : Controller where TQuery : IRequest<TResult>
+    [QueryControllerNameConventionAttribute]
+    public class QueryController<TQuery, TResult> : Controller where TQuery : class, IRequest<TResult>
     {
         readonly IMediator _mediator;
 

@@ -22,18 +22,18 @@ namespace BusinessLogic
 
             // validation
             container.Register(typeof(IValidator<,>), typeof(CompositeValidator<>));
-            container.RegisterCollection(typeof(IValidator<,>),
-                new[] {
-                    typeof(DataAnnotationValidator<>),
-                    typeof(NullValidator<>),
-                });
+            container.Collection.Register(typeof(IValidator<,>), new []
+            {
+                typeof(DataAnnotationValidator<>),
+                typeof(NullValidator<>),
+            });
 
             // business rules
             container.Register(typeof(IRule<,>), typeof(CompositeRule<>));
-            container.RegisterCollection(typeof(IRule<,>),
-                new[] {
-                    typeof(AddAdresToWhitelistIsUniqueRule),
-                });
+            container.Collection.Register(typeof(IRule<,>), new[]
+            {
+                typeof(AddAdresToWhitelistIsUniqueRule),
+            });
 
             return container;
         }

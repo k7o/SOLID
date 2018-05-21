@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Services.WebApi.Conventions
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum | AttributeTargets.Interface | AttributeTargets.Delegate)]
-    public class FromBodyRequiredConvention : Attribute, IActionModelConvention
+    public class FromBodyRequiredConventionAttribute : Attribute, IActionModelConvention
     {
         public void Apply(ActionModel action)
         {

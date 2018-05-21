@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Crosscutting.Contracts;
+using MediatR;
 using SimpleInjector;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,15 @@ namespace Services.WebApi
 {
     public static class ContainerExtensions
     {
-        public static Container BuildMediator(this Container container, params Assembly[] assemblies)
+        public static Container RegisterMediator(this Container container, params Assembly[] assemblies)
         {
             return BuildMediator(container, (IEnumerable<Assembly>)assemblies);
         }
 
         public static Container BuildMediator(this Container container, IEnumerable<Assembly> assemblies)
         {
+            Guard.IsNotNull(container, nameof(container));
+
             var allAssemblies = new List<Assembly> { typeof(IMediator).GetTypeInfo().Assembly };
             allAssemblies.AddRange(assemblies);
 
@@ -32,7 +35,8 @@ namespace Services.WebApi
                 IncludeGenericTypeDefinitions = true,
                 IncludeComposites = false,
             });
-            container.RegisterCollection(typeof(INotificationHandler<>), notificationHandlerTypes);
+            container.Collection.Register(typeof(INotificationHandler<>), 
+                notificationHandlerTypes);
 
             container.RegisterInstance(new SingleInstanceFactory(container.GetInstance));
             container.RegisterInstance(new MultiInstanceFactory(container.GetAllInstances));

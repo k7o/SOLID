@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Crosscutting.Validators
 {
-    public class CompositeValidator<TInstance> : IValidator<TInstance, ValidationResults>
+    public class CompositeValidator<TInstance> : IValidator<TInstance, ValidationResults> where TInstance : class
     {
         readonly IEnumerable<IValidator<TInstance, ValidationResults>> validators;
 

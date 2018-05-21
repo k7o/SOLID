@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Crosscutting.Validators
 {
-    public class CompositeRule<TInstance> : IRule<TInstance, ValidationResults>
+    public class CompositeRule<TInstance> : IRule<TInstance, ValidationResults> where TInstance : class
     {
         readonly IEnumerable<IRule<TInstance, ValidationResults>> _businessRules;
 
